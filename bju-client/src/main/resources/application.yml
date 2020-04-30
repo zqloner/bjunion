@@ -1,0 +1,41 @@
+spring:
+  profiles:
+    active: dev #默认为开发环境
+  freemarker:
+    request-context-attribute: req
+    suffix: .html
+    content-type: text/html
+    enabled: true
+    cache: false
+    template-loader-path: classpath:/templates/
+    settings:
+      number_format:  '0.##'
+    devtools:
+      restart:
+        enabled: true
+        additional-paths: src/main/java
+        freemarker:
+          cache: false    #页面不加载缓存，修改即时生效
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*/*.xml
+  type-aliases-package: com.brightease.bju.bean.*
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    root: debug #日志配置DEBUG,INFO,WARN,ERROR
+    com.brightease.bju: info
+    org.springframework: WARN
+    org.spring.springboot.dao: info
+  config: classpath:logback-boot.xml
+
+shiro:
+  user:
+    # 登录地址
+    loginUrl: /login
+    # 权限认证失败地址
+    unauthorizedUrl: /unauth
+    #session有效期分钟
+    timeout: 60

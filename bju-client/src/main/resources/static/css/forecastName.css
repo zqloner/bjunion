@@ -1,0 +1,48 @@
+.childrenBody{width: 100%;background-color: #fff;}
+.subject{padding: 40px 20px;box-sizing: border-box;}
+.subject h1{color: #3F4A52;font-size: 18px;font-weight: 600;margin-bottom: 25px;text-align: center;}
+.layui-form-item{margin-bottom: 25px;}
+.item_btn{margin-bottom: 15px;}
+.layui-form-item p{color: #3F4A52;font-size: 14px;line-height: 24px;text-align: left;}
+/*layui-form*/
+.layui-form-item .layui-inline{margin-bottom: 16px;}
+.layui-form-label{padding: 6px 5px;width: 70px;}
+.layui-form-mid{padding: 6px 0!important;}
+.layui-form-item .layui-input-inline{width: 160px;}
+.layui-input, .layui-select{height: 32px;line-height: 32px;}
+.layui-form-select dl dd.layui-this{background-color: #005CA7;}
+/*button*/
+.layui-btn{width: 120px;height: 42px;line-height: 42px;}
+.layui-btn-sm{width: 90px;height: 32px;line-height: 32px;}
+.layui-btn-xs{width: 65px;height: 32px;line-height: 32px;}
+.layui-btn-normal{background-color: #005CA7;}
+.layui-btn-primary,.layui-btn-primary:hover{border-color: #005CA7;color: #005CA7;}
+
+/*layui 元素样式改写*/
+.layui-btn-sm{line-height: normal; font-size: 12.5px;}
+.layui-table-view .layui-table-body{min-height: 256px;}
+.layui-table-cell .layui-input.layui-unselect{height: 30px; line-height: 30px;}
+/*设置 layui 表格中单元格内容溢出可见样式*/
+.table-overlay{margin-bottom: 40px;}
+.table-overlay .layui-table-view, .table-overlay .layui-table-box, .table-overlay .layui-table-body{overflow: visible;}
+.table-overlay .layui-table-cell{height: auto; overflow: visible;}
+.layui-form-select dl dd.layui-this{background-color: #005CA7;}
+/*文本对齐方式*/
+.text-center{text-align: center;}
+/*弹框*/
+.layui-layer{border-radius: 6px !important;}
+.layui-layer-title{height: 30px !important;line-height: 30px !important;background-color: #fff !important;
+    border-bottom: 0 !important;border-radius: 6px 6px 0 0 !important;}
+.layui-layer-setwin{top: 10px !important;}
+.registered_div{padding: 20px 40px;box-sizing: border-box;}
+.registered_div .registered_div_t{display: flex;align-items: center;color: #000;font-size: 14px;font-weight: 600;}
+.registered_div .registered_div_t span{display: inline-block;width: 24px;height: 24px;margin-right: 10px;vertical-align: text-bottom;}
+.registered_div .registered_div_t .caution_icon{background: url("../img/caution.png")no-repeat 0 0;background-size: cover;}
+.registered_div .registered_div_t .success_icon{background: url("../img/success.png")no-repeat 0 0;background-size: cover;}
+.registered_div .registered_div_c{padding-left: 35px;box-sizing: border-box;font-size: 1px;color: #000;line-height: 30px;}
+.registered_div .registered_div_b{text-align: right;margin-top: 12px;}
+.registered_div .registered_div_b .layui-btn{width: 65px;height: 32px;line-height: 32px;}
+.tableList{padding: 20px 10px;border-top: 1px solid #f2f2f2;box-sizing: border-box;}
+.tableList_b{border-top: 1px solid #f2f2f2;text-align: right;padding: 10px 10px 0;box-sizing: border-box;}
+
+

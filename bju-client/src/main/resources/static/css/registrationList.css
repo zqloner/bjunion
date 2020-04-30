@@ -1,0 +1,19 @@
+.currency,.baseList .base_li{width: 100%;}
+.baseList .base_li{padding: 8px 0;cursor: auto;}
+
+.registration{background-color: #fff;color: #333;margin-bottom: 8px;}
+.registration .layui-nav-item{line-height: 50px;}
+.registration .layui-nav-item a{color: #3F4A52;font-size: 18px;}
+.registration .layui-nav-item a:hover, .registration .layui-this a{color: #005CA7;}
+.registration .layui-this:after, .layui-nav-bar{height: 2px;background-color: #005CA7;}
+
+.means{width: 120px;height: 100%;float: right;display: flex;align-items: center;margin-right: 10px;}
+.means .soon{color: #3F4A52;font-size: 14px;}
+.means .soon .num{vertical-align: text-bottom;margin-top: 5px;}
+.means .soon .num span{font-size: 30px;display: inline-block;padding:0 2px;border-radius: 4px;box-sizing: border-box;
+    background-color: #005CA7;color: #fff;vertical-align: text-bottom;margin-right:2px;}
+
+.layui-btn{width: 120px;height: 42px;line-height: 42px;}
+.layui-btn-warm{background-color: #F7B500;}
+.layui-btn-normal{background-color: #005CA7;}
+.layui-btn-disabled{background-color: #E2E2E2;color: #999;pointer-events: none;}

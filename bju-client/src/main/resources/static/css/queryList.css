@@ -1,0 +1,50 @@
+.childrenBody{width: 100%;background-color: #fff;}
+.subject{padding: 20px;box-sizing: border-box;}
+.subject .currency{width: 100%;}
+.textName{font-size: 18px;padding: 10px 0;box-sizing: border-box;border-bottom: 1px solid #f2f2f2;margin-bottom: 10px;}
+/*layui-nav*/
+.subject .layui-nav{padding: 0;background-color: #fff;color: #3F4A52;border-bottom: 1px solid #f2f2f2;margin-bottom: 20px;}
+.layui-nav .layui-nav-item{line-height: 40px;}
+.layui-nav .layui-nav-item a{padding: 0 15px;color: #3F4A52;font-size: 18px;}
+.layui-nav .layui-nav-item a:hover, .layui-nav .layui-this a{color: #005CA7;}
+.layui-nav .layui-this:after,.layui-nav-bar{background-color: #005CA7;height: 2px;}
+.xsBtn{color: #005CA7;font-size: 12px;margin-right: 5px;}
+/*layui-form*/
+.layui-form-item .layui-inline{margin-bottom: 16px;margin-right: 6px;}
+.layui-form-label{padding: 6px 5px;}
+.layui-form-mid{padding: 6px 0!important;}
+.layui-form-item .layui-input-inline{width: 160px;margin-right: 0;}
+.layui-input, .layui-select{height: 32px;line-height: 32px;}
+.layui-form-select dl dd.layui-this{background-color: #005CA7;}
+/*layui-btn*/
+.layui-form-item .layui-btn{width: 90px;height: 32px;line-height: 32px;}
+.layui-form-item .layui-btn-sm{width: 65px;}
+.layui-btn-normal{background-color: #005CA7;}
+.layui-btn-primary{border-color: #005CA7;color: #005CA7;}
+.layui-btn-sm.layui-btn-primary{border-color: #C9C9C9;color: #555;}
+.layui-btn-primary:hover {border-color: #005CA7;color: #005CA7;}
+.layui-bg-green {background-color: #00AA35 !important;}
+.layui-btn-xs.layui-btn-primary{border:none;}
+.layui-btn .layui-badge-dot,.layui-badge-dot{margin-left: 0; margin-right: 5px;}
+/*弹框*/
+.layui-layer{border-radius: 6px !important;}
+.layui-layer-title{background-color: #fff !important;border-radius: 6px 6px 0 0 !important;color: #666 !important;}
+.registered_div{padding: 20px 100px;box-sizing: border-box;}
+.examine{padding: 12px 40px;}
+.tableList{padding: 15px;box-sizing: border-box;}
+
+.registered_div .registered_div_t{display: flex;align-items: center;color: #000;font-size: 14px;font-weight: 600;}
+.registered_div .registered_div_t span{display: inline-block;width: 24px;height: 24px;margin-right: 10px;vertical-align: text-bottom;}
+.registered_div .registered_div_t .caution_icon{background: url("../img/caution.png")no-repeat 0 0;background-size: cover;}
+.registered_div .registered_div_t .success_icon{background: url("../img/success.png")no-repeat 0 0;background-size: cover;}
+.registered_div .registered_div_c{padding-left: 35px;box-sizing: border-box;font-size: 1px;color: #000;line-height: 30px;}
+.registered_div .registered_div_b{text-align: right;margin-top: 12px;}
+.registered_div .registered_div_b .layui-btn{width: 65px;height: 32px;line-height: 32px;}
+.proveImg{max-width: 390px;max-height: 260px;display: block;margin: 0 auto;}
+/*时间线*/
+.layui-timeline-axis:hover{color: #005CA7;}
+.layui-timeline-axis{color: #919191;border: 1px solid #919191;font-size: 12px;}
+.layui-timeline-item{padding-bottom: 10px;}
+.layui-timeline-title{margin-bottom: 3px;}
+.layui-timeline .layui-timeline-item:first-child .layui-timeline-axis{background-color: #005CA7;color: #fff;border-color: #005ca7;}
+.layui-timeline .layui-timeline-item:first-child .layui-text{color: #3F4A52;}

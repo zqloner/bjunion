@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>查看详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../css/public.css" media="all"/>
+    <link rel="stylesheet" href="../../css/forecastName.css" media="all"/>
+</head>
+<body class="childrenBody">
+    <#if userType??>
+        <input type="hidden" id="userType" value="${userType}">
+    </#if>
+    <#if preId??>
+    <input type="hidden" id="preId" value="${preId}">
+    </#if>
+<div class="subject">
+    <h1 id="myPreLineName"></h1>
+    <div class="layui-form-item">
+        <p>预报名说明：</p>
+        <p id="myDescribetion"></p>
+    </div>
+    <div id="tableRes" class="">
+        <table id="table" lay-filter="dataTable" class="layui-hide"></table>
+        <div id="page" class="page"></div>
+    </div>
+    <!--<div class="layui-form-item text-center">
+        <button type="button" class="layui-btn layui-btn-normal" data-type="save">添加</button>
+    </div>-->
+    <div class="layui-form-item text-center">
+        <#if myBtn??>
+        <button type="button" class="layui-btn layui-btn-normal" data-type="modify" id="modify">修改</button>
+    </#if>
+    <#if myBtn1??>
+    <button type="button" class="layui-btn layui-btn-normal" data-type="sure" id="sure">确定</button>
+</#if>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../libs/layui/layui.js"></script>
+<script type="text/javascript" src="../../js/signUp/preSeeDetails.js"></script>
+</body>
+</html>

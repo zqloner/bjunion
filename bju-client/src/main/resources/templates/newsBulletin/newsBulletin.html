@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新闻公告</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/css/newsBulletin.css" media="all"/>
+    <link rel="stylesheet" href="/css/public.css" media="all" />
+</head>
+<body class="childrenBody">
+<!--主体-->
+<!--路径导航-->
+<div class="common">
+    <span class="layui-breadcrumb" id="breadcrumb">
+        <a href="javascript:;">当前位置</a>
+        <span lay-separator="">：</span>
+        <a href="javascript:;"><cite>新闻公告</cite></a>
+    </span>
+</div>
+<div class="subject">
+    <!--侧边导航-->
+    <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" >
+        <li class="layui-nav-item layui-this"><a href="javascript:;" data-id="5">全部</a></li>
+        <li class="layui-nav-item"><a href="javascript:;" data-id="2">本站公告</a></li>
+        <li class="layui-nav-item"><a href="javascript:;" data-id="1">新闻动态</a></li>
+    </ul>
+    <!-- 右侧内容 -->
+    <div class="currency">
+        <ul class="newsList" id="newsList"></ul>
+    </div>
+    <!--分页-->
+    <div id="page" class="page"></div>
+</div>
+
+<script type="text/javascript" src="/libs/layui/layui.js"></script>
+<script type="text/javascript" src="/js/newsBulletin/newsBulletin.js"></script>
+<!--新闻公告-->
+<script type="text/html" id="newsBulletin">
+    {{#  layui.each(d, function(index, item){}}
+    <li class="notice_li" data-id="{{item.id}}">
+        <div class="notice_li_bd">{{item.title}} {{# if(item.isNew){ }}<span class="new_news"></span>{{# } }}</div>
+        <div class="notice_li_ft">{{item.createTime}}</div>
+    </li>
+    {{# }); }}
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>疗养路线详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../css/details.css" media="all"/>
+    <link rel="stylesheet" href="../../css/public.css" media="all" />
+</head>
+<#if id??>
+<input type="hidden" name="id" id="myRoute" value="${id}">
+</#if>
+<body class="childrenBody">
+<!--路径导航-->
+<div class="common">
+    <span class="layui-breadcrumb" id="breadcrumb">
+        <a href="javascript:;">当前位置</a>
+        <span lay-separator="">：</span>
+        <a href="javascript:;">疗养路线</a>
+        <span lay-separator="">/</span>
+        <a href="javascript:;"><cite>疗养路线详情</cite></a>
+    </span>
+</div>
+<!--主体-->
+<div class="subject">
+    <!--搜索-->
+    <div class="search">
+        <h1 class="textName" name="myRouteName"></h1>
+        <div class="substance" name="myContent">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../libs/layui/layui.js"></script>
+<script type="text/javascript" src="/js/route/routeDetails.js"></script>
+</body>
+</html>

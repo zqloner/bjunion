@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>查看详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/css/public.css" media="all"/>
+    <link rel="stylesheet" href="/css/forecastName.css" media="all"/>
+</head>
+<body class="childrenBody">
+<#if userType??>
+<input type="hidden" id="userType" name="userType" value="${userType}">
+</#if>
+<#if formalLineId??>
+<input type="hidden" id="formalLineId" name="formalId" value="${formalLineId}">
+</#if>
+<div class="subject">
+    <h1 id="lineName"></h1>
+    <div class="layui-form-item">
+        <p>预报名说明：</p>
+        <p id="explain"></p>
+    </div>
+    <!--<div class="item_btn">
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" data-type="addRow">添加</button>
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-primary" data-type="del">删除</button>
+    </div>-->
+    <div id="tableRes" class="">
+        <table id="table" lay-filter="dataTable" class="layui-hide"></table>
+        <div id="page" class="page"></div>
+    </div>
+    <!--<div class="layui-form-item text-center">
+        <button type="button" class="layui-btn layui-btn-normal" data-type="save">添加</button>
+    </div>-->
+    <div class="layui-form-item text-center">
+    <#if myBtn??>
+    <button type="button" class="layui-btn layui-btn-normal" data-type="modify" id="modify">修改</button>
+</#if>
+<#if myBtn1??>
+<button type="button" class="layui-btn layui-btn-normal" data-type="sure" id="sure">确定</button>
+</#if>
+
+    </div>
+</div>
+<!--弹框-->
+<div id="registered" style="display: none;">
+    <div class="registered_div">
+        <div class="registered_div_t"><span class="caution_icon"></span>操作提示</div>
+        <div class="registered_div_c">提交信息之后需要重新进行审核</div>
+        <div class="registered_div_b">
+            <button class="layui-btn layui-btn-primary" id="cancel">取 消</button>
+            <button class="layui-btn layui-btn-normal" id="define">确 定</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/libs/layui/layui.js"></script>
+<script type="text/javascript" src="/js/signUp/seeDetails.js"></script>
+<script>
+    var id = "${id}";
+</script>
+</body>
+</html>

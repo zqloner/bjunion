@@ -1,0 +1,16 @@
+.subject{width: 1200px;margin: 0 auto;min-height: 546px;}
+.layui-nav{width: 214px;vertical-align: top;background-color: #fff;padding: 20px;box-sizing: border-box;
+    margin-right: 10px;/*height: 546px;*/}
+.layui-nav .layui-nav-item{border-bottom: 1px solid #f2f2f2;height: 50px;line-height: 50px;align-items: center;display: flex;}
+.layui-nav .layui-nav-item a{color: #3F4A52;display: inline-block;height: 25px;line-height: 30px;width: 100%;}
+.layui-nav-tree .layui-this>a{border-left: 3px solid #005CA7;}
+.layui-nav-tree .layui-this,.layui-nav-tree .layui-this>a,.layui-nav-tree .layui-this>a:hover{background-color:#fff;color: #005CA7;}
+.layui-nav-tree .layui-nav-item a:hover{background-color:#fff;color: #005CA7;}
+.layui-nav-tree .layui-nav-bar{width: 0;}
+
+.currency{display: inline-block;vertical-align: top;width: 950px;/*min-height: 546px;*/background-color: #fff;
+    box-sizing: border-box;padding: 30px;color: #3F4A52;font-size: 14px;}
+
+
+/*.currency p{line-height: 28px;text-indent: 28px;margin-bottom: 40px;}*/
+.currency img{max-width: 1000px;display: block;margin: 0 auto 40px;}

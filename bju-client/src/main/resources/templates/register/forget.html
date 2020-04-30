@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>忘记密码</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../css/public.css" media="all" />
+    <link rel="stylesheet" href="../../css/register.css" media="all" />
+</head>
+<body class="childrenBody">
+<div class="subject">
+    <div class="currency" id="forgetPassword">
+        <form class="layui-form" action="" lay-filter="forgetPassword">
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机号码：</label>
+                <div class="layui-input-block">
+                    <input type="text" name="phone" class="layui-input" placeholder="请输入您的手机号码" autocomplete="off" lay-verify="required|phone">
+                </div>
+                <!--错误提示-->
+                <div class="errorPrompt"><span class="error_icon"></span><span>手机号码错误</span></div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">验证码：</label>
+                <div class="layui-input-block verification">
+                    <input type="text" name="verification" class="layui-input" placeholder="请输入验证码" autocomplete="off" lay-verify="required">
+                    <button type="button" class="layui-btn layui-btn-primary" id="authentication">获取验证码</button>
+                </div>
+                <!--错误提示-->
+                <div class="errorPrompt"><span class="error_icon"></span><span>验证码错误</span></div>
+            </div>
+            <div class="layui-form-item forget">
+                <button class="layui-btn layui-btn-primary returnLogin" type="button">返回登录</button>
+                <button class="layui-btn" lay-submit="" lay-filter="addNews">下一步</button>
+            </div>
+        </form>
+    </div>
+    <div class="currency" id="resetPassword" style="display: none;">
+        <form class="layui-form" action="" lay-filter="resetPassword">
+            <div class="layui-form-item">
+                <label class="layui-form-label">新密码：</label>
+                <div class="layui-input-block">
+                    <input type="password" name="newPassword" class="layui-input" placeholder="请输入您的新密码" autocomplete="off" lay-verify="required">
+                </div>
+                <!--错误提示-->
+                <div class="errorPrompt"><span class="error_icon"></span><span>密码格式不正确</span></div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">确认密码：</label>
+                <div class="layui-input-block">
+                    <input type="password" name="confirmPassword" class="layui-input" placeholder="请再次输入密码" autocomplete="off" lay-verify="required">
+                </div>
+                <!--错误提示-->
+                <div class="errorPrompt"><span class="error_icon"></span><span>密码格式不正确</span></div>
+            </div>
+            <div class="layui-form-item forget">
+                <button class="layui-btn layui-btn-primary returnLogin" type="button">返回登录</button>
+                <button class="layui-btn" lay-submit="" lay-filter="confirmation">确认修改</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--弹框-->
+<div id="registered" style="display: none;">
+    <div class="registered_div">
+        <div class="registered_div_t"><span class="success_icon"></span>密码修改成功</div>
+        <div class="registered_div_c">密码修改成功，是否前往登录</div>
+        <div class="registered_div_b">
+            <button class="layui-btn layui-btn-primary" id="cancel">取 消</button>
+            <button class="layui-btn" id="define">确 定</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../libs/layui/layui.js"></script>
+<script type="text/javascript" src="forget.js"></script>
+</body>
+</html>

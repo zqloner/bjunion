@@ -1,0 +1,100 @@
+<!--首页-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/css/home.css" media="all"/>
+    <link rel="stylesheet" href="/css/public.css" media="all" />
+</head>
+<body class="childrenBody">
+<div class="banner">
+    <div class="layui-carousel seizeSeat" id="test1">
+        <div carousel-item="" name="souyeBanner" id="souyeBanner">
+
+        </div>
+    </div>
+    <div class="banner_c">
+        <!--快速通道-->
+        <div class="expressLane">
+            <div class="expressLane_title"><div class="title"><span></span>快速通道</div></div>
+            <div class="signUp worker" data-index="0">劳模群体报名</div>
+            <div class="signUp fine" data-index="1">优秀职工报名</div>
+            <div class="signUp job" data-index="2">本职职工报名</div>
+        </div>
+    </div>
+</div>
+<div class="currency">
+    <!--新闻公告-->
+    <div class="homeList">
+        <div class="home_access">
+            <div class="home_bd"><div class="title"><span class="news_icon"></span>新闻公告</div></div>
+            <div class="home_ft more" data-type="news" data-href="route?name=newsBulletin/newsBulletin">更多<i class="layui-icon">&#xe65b;</i></div>
+        </div>
+        <div class="newsBulletin">
+            <div class="layui-carousel seizeSeat" id="test2">
+                <div carousel-item="" name="gonggaoBanner" id="gonggaoBanner">
+
+                </div>
+            </div>
+            <ul class="newsList" id="newsList"></ul>
+        </div>
+    </div>
+    <!--精品路线-->
+    <div class="homeList">
+        <div class="home_access">
+            <div class="home_bd"><div class="title"><span class="route_icon"></span>精品路线</div></div>
+            <div class="home_ft more" data-type="route" data-href="route?name=route/route">更多<i class="layui-icon">&#xe65b;</i></div>
+        </div>
+        <ul class="routeList" id="routeView"></ul>
+    </div>
+    <!--疗休养点-->
+    <div class="homeList">
+        <div class="home_access">
+            <div class="home_bd"><div class="title"><span class="base_icon"></span>疗休养点</div></div>
+            <div class="home_ft more" data-type="base" data-href="route?name=base/base">更多<i class="layui-icon">&#xe65b;</i></div>
+        </div>
+        <ul class="baseList" id="baseView"></ul>
+    </div>
+</div>
+<script type="text/javascript" src="/libs/layui/layui.js"></script>
+<script type="text/javascript" src="/js/home/home.js"></script>
+<!--新闻公告-->
+<script type="text/html" id="newsBulletin">
+    {{#  layui.each(d, function(index, item){}}
+    <li class="notice_li" data-id="{{item.id}}">
+        <div class="notice_li_bd">{{item.title}} {{# if(item.isNew){ }}<span class="new_news"></span>{{# } }}</div>
+        <div class="notice_li_ft">{{item.createTime}}</div>
+    </li>
+    {{# }); }}
+</script>
+<!--精品路线-->
+<script type="text/html" id="route">
+    {{#  layui.each(d, function(index, item){}}
+    <li class="route_li" data-id="{{item.id}}">
+        <div class="route_li_div">
+            <img src="{{item.picUrl}}" alt="" class="occupancy">
+            <div class="details">
+                <div class="details_title">{{item.name}}</div>
+            </div>
+        </div>
+    </li>
+    {{# }); }}
+</script>
+<!--疗休养点-->
+<script type="text/html" id="base">
+    {{#  layui.each(d, function(index, item){}}
+    <li class="base_li" data-id="{{item.id}}">
+        <div class="base_li_div">
+            <img src="{{item.picUrl}}" alt="" class="occupancy">
+            <div class="details">
+                <div class="details_title">{{item.name}}</div>
+            </div>
+        </div>
+    </li>
+    {{# }); }}
+</script>
+</body>
+</html>

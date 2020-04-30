@@ -1,0 +1,35 @@
+.childrenBody{background-color: #fbfbfb;}
+.subject{width: 1200px;margin: 20px auto;background-color: #fff;}
+.currency{width: 400px;margin: 0 auto;padding: 60px 0;}
+/*注册账号*/
+.layui-form-item{margin-bottom: 20px;position: relative;}
+.layui-form-item .layui-form-label{padding: 11px 10px;}
+.layui-form-item .layui-input-block{margin-left: 100px;}
+.layui-form-item .layui-input-block .layui-input{height: 42px;line-height: 42px;}
+.layui-form-item .layui-btn{width: 100%;height: 42px;line-height: 42px;margin-top: 20px;background-color: #005CA7;}
+.layui-form-item .layui-btn-primary{background-color: #fff;border-color: #005CA7;color: #005CA7;}
+.layui-form-item .layui-btn-primary:hover {border-color: #005CA7;color: #005CA7;}
+.errorPrompt{color: #f8726e;font-size: 12px;line-height: 24px;padding: 0 10px;box-sizing: border-box;position: absolute;
+    top: 10px;left: 400px;width: 300px;}
+.errorPrompt .error_icon{display: inline-block;width: 14px;height: 14px;margin-right: 5px;
+    vertical-align: text-bottom;background: url("../img/error.png")no-repeat 0 0;background-size: cover;}
+/*忘记密码*/
+.forget{text-align: right;}
+.forget .layui-btn{width: 143px;}
+.verification .layui-input{width: 187px;display: inline-block;margin-right: 10px;}
+.verification .layui-btn{width: 99px; margin-top: 0;padding: 0 5px;}
+/*弹框*/
+.layui-layer{border-radius: 6px !important;}
+.layui-layer-title{height: 30px !important;line-height: 30px !important;background-color: #fff !important;
+    border-bottom: 0 !important;border-radius: 6px 6px 0 0 !important;}
+.layui-layer-setwin{top: 10px !important;}
+.registered_div{padding: 20px 40px;box-sizing: border-box;}
+.registered_div .registered_div_t{display: flex;align-items: center;color: #000;font-size: 14px;font-weight: 600;}
+.registered_div .registered_div_t span{display: inline-block;width: 24px;height: 24px;margin-right: 10px;vertical-align: text-bottom;}
+.registered_div .registered_div_t .caution_icon{background: url("../img/caution.png")no-repeat 0 0;background-size: cover;}
+.registered_div .registered_div_t .success_icon{background: url("../img/success.png")no-repeat 0 0;background-size: cover;}
+.registered_div .registered_div_c{padding-left: 35px;box-sizing: border-box;font-size: 1px;color: #000;line-height: 30px;}
+.registered_div .registered_div_b{text-align: right;margin-top: 12px;}
+.registered_div .registered_div_b .layui-btn{width: 65px;height: 32px;line-height: 32px;background-color: #005CA7;}
+.registered_div .registered_div_b .layui-btn-primary{background-color: #fff;}
+.registered_div .registered_div_b .layui-btn-primary:hover {border-color: #005CA7;color: #005CA7;}

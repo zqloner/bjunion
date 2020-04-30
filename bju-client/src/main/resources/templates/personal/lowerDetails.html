@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>下发详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../css/personal.css" media="all"/>
+</head>
+<body class="childrenBody">
+    <#if preId??>
+    <input type="hidden" name="preId" value="${preId}">
+    </#if>
+<div class="subject">
+    <div class="currency">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">预报名标题：</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid" id="preLineName"></div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">预报名说明：</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid" id="describetion"></div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">疗养地区：</label>
+                <div class="layui-input-block">
+                    <div id="region" class="demo-tree-more"></div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">疗养月份：</label>
+                <div class="layui-input-block" id="myMonths">
+                    <div class="layui-form-mid">1月</div>
+                    <div class="layui-form-mid">2月</div>
+                    <div class="layui-form-mid">3月</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">企业查看权限：</label>
+                <div class="layui-input-block" id="myEnterPrise">
+                    <div class="layui-form-mid">XXX企业</div>
+                    <div class="layui-form-mid">XXX企业</div>
+                    <div class="layui-form-mid">XXX企业</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">预报名开放时间：</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">2019/08/09 08:22:00-2019/08/09 08:22:00</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <button type="button" class="layui-btn layui-btn-normal" id="modify">修 改</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="../../libs/layui/layui.js"></script>
+<script type="text/javascript" src="../../js/personal/lowerDetails.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>疗养路线</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../css/public.css" media="all"/>
+    <link rel="stylesheet" href="../../css/home.css" media="all"/>
+    <link rel="stylesheet" href="../../css/base.css" media="all"/>
+</head>
+<body class="childrenBody">
+<#if id??>
+<input type="hidden" id="myRoute" value="${id}">
+</#if>
+<!--路径导航-->
+<div class="common">
+    <span class="layui-breadcrumb" id="breadcrumb">
+        <a href="javascript:;">当前位置</a>
+        <span lay-separator="">：</span>
+        <a href="javascript:;"><cite>疗养路线</cite></a>
+    </span>
+</div>
+<!--主体-->
+<div class="subject">
+    <!--搜索-->
+    <div class="search">
+        <div class="search_t">
+            <div class="layui-form-item">
+                <i class="layui-icon">&#xe615;</i>
+                <input type="text" name="route" autocomplete="off" placeholder="请输入线路" class="layui-input">
+                <button class="layui-btn" lay-submit="" lay-filter="search">搜索</button>
+            </div>
+        </div>
+        <div class="count">共<span id="count"></span>个疗养点</div>
+    </div>
+    <!-- 疗养路线 -->
+    <div class="currency">
+        <ul class="baseList" id="baseView"></ul>
+    </div>
+    <!--分页-->
+    <div id="page" class="page"></div>
+</div>
+
+<script type="text/javascript" src="../../libs/layui/layui.js"></script>
+<script type="text/javascript" src="js/route/route.js"></script>
+<!--疗养路线-->
+<script type="text/html" id="base">
+    {{#  layui.each(d, function(index, item){}}
+    <li class="base_li"  data-id="{{item.id}}">
+        <div class="base_li_div">
+            <img src="{{item.picUrl}}" alt="" class="occupancy">
+            <div class="details">
+                <div class="details_title">{{item.name}}</div>
+                <!--<div class="details_address">-->
+                    <!--<p class="address">{{item.address}}</p>-->
+                    <!--<p><span>疗养月份:</span><span class="aggravate">{{item.month}}</span></p>-->
+                    <!--<p><span>报名时间:</span><span class="aggravate">{{item.date}}</span></p>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </li>
+    {{# }); }}
+</script>
+</body>
+</html>

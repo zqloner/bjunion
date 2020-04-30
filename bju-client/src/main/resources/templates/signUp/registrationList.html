@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>疗养路线</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../css/home.css" media="all"/>
+    <link rel="stylesheet" href="../../css/registrationList.css" media="all" />
+</head>
+<body class="childrenBody">
+<#if userType??>
+<input type="hidden" id="userType" value="${userType}">
+</#if>
+<div class="subject">
+    <ul class="layui-nav registration" lay-filter="navigation">
+        <li class="layui-nav-item layui-this"><a href="javascript:;" data-id="0"  value="">全部</a></li>
+        <li class="layui-nav-item"><a href="javascript:;" data-id="1"  value="1">即将开始</a></li>
+        <li class="layui-nav-item"><a href="javascript:;" data-id="2"  value="2">正在进行</a></li>
+        <li class="layui-nav-item"><a href="javascript:;" data-id="3"  value="3">已经结束</a></li>
+    </ul>
+    <div class="currency">
+        <ul class="baseList" id="baseView"></ul>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../libs/layui/layui.js"></script>
+<script type="text/javascript" src="../../js/signUp/registrationList.js"></script>
+<script type="text/html" id="base">
+    {{#  layui.each(d, function(index, item){}}
+    <li class="base_li">
+        <div class="base_li_div">
+            <img src="{{item.img}}" alt="" class="occupancy">
+            <div class="details">
+                <div class="details_title">{{item.name}}</div>
+                <div class="details_address">
+                    <p class="address">{{item.address}}</p>
+                    <p><span>发布时间:</span><span class="aggravate">{{item.createTime}}</span></p>
+                    <p><span>报名时间:</span><span class="aggravate">{{item.date}}</span></p>
+                </div>
+            </div>
+            <div class="means">
+                {{# if(item.type==1){}}
+                <div class="soon">
+                    <div>距离开始报名还有</div>
+                    <div class="num"><span id="myDate">{{item.mydate}}</span>天</div>
+                </div>
+                {{# }else if(item.type==2&&item.completed==0){}}
+                <button type="button" class="layui-btn layui-btn-warm" data-id="{{item.id}}" data-type="{{item.type}}" data-completed="{{item.completed}}">开始报名</button>
+                {{# }else if(item.type==2&&item.completed==1){}}
+                <button type="button" class="layui-btn layui-btn-normal" data-id="{{item.id}}" data-type="{{item.type}}" data-completed="{{item.completed}}">查看报名</button>
+                {{# }else if(item.type==3&&item.closure==0){}}
+                <button type="button" class="layui-btn layui-btn-normal" data-id="{{item.id}}" data-type="{{item.type}}">查看报名</button>
+                {{# }else if(item.type==3&&item.closure==1){}}
+                <button type="button" class="layui-btn layui-btn-disabled" data-id="{{item.id}}">报名结束</button>
+                {{# }}}
+            </div>
+        </div>
+    </li>
+    {{# }); }}
+</script>
+</body>
+</html>

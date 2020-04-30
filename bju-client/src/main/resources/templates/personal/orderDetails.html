@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>正式报名记录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/css/public.css" media="all"/>
+    <link rel="stylesheet" href="/css/queryList.css" media="all"/>
+</head>
+<body class="childrenBody">
+<div class="subject">
+    <div class="textName">疗养团详情</div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <div class="layui-form-mid">线路名称：</div>
+            <div class="layui-input-inline">
+                <div class="layui-form-mid">${lineName ! ''}</div>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <div class="layui-form-mid">疗养院：</div>
+            <div class="layui-input-inline">
+                <div class="layui-form-mid">${sanatorName ! ''}</div>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <div class="layui-form-mid">疗养日期：</div>
+            <div class="layui-form-mid">${sBenginTime ! ''} - ${sEndTime ! ''}</div>
+        </div>
+        <div class="layui-inline">
+            <div class="layui-form-mid">报名人数：</div>
+            <div class="layui-input-inline">
+                <div class="layui-form-mid">${allUsers ! ''}</div>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <div class="layui-form-mid">我的报名人数：</div>
+            <div class="layui-input-inline">
+                <div class="layui-form-mid">${myUsers ! ''}</div>
+            </div>
+        </div>
+    </div>
+    <div class="textName">疗养团详情</div>
+    <div class="currency">
+        <table id="table" lay-filter="dataTable" class="layui-hide"></table>
+        <div id="page" class="page"></div>
+    </div>
+</div>
+<script type="text/javascript" src="/libs/layui/layui.js"></script>
+<script type="text/javascript" src="/js/personal/orderDetails.js"></script>
+<script>
+    var id = "${id}";
+</script>
+</body>
+</html>

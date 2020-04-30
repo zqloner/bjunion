@@ -1,0 +1,37 @@
+/*表格*/
+.layui-table-view .layui-table{width: 100%;}
+.layui-table tbody tr:hover,.layui-table-hover,.layui-table-click{background-color: #fff;}
+.layui-form-checked[lay-skin=primary] i{border-color:#005CA7 !important;background-color:#005CA7;}
+.layui-form-checkbox[lay-skin=primary]:hover i{border-color:#005CA7 !important;}
+.layui-table-cell{padding: 0 5px;}
+/*分页样式*/
+.page{text-align: right;margin-top: 20px;}
+.layui-laypage a,.layui-laypage .layui-laypage-spr{border-radius: 4px;padding: 0 11px;margin: 0 5px 5px 0;}
+.layui-laypage .layui-laypage-curr{padding: 0 12px;margin: 0 5px 5px 0;border-radius: 4px;height: 28px;line-height: 28px;}
+.layui-laypage .layui-laypage-curr .layui-laypage-em{border-radius: 4px;}
+.layui-laypage select,.layui-laypage input,.layui-laypage button{border-radius: 4px;}
+.layui-laypage button, .layui-laypage input{line-height: 28px;}
+.layui-laypage a:hover{color: #005CA7;}
+.layui-laypage span{background-color: transparent;}
+/*路径导航*/
+.common{box-sizing: border-box;height: 40px;z-index: 110;line-height: 40px;width: 1200px;margin: 0 auto;}
+.common .layui-breadcrumb{visibility: visible;}
+.layui-breadcrumb a{margin: 0 5px;cursor: default;}
+.layui-breadcrumb .pointer{cursor: pointer !important;}
+.layui-breadcrumb a:hover{color:#999 !important;}
+.layui-breadcrumb span[lay-separator]{margin: 0;}
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar {width: 4px;height: 8px;background-color: #f0f2f5;}
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+//-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+//-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #f1f1f1;
+}

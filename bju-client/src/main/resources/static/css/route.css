@@ -1,0 +1,13 @@
+
+
+.baseList .base_li{display: inline-block;width: 600px;height: 200px;padding: 10px;box-sizing: border-box;
+    cursor: pointer;vertical-align: top;}
+.baseList .base_li .base_li_div{width: 100%;height: 100%;background-color: #fff;padding: 10px;box-sizing: border-box;}
+.baseList .base_li .base_li_div:hover{box-shadow:0 0 15px rgba(12,136,242,.1);}
+.baseList .base_li .occupancy{width: 240px;height: 100%;vertical-align: top;display: inline-block;}
+.baseList .base_li .details{width: 320px;height: 100%;padding: 5px 10px;box-sizing: border-box;vertical-align: top;display: inline-block;}
+.baseList .base_li .details .details_title{font-size: 18px;height: 50px;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;
+    color: #2B2424;line-height: 24px;font-weight: 600;}
+.baseList .base_li .details .details_address{font-size: 14px;line-height: 24px;color: #666;}
+.baseList .base_li .details .details_address p{overflow: hidden;text-overflow:ellipsis;white-space:nowrap;}
+.baseList .base_li .details .details_address .aggravate{color: #2B2424;}

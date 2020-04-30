@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>批量添加</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/css/personal.css" media="all"/>
+</head>
+<body class="childrenBody">
+<div class="subject">
+    <div class="currency">
+        <form class="layui-form" action="" lay-filter="addition">
+            <div class="layui-form-item">
+                <label class="layui-form-label">①模板下载：</label>
+                <div class="layui-input-block">
+                    <span class='primaryBtn' id="download">点击下载《职工信息导入模板》</span>
+                    <div class="batchPrompt">为了导入准确性，请严格按照模板格式及要求填写</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">②上传文件：</label>
+                <div class="layui-input-block">
+                    <div class="pictures batchPictures" id="preview">
+                        <div class="upload">
+                            <i class="layui-icon">&#xe681;</i>
+                            <p>点击或将文件拖拽到这里上传</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <button type="button" class="layui-btn layui-btn-normal" id="addNews">确 定</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="/libs/layui/layui.js"></script>
+<script type="text/javascript" src="/js/personal/batchAdd.js"></script>
+</body>
+</html>

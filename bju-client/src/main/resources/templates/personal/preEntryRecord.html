@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>预报名记录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../css/public.css" media="all"/>
+    <link rel="stylesheet" href="../../css/queryList.css" media="all"/>
+</head>
+<body class="childrenBody">
+<div class="subject">
+    <ul class="layui-nav" lay-filter="role">
+        <li class="layui-nav-item layui-this" data-id="1" value="1"><a href="javascript:;">优秀职工</a></li>
+        <li class="layui-nav-item" data-id="2" value="2"><a href="javascript:;">普通职工</a></li>
+        <li class="layui-nav-item" data-id="3" value="3" id="laomo"><a href="javascript:;">劳模职工</a></li>
+    </ul>
+    <form class="layui-form" action="" lay-filter="queryForm">
+        <div class="layui-form-item">
+            <!--<div class="layui-inline">-->
+                <!--<label class="layui-form-label">职工类型：</label>-->
+                <!--<div class="layui-input-inline">-->
+                    <!--<select name="workers">-->
+                        <!--<option value="">请选择</option>-->
+                        <!--<option value="优秀职工">优秀职工</option>-->
+                        <!--<option value="普通职工">普通职工</option>-->
+                        <!--<option value="劳模职工">劳模职工</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="layui-inline">-->
+                <!--<label class="layui-form-label">审核状态：</label>-->
+                <!--<div class="layui-input-inline">-->
+                    <!--<select name="auditType">-->
+                        <!--<option value="0">未审核</option>-->
+                        <!--<option value="1">审核中</option>-->
+                        <!--<option value="2">审核通过</option>-->
+                        <!--<option value="3">审核未通过</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="layui-inline">
+                <label class="layui-form-label">线路名称：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="line" placeholder="请输入" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">报名时间：</label>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="time_min" class="layui-input laydate" placeholder="请选择" autocomplete="off" readonly>
+                </div>
+                <div class="layui-form-mid">-</div>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="time_max" class="layui-input laydate" placeholder="请选择" autocomplete="off" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn layui-btn-sm layui-btn-normal" lay-submit="" lay-filter="addNews">查找</button>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-primary" id="reset">重置</button>
+            </div>
+        </div>
+    </form>
+    <div class="currency">
+        <table id="table" lay-filter="dataTable" class="layui-hide"></table>
+        <div id="page" class="page"></div>
+    </div>
+</div>
+<!--弹框-->
+<div id="registered" style="display: none;">
+    <div class="registered_div">
+        <ul class="layui-timeline">
+            <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">4</i>
+                <div class="layui-timeline-content layui-text">
+                    <div class="layui-timeline-title">审核状态：审核未通过</div>
+                    <div class="layui-timeline-title">审核单位：北京总工会</div>
+                    <div class="layui-timeline-title">审核日期：2019-08-22 12:00:22</div>
+                    <div class="layui-timeline-title">原因：社会信用源代码有误</div>
+                </div>
+            </li>
+            <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">3</i>
+                <div class="layui-timeline-content layui-text">
+                    <div class="layui-timeline-title">审核状态：审核通过</div>
+                    <div class="layui-timeline-title">审核单位：北京总工会</div>
+                    <div class="layui-timeline-title">审核日期：2019-08-22 12:00:22</div>
+                </div>
+            </li>
+            <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">2</i>
+                <div class="layui-timeline-content layui-text">
+                    <div class="layui-timeline-title">审核状态：审核中</div>
+                    <div class="layui-timeline-title">审核单位：北京总工会</div>
+                    <div class="layui-timeline-title">审核日期：2019-08-22 12:00:22</div>
+                </div>
+            </li>
+            <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis">1</i>
+                <div class="layui-timeline-content layui-text">
+                    <div class="layui-timeline-title">审核单位：北京总工会</div>
+                    <div class="layui-timeline-title">审核日期：2019-08-22 12:00:22</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript" src="../../libs/layui/layui.js"></script>
+<script type="text/javascript" src="../../js/personal/preEntryRecord.js"></script>
+</body>
+</html>

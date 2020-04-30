@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>审核</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/css/personal.css" media="all"/>
+</head>
+<body class="childrenBody">
+<div class="subject">
+    <div class="currency">
+        <div class="notPass" id="notPass">
+            <p>对不起，您的审核未通过，未通过原因<span id="examineMsg"></span>,请按照要求修改</p>
+            <p>最终审核时间：<span id="examineTime"></span></p>
+        </div>
+        <form class="layui-form" action="" lay-filter="material">
+            <img class="examineType" src="" alt="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">企业名称：</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${enterprise.name ! ''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">企业账号:</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${enterprise.account ! ''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">社会统一信用代码:</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${enterprise.creditCode ! ''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">所在区域:</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${enterprise.addressInfo ! ''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">联系人姓名:</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${enterprise.contacts ! ''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">联系人电话:</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${enterprise.phone ! ''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">联系人邮箱:</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${enterprise.mail ! ''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">资质证明:</label>
+                <div class="layui-input-block">
+                    <div class="prove"><img src="${enterprise.qaUrl ! ''}" alt=""></div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">直属上级:</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${enterprise.parentName ! ''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="addNews">修改信息</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!--弹框-->
+<div id="registered" style="display: none;">
+    <div class="registered_div">
+        <div class="registered_div_t"><span class="caution_icon"></span>提示</div>
+        <div class="registered_div_c" id="text">资料已审核通过，修改需重新审核！</div>
+        <div class="registered_div_b">
+            <button class="layui-btn layui-btn-primary" id="cancel">再想想</button>
+            <button class="layui-btn" id="define">确认修改</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../libs/layui/layui.js"></script>
+<script type="text/javascript" src="/js/personal/toExamine.js"></script>
+<script type="application/javascript">
+    var examineStatus = ${enterprise.examineStatus ! 1};
+    var id = ${enterprise.id}
+</script>
+</body>
+</html>

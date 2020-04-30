@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>休养基地</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../css/home.css" media="all"/>
+    <link rel="stylesheet" href="../../css/base.css" media="all"/>
+    <link rel="stylesheet" href="../../css/public.css" media="all" />
+</head>
+<body class="childrenBody">
+<!--路径导航-->
+<div class="common">
+    <span class="layui-breadcrumb" id="breadcrumb">
+        <a href="javascript:;">当前位置</a>
+        <span lay-separator="">：</span>
+        <a href="javascript:;"><cite>休养基地</cite></a>
+    </span>
+</div>
+<!--主体-->
+<div class="subject">
+    <!--搜索-->
+    <div class="search">
+        <div class="search_t">
+            <form class="layui-form" action="" lay-filter="addition">
+                <div class="layui-form-item">
+                    <i class="layui-icon">&#xe615;</i>
+                    <input type="text" name="base" autocomplete="off" placeholder="请输入地名" class="layui-input">
+                    <button class="layui-btn" lay-submit="" lay-filter="search">搜索</button>
+                </div>
+            </form>
+        </div>
+        <div class="place">
+            <div class="layui-form-item">
+                <label class="layui-form-label">省份：</label>
+                <div class="layui-input-block">
+                    <ul class="provinceList" id="provinceList"></ul>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">城市：</label>
+                <div class="layui-input-block">
+                    <ul class="provinceList" id="cityList"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="count">共<span id="total"></span>个疗养点</div>
+    </div>
+    <!-- 疗休养点 -->
+    <div class="currency">
+        <ul class="routeList" id="routeView"></ul>
+    </div>
+    <!--分页-->
+    <div id="page" class="page"></div>
+</div>
+
+<script type="text/javascript" src="../../libs/layui/layui.js"></script>
+<script type="text/javascript" src="js/base/base.js"></script>
+<!--疗休养点-->
+<script type="text/html" id="route">
+    {{#  layui.each(d, function(index, item){}}
+    <li class="route_li"  data-id="{{item.id}}">
+        <div class="route_li_div">
+            <img src="{{item.picUrl}}" alt="" class="occupancy">
+            <div class="details">
+                <div class="details_title">{{item.name}}</div>
+                <div class="details_address">
+                    <i class="layui-icon">&#xe715;</i>
+                    <p>{{item.area}}</p>
+                </div>
+            </div>
+        </div>
+    </li>
+    {{# }); }}
+</script>
+<!--省份-->
+<script type="text/html" id="province">
+    {{#  layui.each(d, function(index, item){}}
+    <li class="provinceLi"><span class="text {{index==0?'active':''}}" value="{{item.id}}">{{item.regionName}}</span></li>
+    {{# }); }}
+</script>
+<!--城市-->
+<script type="text/html" id="city">
+    {{#  layui.each(d, function(index, item){}}
+    <li class="cityLi"><span class="text {{index==0?'active':''}}" value="{{item.id}}">{{item.regionName}}</span></li>
+    {{# }); }}
+</script>
+</body>
+</html>

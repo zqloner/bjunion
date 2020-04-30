@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>正式报名记录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/css/public.css" media="all"/>
+    <link rel="stylesheet" href="/css/queryList.css" media="all"/>
+</head>
+<body class="childrenBody">
+<div class="subject">
+    <ul class="layui-nav" lay-filter="role">
+        <li class="layui-nav-item layui-this" ><a href="javascript:;" data-id="1">普通职工</a></li>
+        <li class="layui-nav-item" ><a href="javascript:;" data-id="2">优秀职工</a></li>
+        <li class="layui-nav-item" id="laomo" ><a href="javascript:;" data-id="3">劳模职工</a></li>
+    </ul>
+    <form class="layui-form" action="" lay-filter="queryForm">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">审核状态：</label>
+                <div class="layui-input-inline">
+                    <select name="examineStatus">
+                        <option value="">请选择</option>
+                        <option value="1">未审核</option>
+                        <option value="2">审核中</option>
+                        <option value="3">审核通过</option>
+                        <option value="4">审核未通过</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">线路名称：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="lineName" placeholder="请输入" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">报名时间：</label>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="start" class="layui-input laydate" placeholder="请选择" autocomplete="off" readonly>
+                </div>
+                <div class="layui-form-mid">-</div>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="end" class="layui-input laydate" placeholder="请选择" autocomplete="off" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn layui-btn-sm layui-btn-normal" lay-submit="" lay-filter="addNews">查找</button>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-primary" id="reset">重置</button>
+            </div>
+        </div>
+    </form>
+    <div class="currency">
+        <table id="table" lay-filter="dataTable" class="layui-hide"></table>
+        <div id="page" class="page"></div>
+    </div>
+</div>
+<!--弹框-->
+<div id="registered" style="display: none;">
+    <div class="registered_div">
+        <ul class="layui-timeline" id="examineInfo">
+        </ul>
+    </div>
+</div>
+<script type="text/javascript" src="/libs/layui/layui.js"></script>
+<script type="text/javascript" src="/js/personal/entryRecord.js"></script>
+</body>
+</html>

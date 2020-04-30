@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>预报名统计</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../css/public.css" media="all"/>
+    <link rel="stylesheet" href="../../css/queryList.css" media="all"/>
+</head>
+<body class="childrenBody">
+<div class="subject">
+    <ul class="layui-nav" lay-filter="role">
+        <li class="layui-nav-item layui-this" data-id="1" value="2"><a href="javascript:;">优秀职工</a></li>
+        <li class="layui-nav-item" data-id="2" value="1"><a href="javascript:;">普通职工</a></li>
+        <li class="layui-nav-item" data-id="3" value="3" id="laomo"><a href="javascript:;">劳模职工</a></li>
+    </ul>
+    <form class="layui-form" action="" lay-filter="queryForm">
+        <div class="layui-form-item">
+            <label class="layui-form-label">线路：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="line" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">下发状态：</label>
+                <div class="layui-input-inline">
+                    <select name="lower">
+                        <option value="">请选择</option>
+                        <option value="1">已下发</option>
+                        <option value="0">未下发</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn layui-btn-sm layui-btn-normal" lay-submit="" lay-filter="addNews">查找</button>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-primary" id="reset">重置</button>
+            </div>
+        </div>
+    </form>
+    <div class="currency">
+        <table id="table" lay-filter="dataTable" class="layui-hide"></table>
+        <div id="page" class="page"></div>
+    </div>
+</div>
+<script type="text/javascript" src="../../libs/layui/layui.js"></script>
+<script type="text/javascript" src="../../js/personal/lineLower.js"></script>
+</body>
+</html>

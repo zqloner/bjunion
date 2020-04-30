@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>企业详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/css/personal.css" media="all"/>
+</head>
+<body class="childrenBody">
+<div class="companyTitle">
+    <h2>企业详情</h2>
+    <button type="button" class="layui-btn layui-btn-sm layui-btn-primary" id="revert">返 回</button>
+</div>
+<div class="subject">
+    <div class="currency">
+        <form class="layui-form" action="" lay-filter="material">
+            <div class="layui-form-item">
+                <label class="layui-form-label">企业名称：</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${enterprise.name ! ''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">企业账号:</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${enterprise.account ! ''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">社会统一信用代码:</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${enterprise.creditCode ! ''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">所在区域:</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${enterprise.addressInfo ! ''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">联系人姓名:</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${enterprise.contacts ! ''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">联系人电话:</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${enterprise.phone ! ''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">联系人邮箱:</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${enterprise.mail ! ''}</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">资质证明:</label>
+                <div class="layui-input-block">
+                    <div class="prove"><img src="${enterprise.qaUrl ! ''}" alt=""></div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">直属上级:</label>
+                <div class="layui-input-block">
+                    <div class="layui-form-mid">${enterprise.parentName ! ''}</div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="/libs/layui/layui.js"></script>
+<script type="text/javascript" src="/js/personal/companyDetails.js"></script>
+</body>
+</html>

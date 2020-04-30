@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>预报名统计</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/css/dtree.css">
+    <link rel="stylesheet" href="/css/font/dtreefont.css">
+    <link rel="stylesheet" href="/css/public.css" media="all"/>
+    <link rel="stylesheet" href="/css/queryList.css" media="all"/>
+</head>
+<body class="childrenBody">
+<div class="subject">
+    <ul class="layui-nav" lay-filter="role">
+        <li class="layui-nav-item layui-this" data-id="1" value="2"><a href="javascript:;">优秀职工</a></li>
+        <li class="layui-nav-item" data-id="2" value="1"><a href="javascript:;">普通职工</a></li>
+        <li class="layui-nav-item" data-id="3" value="3" id="laomo"><a href="javascript:;">劳模职工</a></li>
+    </ul>
+    <form class="layui-form" action="" lay-filter="queryForm">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <div class="layui-form-mid">预报名名称：</div>
+                <div class="layui-input-inline">
+                    <input type="text" name="definition" placeholder="请输入" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-form-mid">审疗养地区：</div>
+                <div class="layui-input-inline">
+                    <input type="text" name="region" placeholder="请选择" autocomplete="off" class="layui-input" readonly>
+                    <!--<select name="region">
+                        <option value="">请选择</option>
+                        <option value="1">疗养地区1</option>
+                        <option value="2">疗养地区2</option>
+                        <option value="3">疗养地区3</option>
+                    </select>-->
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-form-mid">疗养月份：</div>
+                <div class="layui-input-inline">
+                    <input type="text" name="month" class="layui-input laymonth" placeholder="请选择" autocomplete="off" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-form-mid">预报名单位：</div>
+                <div class="layui-input-inline">
+                    <input type="text" name="unit" placeholder="请选择" autocomplete="off" class="layui-input" readonly>
+                    <!--<select name="unit">
+                        <option value="">请选择</option>
+                        <option value="1">单位1</option>
+                        <option value="2">单位2</option>
+                        <option value="3">单位3</option>
+                    </select>-->
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-form-mid">预报名日期：</div>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="time_min" class="layui-input range" placeholder="请选择" autocomplete="off" readonly>
+                </div>
+                <div class="layui-form-mid">-</div>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="time_max" class="layui-input range" placeholder="请选择" autocomplete="off" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn layui-btn-sm layui-btn-normal" lay-submit="" lay-filter="addNews">查找</button>
+                <button type="button" class="layui-btn layui-btn-sm layui-btn-primary" id="reset">重置</button>
+            </div>
+        </div>
+    </form>
+    <div class="layui-form-item" style="display: none;" id="operation">
+        <button class="layui-btn layui-btn-normal" id="export">列表导出</button>
+    </div>
+    <div class="currency">
+        <table id="table" lay-filter="dataTable" class="layui-hide"></table>
+        <div id="page" class="page"></div>
+    </div>
+</div>
+<div id="treeNode" style="display: none;padding: 20px;">
+    <ul id="checkbarTreeNode" class="dtree" data-id="0"></ul>
+</div>
+<script type="text/javascript" src="/libs/layui/layui.js"></script>
+<script type="text/javascript" src="/js/personal/preStatistics.js"></script>
+</body>
+</html>

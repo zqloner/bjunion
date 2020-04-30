@@ -1,0 +1,8 @@
+.childrenBody{max-width: 1200px;background-color: #fbfbfb;margin: 0 auto;}
+.subject{width: 100%;padding: 40px;box-sizing: border-box;background-color: #fff;}
+.subject .textName{font-size: 24px;color: #3F4A52;text-align: center;font-weight: 600;}
+.subject .stamp{font-size: 14px;color: #999;text-align: center;margin-top: 15px;}
+.subject .stamp span{display: inline-block;padding: 0 10px;}
+.subject .substance{margin-top: 20px;color: #3F4A52;font-size: 14px;}
+.subject .substance p{line-height: 28px;text-indent: 28px;margin-bottom: 40px;}
+.subject .substance img{max-width: 1000px;display: block;margin: 0 auto 40px;}

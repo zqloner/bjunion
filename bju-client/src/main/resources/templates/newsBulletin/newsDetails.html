@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新闻公告详情</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../css/details.css" media="all"/>
+    <link rel="stylesheet" href="../../css/public.css" media="all" />
+</head>
+<body class="childrenBody">
+<#if newsId??>
+<input type="hidden" name="newsId" value="${newsId}">
+</#if>
+<!--主体-->
+<!--路径导航-->
+<div class="common">
+    <span class="layui-breadcrumb" id="breadcrumb">
+        <a href="javascript:;">当前位置</a>
+        <span lay-separator="">：</span>
+        <a href="javascript:;">新闻公告</a>
+        <span lay-separator="">/</span>
+        <a href="javascript:;"><cite>新闻公告详情</cite></a>
+    </span>
+</div>
+<div class="subject">
+    <!--搜索-->
+    <div class="search">
+        <h1 class="textName" name="title"></h1>
+        <div class="stamp" name="newsInfo"><span></span><span></span><span></span></div>
+        <div class="substance" name="content">
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../libs/layui/layui.js"></script>
+<script type="text/javascript" src="/js/newsBulletin/newsDetails.js"></script>
+</body>
+</html>

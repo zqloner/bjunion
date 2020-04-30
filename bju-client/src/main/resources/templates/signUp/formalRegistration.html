@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>正式报名</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../css/public.css" media="all"/>
+    <link rel="stylesheet" href="../../css/forecastName.css" media="all"/>
+</head>
+<body class="childrenBody">
+<#if userType??>
+<input type="hidden" id="userType" name="userType" value="${userType}">
+</#if>
+<#if formalLineId??>
+<input type="hidden" id="formalLineId" name="formalId" value="${formalLineId}">
+</#if>
+<div class="subject">
+    <h1 id="lineName">福建厦门6日游线路预报名</h1>
+    <div class="layui-form-item">
+        <p>报名说明：</p>
+        <p id = "explain">;</p>
+    </div>
+    <div class="item_btn" style="display: none">
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" data-type="addRow">添加</button>
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-primary" data-type="del">删除</button>
+    </div>
+    <div class="layui-form-item text-center" style="display: none" id="addRow">
+        <button type="button" class="layui-btn layui-btn-normal" data-type="addRow">添加</button>
+    </div>
+    <div id="tableRes" class="">
+        <table id="table" lay-filter="dataTable" class="layui-hide"></table>
+        <div id="page" class="page"></div>
+    </div>
+    <div class="layui-form-item text-center" id="submit">
+        <button type="button" class="layui-btn layui-btn-normal" data-type="submit">提交</button>
+    </div>
+</div>
+<!--报名人员列表-->
+<div id="people"  style="display: none;">
+    <div class="tableList">
+        <form class="layui-form" action="" lay-filter="queryForm">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">姓名：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="username" class="layui-input" placeholder="请输入" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">京卡号：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="cardNum" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">性别：</label>
+                    <div class="layui-input-inline">
+                        <select name="sex">
+                            <option value="">请选择</option>
+                            <option value="0">女</option>
+                            <option value="1">男</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">年龄：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="age" class="layui-input" placeholder="请输入" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">联系方式：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="phone" class="layui-input" placeholder="请输入" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">身份证号：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="IDCard" class="layui-input" placeholder="请输入" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">企业名称：</label>
+                    <div class="layui-input-inline">
+                        <select name="lowerEnterePrise">
+                            <option value="">请选择</option>
+                            <option value="0">男</option>
+                            <option value="1">女</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn layui-btn-xs layui-btn-normal" lay-submit="" lay-filter="addNews">查找</button>
+                    <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" id="reset">重置</button>
+                </div>
+            </div>
+        </form>
+        <table id="table1" class="layui-hide"></table>
+        <div id="page1" class="page"></div>
+        <div class="tableList_b">
+            <button class="layui-btn layui-btn-xs layui-btn-primary" id="cancel">取 消</button>
+            <button class="layui-btn layui-btn-xs layui-btn-normal" id="define">确 定</button>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript" src="../../libs/layui/layui.js"></script>
+<script type="text/javascript" src="/js/signUp/formalRegistration.js"></script>
+</body>
+</html>

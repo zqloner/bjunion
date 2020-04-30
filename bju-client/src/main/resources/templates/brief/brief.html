@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>关于我们</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../libs/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../css/brief.css" media="all"/>
+    <link rel="stylesheet" href="../../css/public.css" media="all" />
+</head>
+<body class="childrenBody">
+<!--主体-->
+<!--路径导航-->
+<div class="common">
+    <span class="layui-breadcrumb" id="breadcrumb">
+        <a href="javascript:;">当前位置</a>
+        <span lay-separator="">：</span>
+        <a href="javascript:;"><cite>关于我们</cite></a>
+    </span>
+</div>
+<div class="subject">
+    <!--侧边导航-->
+    <ul class="layui-nav layui-nav-tree layui-inline" lay-filter="demo" >
+        <li class="layui-nav-item layui-this"><a href="javascript:;" data-id="1">公司介绍</a></li>
+        <li class="layui-nav-item"><a href="javascript:;" data-id="2">企业文化</a></li>
+        <li class="layui-nav-item"><a href="javascript:;" data-id="3">发展历程</a></li>
+        <li class="layui-nav-item"><a href="javascript:;" data-id="4">公司业务</a></li>
+        <li class="layui-nav-item"><a href="javascript:;" data-id="5">联系我们</a></li>
+    </ul>
+    <!-- 右侧内容 -->
+    <div class="currency" id="briefContent"></div>
+</div>
+<script type="text/javascript" src="../../libs/layui/layui.js"></script>
+<script type="text/javascript" src="js/brief/brief.js"></script>
+</body>
+</html>

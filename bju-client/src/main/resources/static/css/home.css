@@ -1,0 +1,69 @@
+.childrenBody{width: 100%;background-color: #fbfbfb;}
+.banner{height: 360px;width: 100%;background-size: cover;background-position: 50% 50%;}
+.banner .banner_c{width: 1200px;margin: 0 auto;position: absolute;top: 0;left: 50%;margin-left: -600px;}
+.bannerSwitch{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+/*快速通道*/
+.expressLane{width: 280px;height: 300px;background: #FBFBFB;position: absolute;top:30px;right: 0;padding: 15px;box-sizing: border-box;}
+.expressLane_title{border-bottom: 1px solid #F0F0F0;font-size: 18px;}
+.expressLane_title .title{display: inline-block;line-height: 40px;border-bottom: 2px solid #005ca7;}
+.expressLane_title span{display: inline-block;vertical-align: text-top;margin-right: 10px;width: 24px;height: 24px;
+    background: url("../img/express.png")no-repeat 0 0;background-size: cover;}
+.expressLane .signUp{width: 100%;height: 60px;font-size: 20px;color: #FBFBFB;line-height: 60px;margin-top: 15px;cursor: pointer;
+    box-sizing: border-box;padding-left: 30px;}
+.expressLane .worker{background: url("../img/worker.png")no-repeat 0 0;background-size: cover;}
+.expressLane .fine{background: url("../img/fine.png")no-repeat 0 0;background-size: cover;}
+.expressLane .job{background: url("../img/job.png")no-repeat 0 0;background-size: cover;}
+/*list*/
+.currency{width: 1200px;margin: 0 auto;}
+.currency .homeList{width: 100%;margin-top: 25px;}
+.home_access{display: flex;align-items: center;border-bottom: 1px solid #F0F0F0;height: 45px;margin-bottom: 20px;}
+.home_access .home_bd{flex:1;font-size: 24px;}
+.home_access .home_ft{float: right;cursor: pointer;}
+.home_access .home_bd .title{display: inline-block;line-height: 45px;border-bottom: 2px solid #005ca7;}
+.home_access .home_bd span{display: inline-block;vertical-align: text-top;margin-right: 10px;width: 24px;height: 24px;}
+.news_icon{background: url("../img/news.png")no-repeat 0 0;background-size: cover;}
+.route_icon{background: url("../img/route.png")no-repeat 0 0;background-size: cover;}
+.base_icon{background: url("../img/base.png")no-repeat 0 0;background-size: cover;}
+/*新闻公告*/
+.newsBulletin{width: 100%;font-size: 0;}
+.newsBulletin .seizeSeat{display: inline-block;margin-right: 20px;vertical-align: top;cursor: pointer;}
+.newsBulletin .newsList{display: inline-block;width: 640px;vertical-align: top;}
+.newsBulletin .newsList .notice_li{display: flex;align-items: center;font-size: 14px;padding: 15px 5px;
+    box-sizing: border-box;border-bottom: 1px dashed #C7C6C6;cursor: pointer;}
+.newsBulletin .newsList .notice_li:hover{background-color: #F2F5F8;}
+.newsBulletin .newsList .notice_li .notice_li_bd{flex:1;font-size: 14px;color: #07172D;}
+.newsBulletin .newsList .notice_li .notice_li_ft{float: right;color: #3F4A52;}
+.newsBulletin .newsList .notice_li .notice_li_bd .new_news{display: inline-block;vertical-align: text-top;margin-left: 10px;
+    width: 31px;height: 15px;background: url("../img/new.png")no-repeat 0 0;background-size: cover;}
+/*精品路线*/
+.routeList,.baseList{width: 100%;font-size: 0;}
+.routeList .route_li{display: inline-block;width: 300px;height: 300px;padding: 0 10px;box-sizing: border-box;
+    cursor: pointer;vertical-align: top;}
+.routeList .route_li .route_li_div{width: 100%;height: 100%;background-color: #fff;}
+.routeList .route_li .route_li_div:hover{box-shadow:0 0 15px rgba(12,136,242,.1);}
+.routeList .route_li .occupancy{width: 100%;height: 186px;}
+.routeList .route_li .details{width: 100%;height: 114px;padding: 10px;box-sizing: border-box;}
+.routeList .route_li .details .details_title{font-size: 18px;height: 50px;overflow: hidden;text-overflow: ellipsis;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;color: #2B2424;line-height: 24px;font-weight: 600;}
+.routeList .route_li .details .details_address{height: 40px;font-size: 14px;line-height: 20px;color: #666;}
+.routeList .route_li .details .details_address .layui-icon{float: left;}
+.routeList .route_li .details .details_address p{overflow: hidden;padding-left: 5px;box-sizing: border-box;
+    text-overflow: ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;}
+/*疗休养点*/
+.baseList .base_li{display: inline-block;width: 600px;height: 200px;padding: 10px;box-sizing: border-box;
+    cursor: pointer;vertical-align: top;}
+.baseList .base_li .base_li_div{width: 100%;height: 100%;background-color: #fff;padding: 10px;box-sizing: border-box;}
+.baseList .base_li .base_li_div:hover{box-shadow:0 0 15px rgba(12,136,242,.1);}
+.baseList .base_li .occupancy{width: 240px;height: 100%;vertical-align: top;display: inline-block;}
+.baseList .base_li .details{width: 320px;height: 100%;padding: 5px 10px;box-sizing: border-box;vertical-align: top;display: inline-block;}
+.baseList .base_li .details .details_title{font-size: 18px;height: 50px;overflow: hidden;text-overflow:ellipsis;white-space:nowrap;
+    color: #2B2424;line-height: 24px;font-weight: 600;}
+.baseList .base_li .details .details_address{font-size: 14px;line-height: 24px;color: #666;}
+.baseList .base_li .details .details_address p{overflow: hidden;text-overflow:ellipsis;white-space:nowrap;}
+.baseList .base_li .details .details_address .aggravate{color: #2B2424;}
+
+
