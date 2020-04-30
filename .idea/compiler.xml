@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="bju-client" />
+        <module name="bjucommon" />
+        <module name="bju-common" />
+        <module name="bju-mbpg" />
+        <module name="bju-admin" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bju-admin" target="1.8" />
+      <module name="bju-client" target="1.8" />
+      <module name="bju-common" target="1.8" />
+      <module name="bju-mbpg" target="1.8" />
+      <module name="bjucommon" target="1.8" />
+      <module name="bjunion" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="bju-admin" options="-parameters" />
+      <module name="bju-client" options="-parameters" />
+      <module name="bju-common" options="-parameters" />
+      <module name="bju-mbpg" options="-parameters" />
+    </option>
+  </component>
+</project>
