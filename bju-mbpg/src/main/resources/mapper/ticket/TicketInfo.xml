@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.ticket.TicketInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.ticket.TicketInfo">
+        <id column="id" property="id" />
+        <result column="formal_line_user_id" property="formalLineUserId" />
+        <result column="formal_id" property="formalId" />
+        <result column="go_type" property="goType" />
+        <result column="go_ticket_info" property="goTicketInfo" />
+        <result column="go_price" property="goPrice" />
+        <result column="go_note" property="goNote" />
+        <result column="back_type" property="backType" />
+        <result column="back_ticket_info" property="backTicketInfo" />
+        <result column="back_price" property="backPrice" />
+        <result column="back_note" property="backNote" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, formal_line_user_id,formal_id, go_type, go_ticket_info, go_price, go_note,back_type, back_ticket_info, back_price,back_note
+    </sql>
+    <select id="getList" resultType="com.brightease.bju.bean.dto.TicketInfoDto">
+        SELECT
+        fl.id,
+        fl.`user_type`,
+        ll.`name`,
+        fl.`s_bengin_time`,
+        fl.`s_end_time`,
+        fl.`now_count`,
+        SUM(fu.`yes_no`) AS personCount,
+        le.`name` as leaderName,
+        fl.`line_status`
+        FROM
+        formal_line fl
+        LEFT JOIN line_line ll
+        ON fl.`line_id` = ll.`id`
+        LEFT JOIN formal_line_user fu
+        ON fu.`formal_id` = fl.`id`
+        LEFT JOIN formal_line_leader fll
+        ON fll.`formal_id` = fl.`id`
+        LEFT JOIN leader_leader le
+        ON fll.`leader_id` = le.`id`
+        WHERE fu.`yes_no` = 1
+        AND fu.`examine` = 1
+        AND fl.`is_del`=1
+        AND fl.`status`=1
+        <if test="id !=null ">
+            AND fl.`id`= #{id}
+        </if>
+        <if test="lineName != null and lineName != ''">
+            AND ll.`name` LIKE CONCAT('%','${lineName}','%')
+        </if>
+        <if test="userType != null ">
+            AND fl.`user_type`=#{userType}
+        </if>
+        GROUP by fl.id
+        ORDER BY fl.`update_time` DESC,fl.`create_time` DESC
+    </select>
+    <select id="getUserTicketList" resultType="com.brightease.bju.bean.dto.UserTickeInfoDto">
+        SELECT
+        u.`name`,
+        e.`name` AS enterpriseName,
+        u.`card_id` ,
+        u.`IDCard`,
+        u.`phone`,
+        g.`id` AS goType,
+        g.`value` AS goTool,
+        t.`go_ticket_info`,
+        t.`go_price`,
+        b.`id` AS backType,
+        b.`value` AS backTool,
+        t.`back_ticket_info`,
+        t.`back_price`,
+        t.`id`,
+        t.`go_note`,
+        t.`back_note`
+        FROM
+            formal_line_user flu
+        LEFT JOIN ticket_info t
+            ON t.`formal_line_user_id` = flu.`user_id`
+            AND t.`formal_id` = flu.`formal_id`
+        LEFT JOIN enterprise_user u
+            ON flu.`user_id` = u.`id`
+        LEFT JOIN enterprise_enterprise e
+            ON flu.`enterprise_id`=e.`id`
+        LEFT JOIN sys_dict b
+            ON t.`back_type` = b.`id`
+        LEFT JOIN sys_dict g
+            ON t.`go_type` = g.`id`
+        WHERE flu.`examine` = 1
+            AND flu.`yes_no` = 1
+            AND flu.`formal_id` = #{formalId}
+        <if test="eId != null ">
+            AND flu.`enterprise_id`=#{eId}
+        </if>
+        <if test="name != null and name !='' ">
+            AND u.`name` LIKE CONCAT('%','${name}','%')
+        </if>
+        <if test="cardId != null and cardId !='' ">
+            AND u.`card_id` LIKE CONCAT('%','${cardId}','%')
+        </if>
+        <if test="phone != null and phone !='' ">
+            AND u.`phone` LIKE CONCAT('%','${phone}','%')
+        </if>
+        <if test="IDCard != null and IDCard !='' ">
+            AND u.`IDCard` LIKE CONCAT('%','${IDCard}','%')
+        </if>
+    </select>
+    <select id="getTraffic" resultType="java.util.Map">
+        SELECT
+          COUNT(*) AS num,
+          SUM(a.price) AS price,
+          a.type
+        FROM
+          (SELECT
+            t.`id`,
+            t.`go_type` AS TYPE,
+            t.`go_price` AS price
+          FROM
+            `ticket_info` t
+          UNION
+          ALL
+          SELECT
+            t.id,
+            t.`back_type` AS TYPE,
+            t.`back_price` AS price
+          FROM
+            `ticket_info` t) AS a
+        GROUP BY a.type
+    </select>
+    <select id="getTrafficInfoList" resultType="com.brightease.bju.bean.dto.StatisticsTicketDto">
+        SELECT
+        a.type,
+        flu.`formal_id`,
+        fl.`user_type`,
+        ll.`name` lineName,
+        fl.`s_bengin_time` sBeginStart,
+        fl.`s_end_time` sBeginEnd,
+        COUNT(*) AS usersCount,
+        SUM(price) AS price
+        FROM
+        (SELECT
+        t.`id`,
+        t.`formal_line_user_id`,
+        t.`go_type` AS TYPE,
+        t.`go_price` AS price
+        FROM
+        `ticket_info` t
+        UNION
+        ALL
+        SELECT
+        t.id,
+        t.`formal_line_user_id`,
+        t.`back_type` AS TYPE,
+        t.`back_price` AS price
+        FROM
+        `ticket_info` t) AS a
+        LEFT JOIN formal_line_user flu
+        ON flu.user_id = a.formal_line_user_id
+        LEFT JOIN formal_line fl
+        ON flu.`formal_id` = fl.`id`
+        LEFT JOIN line_line ll
+        ON ll.`id` = fl.`line_id`
+        WHERE 1=1
+        AND flu.`examine` = 1
+        AND flu.`yes_no` = 1
+        AND fl.`line_status` = 7
+        AND fl.`is_del` = 1
+        AND fl.`status` = 1
+        <if test="type != null">
+           AND a.type = #{type}
+        </if>
+        <if test="lineId != null">
+            AND fl.`id` = #{lineId}
+        </if>
+        <if test="userType != null">
+            AND fl.`user_type` = #{userType}
+        </if>
+        <if test="sBeginStart !=null and sBeginStart != ''">
+            AND fl.`s_bengin_time` <![CDATA[ >= ]]> #{sBeginStart}
+        </if>
+        <if test="sBeginEnd !=null and sBeginEnd != ''">
+            AND fl.`s_bengin_time` <![CDATA[ <= ]]> #{sBeginEnd}
+        </if>
+        <if test="sEndStart !=null and sEndStart != ''">
+            AND fl.`s_end_time` <![CDATA[ >= ]]> #{sEndStart}
+        </if>
+        <if test="sEndEnd !=null and sEndEnd != ''">
+            AND fl.`s_end_time` <![CDATA[ <= ]]> #{sEndEnd}
+        </if>
+        GROUP BY a.type
+    </select>
+
+</mapper>

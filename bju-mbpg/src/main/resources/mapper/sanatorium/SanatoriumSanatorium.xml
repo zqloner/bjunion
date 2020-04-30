@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.sanatorium.SanatoriumSanatoriumMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.sanatorium.SanatoriumSanatorium">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="brief" property="brief" />
+        <result column="p_id" property="pId" />
+        <result column="c_id" property="cId" />
+        <result column="pic_url" property="picUrl" />
+        <result column="content" property="content" />
+        <result column="create_time" property="createTime" />
+        <result column="is_del" property="isDel" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, brief, p_id, c_id, pic_url, content, create_time, is_del, status
+    </sql>
+    <select id="getList" resultType="com.brightease.bju.bean.dto.SanatoriumDto">
+
+        SELECT
+            s.id,s.name,s.brief,s.p_id,s.c_id,s.pic_url,s.create_time,s.is_del,s.status, CONCAT(
+                p.REGION_NAME,
+                c.REGION_NAME
+            ) as area
+        FROM
+            sanatorium_sanatorium s
+        LEFT JOIN sys_area p ON s.p_id = p.ID
+        LEFT JOIN sys_area c ON s.c_id = c.ID
+        WHERE
+            s.is_del = 1
+        AND s.`status` = 1
+        <if test="pId != null ">
+           and s.p_id = #{pId}
+        </if>
+        <if test="cId != null ">
+            and  s.c_id = #{cId}
+        </if>
+        <if test="name != null ">
+            and  s.name  LIKE CONCAT('%','${name}','%')
+        </if>
+        order by s.create_time desc
+    </select>
+    <select id="getAllSanatoriumCount" resultType="com.brightease.bju.bean.dto.StatisticsSanatoriumDto">
+        SELECT
+          COUNT(flu.`user_id`) AS usersCount,
+          flu.`formal_id`,
+          ll.`id` AS lineId,
+          ll.`name` AS lineName,
+          ss.`id` AS sId,
+          ss.`name` AS sName,
+          fl.`s_bengin_time`,
+          fl.`s_end_time`,
+          fl.`user_type`
+        FROM
+          `formal_line_user` flu
+          LEFT JOIN formal_line fl
+            ON flu.`formal_id` = fl.`id`
+          LEFT JOIN line_line ll
+            ON fl.`line_id` = ll.`id`
+          LEFT JOIN line_sanatorium ls
+            ON ls.`line_id` = ll.`id`
+          LEFT JOIN sanatorium_sanatorium ss
+            ON ls.`sanatorium_id` = ss.`id`
+          WHERE  1 = 1
+        AND flu.`examine` = 1
+        AND flu.`yes_no` = 1
+        AND fl.`is_del` = 1
+        AND fl.`status` = 1
+          <if test="sId != null">
+              AND ss.`id` = #{sId}
+          </if>
+        <if test="lineId != null">
+            AND fl.`line_id` = #{lineId}
+        </if>
+        <if test="userType != null">
+            AND fl.`user_type` = #{userType}
+        </if>
+        <if test="sBeginStart !=null">
+            AND fl.`s_bengin_time` <![CDATA[ >= ]]> #{sBeginStart}
+        </if>
+        <if test="sBeginEnd !=null">
+            AND fl.`s_end_time` <![CDATA[ <= ]]> #{sBeginEnd}
+        </if>
+        <if test="sEndStart !=null">
+            AND fl.`r_begin_time` <![CDATA[ >= ]]> #{sEndStart}
+        </if>
+        <if test="sEndEnd !=null">
+            AND fl.`r_end_time` <![CDATA[ <= ]]> #{sEndEnd}
+        </if>
+        GROUP BY ss.`id`
+        ORDER BY usersCount DESC
+
+    </select>
+
+
+    <!--首页展示,查询前五条-->
+    <select id="myIndex" resultType="com.brightease.bju.bean.sanatorium.SanatoriumSanatorium">
+          SELECT id,NAME,pic_url,create_time FROM sanatorium_sanatorium WHERE is_del=1 AND STATUS=1 ORDER BY create_time DESC LIMIT 0,4
+    </select>
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.sys.SysAreaMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.sys.SysArea">
+        <id column="ID" property="id" />
+        <result column="PARENT_ID" property="parentId" />
+        <result column="REGION_ID" property="regionId" />
+        <result column="REGION_PARENT_ID" property="regionParentId" />
+        <result column="REGION_NAME" property="regionName" />
+        <result column="REGION_TYPE" property="regionType" />
+        <result column="ZIPCODE" property="zipcode" />
+        <result column="QUHAO" property="quhao" />
+        <result column="Status" property="Status" />
+    </resultMap>
+
+    <resultMap id="AreasTree" type="com.brightease.bju.bean.dto.AreasTreeDto">
+        <id column="aid" property="id"></id>
+        <result column="title" property="title"></result>
+        <collection javaType="list" ofType="com.brightease.bju.bean.dto.AreasTreeDto" property="children">
+            <id column="bid" property="id"></id>
+            <result column="titleb" property="title"></result>
+        </collection>
+    </resultMap>
+
+    <!--查询地区树形   不要三级-->
+    <select id="findAreasTree" resultMap="AreasTree">
+          SELECT a.REGION_NAME title,a.id aid,b.REGION_NAME titleb,b.id bid
+          FROM sys_area a,sys_area b
+          WHERE a.id = b.PARENT_ID
+          AND b.REGION_TYPE != 3
+          AND a.REGION_PARENT_ID !=0
+    </select>
+
+    <!--预报名统计单选树查询-->
+    <select id="findAreaZnodes" resultType="com.brightease.bju.bean.dto.predto.AreaZnodesDto">
+        select ID id,PARENT_ID pId,REGION_NAME name from sys_area where REGION_TYPE != 3
+    </select>
+
+</mapper>

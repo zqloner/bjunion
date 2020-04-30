@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.contract.ContractContractMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.contract.ContractContract">
+        <id column="id" property="id" />
+        <result column="contract_name" property="contractName" />
+        <result column="contract_code" property="contractCode" />
+        <result column="contract_begin_time" property="contractBeginTime" />
+        <result column="contract_end_time" property="contractEndTime" />
+        <result column="type" property="type" />
+        <result column="person" property="person" />
+        <result column="phone" property="phone" />
+        <result column="partyA_name" property="partyaName" />
+        <result column="partyA_name_legal" property="partyaNameLegal" />
+        <result column="partyA_person" property="partyaPerson" />
+        <result column="partyA_phone" property="partyaPhone" />
+        <result column="partyA_tel" property="partyaTel" />
+        <result column="partyA_address" property="partyaAddress" />
+        <result column="partyB_person" property="partybPerson" />
+        <result column="partyB_phone" property="partybPhone" />
+        <result column="partyB_tel" property="partybTel" />
+        <result column="party_address" property="partyAddress" />
+        <result column="contract_status" property="contractStatus" />
+        <result column="create_time" property="createTime" />
+        <result column="is_del" property="isDel" />
+        <result column="status" property="status" />
+        <result column="create_userid" property="createUserid" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, contract_name, contract_code, contract_begin_time, contract_end_time, type, person, phone, partyA_name, partyA_name_legal, partyA_person, partyA_phone, partyA_tel, partyA_address, partyB_person, partyB_phone, partyB_tel, party_address, contract_status, create_time, is_del, status,create_userid
+    </sql>
+    <!--返回的合同列-->
+    <sql id="Base_Constract_User">
+        c.id, contract_name, contract_code, contract_status,contract_begin_time, contract_end_time, TYPE, person, c.phone, partyA_name, partyA_name_legal, partyA_person, partyA_phone, partyA_tel, partyA_address, partyB_person, partyB_phone, partyB_tel, party_address, contract_status, c.create_time, c.is_del, `name`,c.status,create_userid
+    </sql>
+
+    <!--条件查询合同-->
+    <select id="findByConditions"  resultType="com.brightease.bju.bean.dto.ContractContractDto">
+        select <include refid="Base_Constract_User"></include>,s.name name from contract_contract c left  join sys_admin s on c.create_userid = s.id
+        <where>
+            <if test="contractName != null and contractName !='' ">
+                AND c.contract_Name LIKE CONCAT('%','${contractName}','%')
+            </if>
+            <if test="partyaName != null and partyaName !='' ">
+                AND c.partyA_Name LIKE CONCAT('%','${partyaName}','%')
+            </if>
+            <if test="startTime != null and  startTime !=''">
+                AND c.contract_Begin_Time <![CDATA[ >= ]]> #{startTime}
+            </if>
+            <if test="overTime != null and overTime !=''">
+                AND c.contract_End_Time <![CDATA[ <= ]]> #{overTime}
+            </if>
+            <if test="contractStatus != null and contractStatus!=''">
+                AND c.contract_status = #{contractStatus}
+            </if>
+            <if test="type != null">
+                <if test=" type== '疗养院合同'">
+                   and c.type = 0
+                </if>
+                <if test="type == '服务企业合同'">
+                  and  c.type = 1
+                </if>
+            </if>
+            <if test="createUserid != null and createUserid!=''">
+                AND c.create_userid = #{create_userid}
+            </if>
+            AND c.is_del =1 AND c.status = 1
+            order by create_time desc
+        </where>
+    </select>
+
+    <!--通过ids查询合同-->
+    <select id="findByIds" parameterType="list" resultType="com.brightease.bju.bean.dto.ContractContractDto">
+        select <include refid="Base_Constract_User"></include> from contract_contract c left  join sys_admin s on c.create_userid = s.id
+        <where>
+            <if test="list != null and list.size > 0">
+                <foreach collection="list" item="id" open="c.id in(" close=")" separator=",">
+                    ${id}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <!--通过合同名字查询合同-->
+    <select id="fingContractContractByContractName" resultType="com.brightease.bju.bean.contract.ContractContract">
+        select <include refid="Base_Column_List"></include> from contract_contract
+        where contract_name = #{contarctName}
+    </select>
+
+</mapper>

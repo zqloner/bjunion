@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.sys.SysAdminRoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.sys.SysAdminRole">
+        <id column="id" property="id" />
+        <result column="admin_id" property="adminId" />
+        <result column="role_id" property="roleId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, admin_id, role_id
+    </sql>
+    <select id="getUserMenus" resultType="com.brightease.bju.bean.sys.SysMenu">
+
+        SELECT
+          sm.*
+        FROM
+          sys_admin_role sar
+          LEFT JOIN sys_role sr
+            ON sar.`role_id` = sr.`id`
+          LEFT JOIN sys_role_menu rm
+            ON sr.`id` = rm.`role_id`
+          LEFT JOIN sys_menu sm
+            ON rm.`menu_id` = sm.`id`
+        WHERE sar.`admin_id` = #{id}
+            AND sm.`type` = #{type}
+            AND sm.`status`=1
+    </select>
+
+</mapper>

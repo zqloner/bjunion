@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.pre.PreLineMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.pre.PreLine">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="describetion" property="describetion"/>
+        <result column="begin_time" property="beginTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="user_type" property="userType"/>
+        <result column="next_time" property="nextTime"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="is_del" property="isDel"/>
+        <result column="stat" property="stat"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, title, describetion, begin_time, end_time, user_type, next_time, parent_id, create_time, is_del,stat,is_next
+    </sql>
+
+
+    <!--条件查询 -->
+    <select id="findPreByConditions" resultType="com.brightease.bju.bean.dto.PreLineDto">
+        select DISTINCT p.id, p.title, p.describetion, p.begin_time, p.end_time, p.user_type, p.next_time, p.parent_id,
+        p.create_time, p.is_del,p.stat,p.is_next
+        from pre_line p,pre_line_enterprise pe
+        <where>
+            p.id = pe.pre_id
+            <if test="userType !=null and userType != ''">
+                AND p.user_type = #{userType}
+            </if>
+            <if test="title !=null and title != ''">
+                AND p.title LIKE CONCAT('%','${title}','%')
+            </if>
+            <if test="type == 1">
+                AND p.is_next = 1
+            </if>
+            <if test="type == 0">
+                AND p.is_next = 0
+            </if>
+            <if test="shiroId !=null and shiroId !='' ">
+                AND pe.enterprise_id = #{shiroId}
+            </if>
+            and is_del = 1 and stat = 1 and parent_id is null order by create_time desc
+        </where>
+    </select>
+
+    <!--是否下发 -->
+    <select id="findPreIsNext" resultType="long">
+
+        SELECT
+          pe.id
+        FROM
+          pre_line f,
+          pre_line_enterprise pe,
+          pre_line c
+        WHERE c.id = pe.`pre_id`
+          AND f.id = c.parent_id
+          <if test="preId !=null and preId !=''">
+          AND f.id = #{preId}
+          </if>
+        <if test="shiroId !=null and shiroId !=''">
+          AND pe.`enterprise_id` = #{shiroId}
+        </if>
+          and c.is_del = 1 and  c.stat = 1
+    </select>
+
+
+    <!--通过id查询封装成VTO-->
+    <select id="findVtoById" resultType="com.brightease.bju.bean.dto.PreLineVTO">
+        SELECT <include refid="Base_Column_List"></include> from pre_line where is_next = 1 AND is_del=1 AND stat=1 AND
+        id = #{id}
+        <if test="userType !=null and userType != ''">
+            AND user_type = #{userType}
+        </if>
+    </select>
+
+    <!--通过id查询封装成VTO-->
+    <select id="getLowerChildId" resultType="long">
+        SELECT
+            pb.id
+          FROM
+            pre_line pa,
+            pre_line pb,
+            pre_line_enterprise pe
+          WHERE pb.id = pe.`pre_id`
+            AND pa.id = pb.parent_id
+            AND pb.`stat`=1
+            AND pb.`is_del`=1
+            AND pa.`stat`=1
+            AND pa.`is_del`=1
+            <if test="preId !=null and preId !=''">
+            AND pa.id = #{preId}
+            </if>
+        <if test="shiroId !=null and shiroId !=''">
+            AND pe.`enterprise_id` = #{shiroId}
+        </if>
+
+    </select>
+
+
+    <!--预报名统计的条件查询-->
+    <select id="findPreRegistrationStatisticsCountInfo"
+            resultType="com.brightease.bju.bean.dto.PreRegistrationStatisticsDto">
+        SELECT p.title title,sa.REGION_NAME regionName,sd.value MONTH,en.name aunit,ps.create_time
+        createTime,ps.person_count personCount,ps.enterprise_id enterpriseId
+        FROM pre_line p,sys_area sa,sys_dict sd,enterprise_enterprise en,pre_line_statistics ps
+        where
+        ps.pre_id = p.id
+        AND ps.enterprise_id = en.id
+        AND ps.city_id = sa.id
+        AND ps.month = sd.id
+        <if test="title !=null and title != ''">
+            AND p.title LIKE CONCAT('%','${title}','%')
+        </if>
+        <if test="areaId !=null and areaId != ''">
+            AND sa.id = #{areaId}
+        </if>
+        <if test="dictId !=null and dictId != ''">
+            AND sd.id = #{dictId}
+        </if>
+        <if test="ids !=null and ids.size > 0">
+            AND
+            <foreach collection="ids" item="id" open="en.id in(" close=")" separator=",">
+                ${id}
+            </foreach>
+        </if>
+        <if test="startTime !=null and startTime != ''">
+            AND ps.create_time <![CDATA[ >= ]]> #{startTime}
+        </if>
+        <if test="endTime !=null and endTime != ''">
+            AND ps.create_time<![CDATA[ <= ]]> #{endTime}
+        </if>
+        <if test="userType !=null and userType != ''">
+            AND ps.user_type = #{userType}
+        </if>
+        AND p.`stat`=1
+        AND p.`is_del`=1
+        AND en.`is_del`=1
+        AND en.`status`=1
+        order by ps.create_time desc
+    </select>
+
+    <!--预报名记录的查询   查询出报名的id集合和路线名字-->
+    <select id="findPreRecordByCondition" resultType="com.brightease.bju.bean.dto.PreRegistrationRecordDto">
+        SELECT distinct ps.pre_id,p.title FROM pre_line_statistics ps,pre_line p WHERE ps.`pre_id` = p.`id`
+        AND ps.user_type = #{userType}
+        AND ps.enterprise_id = #{enterPriseId}
+        <if test="title != null and title != ''">
+            AND p.title LIKE CONCAT('%','${title}','%')
+        </if>
+        <if test="startTime !=null and startTime != ''">
+            AND ps.createTime <![CDATA[ >= ]]> #{startTime}
+        </if>
+        <if test="endTime !=null and endTime != ''">
+            AND ps.createTime<![CDATA[ <= ]]> #{endTime}
+        </if>
+        AND p.`stat`=1
+        AND p.`is_del`=1
+    </select>
+    <!--预报名记录的查询   查询出报名的时间和总人数-->
+    <select id="lookPreRecordByCondition" resultType="com.brightease.bju.bean.dto.PreRegistrationRecordDto">
+      SELECT create_time,SUM(person_count) person_count FROM pre_line_statistics WHERE pre_id = #{preId} AND user_type=#{userType}
+      and enterprise_id = #{enterPriseId}
+    </select>
+
+
+    <resultMap id="findAreaEnterpriseMonth" type="com.brightease.bju.bean.dto.predto.AreaEnterpriseMonth">
+        <id column="preId" property="preId"></id>
+        <result column="title" property="title"></result>
+        <result column="describetion" property="describetion"></result>
+        <collection property="preAreaAndNames" javaType="list"
+                    ofType="com.brightease.bju.bean.dto.predto.PreAreaAndName">
+            <id property="id" column="aid"/>
+            <result property="name" column="aname"/>
+        </collection>
+        <collection property="preMonthAndNames" javaType="list"
+                    ofType="com.brightease.bju.bean.dto.predto.PreMonthAndName">
+            <id property="id" column="sid"/>
+            <result property="name" column="sname"/>
+        </collection>
+    </resultMap>
+    <!-- 根据路线id查找该路线对应的月份,地区，企业和相应的id  -->
+
+    <select id="findAreaEnterpriseMonth" resultMap="findAreaEnterpriseMonth">
+        SELECT
+          pl.id preId,
+          pl.title title,
+          pl.describetion describetion,
+          sa.id aid,
+          sa.`REGION_NAME` aname,
+          sd.id sid,
+          sd.`value` sname
+        FROM
+          pre_line pl,
+          pre_line_area pla,
+          sys_area sa,
+          pre_line_month plm,
+          sys_dict sd
+        WHERE pl.id = pla.`pre_id`
+          AND pla.`area_id` = sa.`ID`
+          AND pl.id = plm.`pre_id`
+          AND plm.`dict_id` = sd.id
+          AND pl.id = #{preId}
+            AND pl.`stat`=1
+        AND pl.`is_del`=1
+    </select>
+
+    <!--通过路线id和企业id查询出报名记录-->
+    <select id="findpreRegistrationStatisticsDtos"
+            resultType="com.brightease.bju.bean.dto.PreRegistrationStatisticsDto">
+        SELECT sa.REGION_NAME regionName,p.describetion,p.title,sd.value MONTH,ps.person_count personCount,ps.id
+        preStaticId,ps.city_id areaId,ps.month monthId
+        FROM pre_line p,sys_area sa,sys_dict sd,enterprise_enterprise en,pre_line_statistics ps
+        WHERE
+        ps.pre_id = p.id
+        AND ps.enterprise_id = en.id
+        AND ps.city_id = sa.id
+        AND ps.month = sd.id
+        <if test="preId !=null and preId != ''">
+            AND p.id = #{preId}
+        </if>
+        <if test="enterPriseId !=null and enterPriseId != ''">
+            AND en.id = #{enterPriseId}
+        </if>
+        <if test="userType !=null and userType !='' ">
+            AND ps.user_type = #{userType}
+        </if>
+        AND p.`stat`=1
+        AND p.`is_del`=1
+        AND en.`is_del`=1
+        AND en.`status`=1
+        order by ps.create_time desc
+    </select>
+</mapper>

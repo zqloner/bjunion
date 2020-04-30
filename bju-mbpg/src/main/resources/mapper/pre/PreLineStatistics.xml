@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.pre.PreLineStatisticsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.pre.PreLineStatistics">
+        <id column="id" property="id" />
+        <result column="pid" property="pid" />
+        <result column="pre_id" property="preId" />
+        <result column="enterprise_id" property="enterpriseId" />
+        <result column="city_id" property="cityId" />
+        <result column="month" property="month" />
+        <result column="person_count" property="personCount" />
+        <result column="user_type" property="userType" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, pid, pre_id, enterprise_id, city_id, month, person_count, user_type, create_time
+    </sql>
+
+    <!--通过路线id查找static-->
+    <select id="findByPreId" resultType="com.brightease.bju.bean.pre.PreLineStatistics">
+        select <include refid="Base_Column_List"></include> from pre_line_statistics
+        <where>
+            <if test="preId!=null and preId !=''">
+                AND pre_id = #{preId}
+            </if>
+            <if test="userType!=null and userType !=''">
+               AND user_type = #{userType}
+            </if>
+            <if test="enterPriseId!=null and enterPriseId !=''">
+              AND  enterprise_id = #{enterPriseId}
+            </if>
+        </where>
+
+    </select>
+
+    <!--通过路线id查找static-->
+    <select id="findByEnterprisIds" resultType="com.brightease.bju.bean.pre.PreLineStatistics">
+        select <include refid="Base_Column_List"></include> from pre_line_statistics
+        <where>
+            <if test="preId!=null and preId !=''">
+                AND pre_id = #{preId}
+            </if>
+            <if test="userType!=null and userType !=''">
+                AND user_type = #{userType}
+            </if>
+            <if test="ids != null and ids.size > 0">
+                AND
+                <foreach collection="ids" item="id" open="enterprise_id in(" close=")" separator=",">
+                    ${id}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+
+
+</mapper>

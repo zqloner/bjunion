@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.formal.FormalLineEnterpriseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.formal.FormalLineEnterprise">
+        <id column="id" property="id" />
+        <result column="formal_id" property="formalId" />
+        <result column="enterprise_id" property="enterpriseId" />
+        <result column="max_count" property="maxCount" />
+        <result column="now_count" property="nowCount" />
+        <result column="examine_status" property="examineStatus" />
+        <result column="reg_date" property="regDate" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, formal_id, enterprise_id, max_count, now_count,examine_status,reg_date,update_time
+    </sql>
+    <select id="getList" resultMap="list">
+        SELECT
+        f.*,
+        ll.`name` as line_name,
+        e.`examine_name`,
+        e.`request_name`,
+        e.`message`,
+        e.`examine_status` AS e_status,
+        e.`create_time`
+        FROM
+        formal_line_examine e
+        LEFT JOIN formal_line_enterprise f
+        ON f.`id` = e.`formal_line_id`
+        LEFT JOIN formal_line l
+        ON f.`formal_id` = l.`id`
+        LEFT JOIN line_line ll
+        ON l.`line_id` = ll.`id`
+        WHERE 1=1
+        <if test="dto.userType != null ">
+            and l.`user_type` = #{dto.userType}
+        </if>
+        <if test="dto.lineName != null and dto.lineName!=''">
+            and ll.`name` like CONCAT('%',#{dto.lineName},'%')
+        </if>
+        <if test="dto.eName != null and dto.eName!=''">
+            and e.`name`  like CONCAT('%',#{dto.eName},'%')
+        </if>
+
+        <if test="enterprises != null and enterprises.size > 0">
+            <foreach collection="enterprises" item="id" open="and f.enterprise_id in(" close=")" separator=",">
+                ${id.id}
+            </foreach>
+        </if>
+    </select>
+
+    <resultMap id="list" type="com.brightease.bju.bean.dto.FormalLineEnterpriseDto">
+        <id column="id" property="id" />
+        <result column="formal_id" property="formalId" />
+        <result column="enterprise_id" property="enterpriseId" />
+        <result column="max_count" property="maxCount" />
+        <result column="now_count" property="nowCount" />
+        <result column="examine_status" property="examineStatus" />
+        <result column="line_name" property="lineName" />
+    </resultMap>
+
+    <select id="getRegRecordList" resultMap="regList">
+        SELECT
+        fle.`id`,
+        l.name AS lineName,
+        fle.`now_count`,
+        fle.`max_count`,
+        fl.`is_team`,
+        fl.`line_status`,
+        fle.`examine_status`,
+        fle.`reg_date`,
+        e.name AS enterprise_name,
+        fle.`formal_id`,
+        e.pid
+        FROM
+        `formal_line_examine` ex
+        LEFT JOIN `formal_line_enterprise` fle
+        ON ex.`formal_line_enterprise_id` = fle.`id`
+        LEFT JOIN formal_line fl
+        ON fle.`formal_id` = fl.`id`
+        LEFT JOIN line_line l
+        ON fl.`line_id` = l.`id`
+        LEFT JOIN enterprise_enterprise e
+        ON fle.`enterprise_id` = e.`id`
+        LEFT JOIN enterprise_enterprise p
+        ON e.`pid` = p.`id`
+        WHERE fl.`status` = 1
+        AND fl.`is_del` = 1
+        <if test="fleId != null">
+            and fle.id = #{fleId}
+        </if>
+        <if test="formalId != null">
+            and fl.id = #{formalId}
+        </if>
+          <if test="userType != null">
+              and fl.user_type = #{userType}
+          </if>
+          <if test="examineStatus != null">
+              and fle.examine_status = #{examineStatus}
+          </if>
+          <if test="lineName != null and lineName != ''">
+              and  l.name  LIKE CONCAT('%','${lineName}','%')
+          </if>
+        <if test="enterpriseName != null and enterpriseName != ''">
+            and  e.name  LIKE CONCAT('%','${enterpriseName}','%')
+        </if>
+          <if test="start != null">
+              and fle.reg_date &gt;= #{start}
+          </if>
+        <if test="end != null">
+            and fle.reg_date &lt;=  #{end}
+        </if>
+        <if test="eId != null">
+           AND e.`id` = #{eId}
+        </if>
+        <if test="pId != null">
+           AND p.`id` = #{pId}
+        </if>
+        GROUP BY ex.formal_line_enterprise_id
+        order by fle.update_Time desc
+
+    </select>
+    <select id="getInfoList" resultType="com.brightease.bju.bean.formal.FormalLineEnterprise">
+        SELECT
+            f.*,e.`name` AS enterpriseName
+        FROM
+            `formal_line_enterprise` f
+        LEFT JOIN enterprise_enterprise e
+            ON f.`enterprise_id` = e.`id`
+        WHERE f.`examine_status` = 3
+            and  f.`id`= #{formalId}
+            <if test="enterpriseName != null and enterpriseName != ''">
+                and  e.name  LIKE CONCAT('%','${enterpriseName}','%')
+            </if>
+
+    </select>
+
+    <resultMap id="regList" type="com.brightease.bju.bean.dto.FormalLineEnterpriseDto">
+        <id column="id" property="id" />
+        <result column="lineName" property="lineName" />
+        <result column="now_count" property="nowCount" />
+        <result column="examine_status" property="examineStatus" />
+        <result column="line_status" property="lineStatus" />
+        <result column="reg_date" property="regDate" />
+        <result column="enterprise_name" property="enterpriseName" />
+        <result column="formal_id" property="formalId" />
+        <result column="pid" property="pid" />
+    </resultMap>
+
+</mapper>
+

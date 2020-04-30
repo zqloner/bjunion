@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.pre.PreLineAreaMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.pre.PreLineArea">
+        <id column="id" property="id" />
+        <result column="pre_id" property="preId" />
+        <result column="area_id" property="areaId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, pre_id, area_id
+    </sql>
+
+    <!--到达预报名新增或者编辑-->
+    <select id="getCountAreas" resultType="long">
+        SELECT sa.ID FROM pre_line_area pa,`sys_area` sa WHERE pa.`area_id`=sa.`ID` AND sa.`PARENT_ID`!=7459 AND pre_id=#{id}
+    </select>
+
+</mapper>

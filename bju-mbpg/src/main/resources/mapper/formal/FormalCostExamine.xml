@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.formal.FormalCostExamineMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.formal.FormalCostExamine">
+        <id column="id" property="id" />
+        <result column="formal_cost_id" property="formalCostId" />
+        <result column="examine_id" property="examineId" />
+        <result column="req_id" property="reqId" />
+        <result column="message" property="message" />
+        <result column="examine_status" property="examineStatus" />
+        <result column="create_time" property="createTime" />
+        <result column="is_del" property="isDel" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, formal_cost_id, examine_id, req_id, message, examine_status, create_time, is_del, status
+    </sql>
+    <select id="getList" resultType="com.brightease.bju.bean.dto.FormalCostExamineDto">
+        SELECT
+            e.`id`,
+            c.`price`,
+            e.`create_time`,
+            e.`examine_status`,
+            l.`name` as leaderName,
+            l.`username`,
+            line.`name` as lineName,
+            f.`s_bengin_time` as start,
+            f.`s_end_time`as end,
+            f.`now_count`
+        FROM
+            `formal_cost_examine` e
+        LEFT JOIN formal_cost c
+            ON c.`id` = e.`formal_cost_id`
+        LEFT JOIN leader_leader l
+            ON l.`id` = e.`req_id`
+        LEFT JOIN formal_line f
+            ON c.`formal_id` = f.`id`
+        LEFT JOIN line_line line
+            ON line.`id` = f.`line_id`
+        WHERE e.`status`=1 AND e.`is_del`=1
+        <if test="username != null and username !=''">
+            AND l.username LIKE CONCAT('%','${username}','%')
+        </if>
+        <if test="leaderName != null and leaderName !=''">
+            AND l.name LIKE CONCAT('%','${leaderName}','%')
+        </if>
+        <if test="lineName != null and lineName !=''">
+            AND line.`name` LIKE CONCAT('%','${lineName}','%')
+        </if>
+        <if test="examineStatus != null ">
+            AND e.`examine_status` = #{examineStatus}
+        </if>
+        <if test="start != null">
+            and f.s_bengin_time &gt; #{start}
+        </if>
+        <if test="end != null">
+            and f.s_end_time &lt; #{end}
+        </if>
+        order by e.`create_time` desc
+    </select>
+    <select id="getCostExamineStatus" resultType="java.util.Map">
+        SELECT
+            a.formal_cost_id,
+            a.examine_id,
+            a.req_id,
+            a.message,
+            a.examine_status,
+            b. NAME sname,
+            DATE_FORMAT(a.create_time, '%Y-%m-%d %H:%i:%s') createtime,
+            CASE a.examine_status
+            WHEN 0 THEN
+                '未通过'
+            WHEN 1 THEN
+                '已通过'
+            ELSE
+                '未审核'
+            END AS estatus
+        FROM
+            formal_cost_examine a
+            LEFT JOIN sys_admin b ON a.examine_id = b.id
+        WHERE
+            a.formal_cost_id = #{costid}
+            AND a.is_del = 1
+            AND a.status = 1
+        ORDER BY
+            a.create_time DESC
+    </select>
+    <select id="getExamineList" resultType="com.brightease.bju.bean.formal.FormalCostExamine">
+       SELECT
+          fce.*,
+          l.`name`
+        FROM
+          `formal_cost_examine` fce
+          LEFT JOIN leader_leader l
+            ON fce.`req_id` = l.`id`
+            LEFT JOIN `formal_cost` fc
+            ON fc.`id`= fce.`formal_cost_id`
+        WHERE fc.`formal_id`= #{costId}
+    </select>
+
+</mapper>

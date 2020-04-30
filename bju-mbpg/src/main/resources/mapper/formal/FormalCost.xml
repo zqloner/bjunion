@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.formal.FormalCostMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.formal.FormalCost">
+        <id column="id" property="id" />
+        <result column="formal_id" property="formalId" />
+        <result column="line_id" property="lineId" />
+        <result column="price" property="price" />
+        <result column="remarks" property="remarks" />
+        <result column="is_leader" property="isLeader" />
+        <result column="examine_status" property="examineStatus" />
+        <result column="create_time" property="createTime" />
+        <result column="is_del" property="isDel" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, formal_id, line_id, price, remarks, is_leader, examine_status, create_time, is_del, status
+    </sql>
+    <select id="getCostList" resultMap="formalCost">
+        SELECT
+        fc.id,
+        fl.`id` AS formal_id,
+        fl.`now_count`,
+        fl.`s_bengin_time`,
+        fl.`s_end_time`,
+        le.`name` AS leaderName,
+        ll.`name` AS lineName
+        FROM
+            `formal_line` fl
+        LEFT JOIN line_line ll
+            ON fl.`line_id` = ll.`id`
+        LEFT JOIN formal_line_leader fll
+            ON fll.`formal_id` = fl.`id`
+        LEFT JOIN leader_leader le
+            ON fll.`leader_id` = le.`id`
+        LEFT JOIN (SELECT * FROM `formal_cost` WHERE is_leader = 0 AND STATUS = 1 AND is_del =1) fc
+            ON fl.`id` = fc.`formal_id`
+        WHERE fl.`is_team` = 1
+        AND fl.`status` = 1
+        AND fl.`is_del` = 1
+        <if test="lineName != null and lineName != ''">
+            and ll.name like CONCAT('%',#{lineName},'%')
+        </if>
+        <if test="status != null and status == 1">
+            and fc.id IS NOT NULL
+        </if>
+        <if test="status != null and status == 2">
+            and fc.id IS NULL
+        </if>
+        GROUP BY fl.`id`
+        ORDER BY fc.`create_time` desc
+    </select>
+    <select id="getInfoById" resultMap="info">
+        SELECT
+            fc.price ,
+            ll.`name` AS lineName,
+            fl.`s_bengin_time`,
+            fl.`s_end_time`,
+            fl.`now_count`,
+            fc.`id`,
+            fci.`cost_type`,
+            fci.`cost_info`,
+            fci.`cost_user`,
+            fci.`price` AS c_price,
+            fci.`remarks` AS c_remarks,
+            fca.`id` AS aid,
+            fca.`name`,
+            GROUP_CONCAT(ss.name) as sanator_name,
+            fca.`url`
+        FROM
+            `formal_cost` fc
+        LEFT JOIN formal_line fl
+            ON fc.`formal_id` = fl.`id`
+        LEFT JOIN line_line ll
+            ON fc.`line_id` = ll.`id`
+         LEFT JOIN ((SELECT * FROM `formal_cost_info` WHERE is_del = 1 AND STATUS = 1)) fci
+            ON fc.`id` = fci.`cost_id`
+          LEFT JOIN (SELECT * FROM `formal_cost_append` WHERE is_del = 1 AND STATUS = 1) fca
+            ON fc.`id` = fca.`cost_id`
+        LEFT JOIN line_sanatorium ls
+          ON ll.`id` = ls.`line_id`
+        LEFT JOIN sanatorium_sanatorium ss
+          ON ls.`sanatorium_id`=ss.`id`
+        WHERE fc.is_leader = #{isLeader}
+            and fl.`id` = #{id}
+              AND fl.`is_del`=1
+              AND fl.`status`=1
+              AND fc.`is_del`=1
+              AND fc.`status`=1
+        group by fl.id
+    </select>
+
+    <resultMap id="formalCost" type="com.brightease.bju.bean.dto.FormalCostDto">
+        <id column="id" property="id" />
+        <result column="formal_id" property="formalId" />
+        <result column="line_id" property="lineId" />
+        <result column="price" property="price" />
+        <result column="remarks" property="remarks" />
+        <result column="is_leader" property="isLeader" />
+        <result column="examine_status" property="examineStatus" />
+        <result column="create_time" property="createTime" />
+        <result column="is_del" property="isDel" />
+        <result column="status" property="status" />
+        <result column="lineName" property="lineName" />
+        <result column="leaderName" property="leaderName" />
+        <result column="now_count" property="nowCount" />
+        <result column="s_bengin_time" property="sBenginTime" />
+        <result column="s_end_time" property="sEndTime" />
+    </resultMap>
+
+    <resultMap id="info" type="com.brightease.bju.bean.dto.FormalCostInfoDto">
+        <id column="id" property="id" />
+        <result column="formal_id" property="formalId" />
+        <result column="line_id" property="lineId" />
+        <result column="price" property="price" />
+        <result column="remarks" property="remarks" />
+        <result column="is_leader" property="isLeader" />
+        <result column="examine_status" property="examineStatus" />
+        <result column="create_time" property="createTime" />
+        <result column="is_del" property="isDel" />
+        <result column="status" property="status" />
+        <result column="lineName" property="lineName" />
+        <result column="leaderName" property="leaderName" />
+        <result column="now_count" property="nowCount" />
+        <result column="s_bengin_time" property="sBenginTime" />
+        <result column="s_end_time" property="sEndTime" />
+        <result column="sanator_name" property="sanatorName" />
+        <collection  property="infos" ofType="com.brightease.bju.bean.formal.FormalCostInfo">
+            <id column="cid" property="id" />
+            <result column="cost_id" property="costId" />
+            <result column="cost_type" property="costType" />
+            <result column="cost_info" property="costInfo" />
+            <result column="user_id" property="userId" />
+            <result column="cost_user" property="costUser" />
+            <result column="c_price" property="price" />
+            <result column="c_remarks" property="remarks" />
+        </collection >
+        <collection property="appends" ofType="com.brightease.bju.bean.formal.FormalCostAppend">
+            <id column="aid" property="id" />
+            <result column="name" property="name" />
+            <result column="url" property="url" />
+        </collection>
+    </resultMap>
+
+
+    <select id="getFormalCostList" resultType="java.util.Map">
+        SELECT
+            x.formalid,
+        x.lineid,
+        x.linename,
+        x.bengintime,
+        x.endtime,
+        x.percount,
+        x.costid,
+        x.price,
+        x.examinestatus,
+        x.createtime,
+        x.isdel,
+        x.isleader,
+        x.shzt FROM (
+        SELECT
+        c.id formalid,
+        c.line_id lineid,
+        b.`name` linename,
+        DATE_FORMAT(c.s_bengin_time, '%Y-%m-%d') bengintime,
+        DATE_FORMAT(c.s_end_time, '%Y-%m-%d') endtime,
+        c.now_count percount,
+        a.id costid,
+        a.price,
+        a.examine_status examinestatus,
+        DATE_FORMAT(
+        a.create_time,
+        '%Y-%m-%d %H:%i:%s'
+        ) createtime,
+        a.is_del isdel,
+        a.is_leader isleader,
+        a. STATUS shzt
+        FROM
+        formal_line c
+        LEFT JOIN formal_cost a ON a.formal_id = c.id
+        LEFT JOIN formal_line_leader d ON c.id = d.formal_id
+        LEFT JOIN line_line b ON c.line_id = b.id
+        WHERE
+        d.leader_id = #{leaderid}
+        AND c.user_type = #{usertype}
+        AND a.is_del = 1
+        AND a. STATUS = 1
+        AND a.is_leader = 1
+        <if test="linename!=null and linename!=''">
+            AND b.name like CONCAT('%',#{linename},'%')
+        </if>
+        <if test="examinestatus!=null">
+            AND a.examine_status = #{examinestatus}
+        </if>
+        <if test="starttime!=null and starttime!=''">
+            AND  DATE_FORMAT(c.s_bengin_time, '%Y-%m-%d') >= #{starttime}
+        </if>
+        <if test="endtime!=null and endtime!=''">
+            AND DATE_FORMAT(c.s_end_time ,'%Y-%m-%d') &lt;= #{endtime}
+        </if>
+        UNION
+        SELECT
+        c.id formalid,
+        c.line_id lineid,
+        b.`name` linename,
+        DATE_FORMAT(c.s_bengin_time, '%Y-%m-%d') bengintime,
+        DATE_FORMAT(c.s_end_time, '%Y-%m-%d') endtime,
+        c.now_count percount,
+        a.id costid,
+        a.price,
+        a.examine_status examinestatus,
+        DATE_FORMAT(
+        a.create_time,
+        '%Y-%m-%d %H:%i:%s'
+        ) createtime,
+        a.is_del isdel,
+        a.is_leader isleader,
+        a. STATUS shzt
+        FROM
+        formal_line c
+        LEFT JOIN formal_cost a ON a.formal_id = c.id
+        LEFT JOIN formal_line_leader d ON c.id = d.formal_id
+        LEFT JOIN line_line b ON c.line_id = b.id
+        WHERE
+        d.leader_id = #{leaderid}
+        AND c.user_type = #{usertype}
+        AND a.is_leader IS NULL
+        <if test="linename!=null and linename!=''">
+            AND b.name like CONCAT('%',#{linename},'%')
+        </if>
+        <if test="examinestatus!=null">
+            AND a.examine_status = #{examinestatus}
+        </if>
+        <if test="starttime!=null and starttime!=''">
+            AND  DATE_FORMAT(c.s_bengin_time, '%Y-%m-%d') >= #{starttime}
+        </if>
+        <if test="endtime!=null and endtime!=''">
+            AND DATE_FORMAT(c.s_end_time ,'%Y-%m-%d') &lt;= #{endtime}
+        </if>
+        ) x
+        ORDER BY x.formalid DESC
+    </select>
+    <select id="getZghPrice" resultType="com.brightease.bju.bean.dto.StatisticsCostFormalLineDto">
+        SELECT
+          fc.`formal_id` formallineId,
+          SUM(price) AS allPrice
+        FROM
+          `formal_cost` fc
+        LEFT JOIN line_line ll
+          ON ll.`id` = fc.`line_id`
+        WHERE fc.`is_leader` = 0
+          AND fc.`is_del` = 1
+          AND fc.`status` = 1
+          <if test="lineId != null">
+              AND ll.`id`=#{lineId}
+          </if>
+        GROUP BY fc.`formal_id`
+
+    </select>
+    <select id="getLeaderPrice" resultType="com.brightease.bju.bean.dto.StatisticsCostFormalLineDto">
+        SELECT
+        fc.`formal_id` formallineId,
+        SUM(price) AS allPrice
+        FROM
+        `formal_cost` fc
+        LEFT JOIN line_line ll
+        ON ll.`id` = fc.`line_id`
+        WHERE fc.`is_leader` = 1
+        AND fc.`examine_status` = 1
+        AND fc.`is_del` = 1
+        AND fc.`status` = 1
+        <if test="lineId != null">
+            AND ll.`id`=#{lineId}
+        </if>
+        GROUP BY fc.`formal_id`
+    </select>
+    <select id="getInfoByFormalIdAndUserId" resultMap="info">
+      SELECT
+            fc.price ,
+            ll.`name` AS lineName,
+            fl.`s_bengin_time`,
+            fl.`s_end_time`,
+            fl.`now_count`,
+            fci.`id` AS cid,
+            fci.`cost_type`,
+            fci.`cost_info`,
+            fci.`cost_user`,
+            fci.`price` AS c_price,
+            fci.`remarks` AS c_remarks,
+            fca.`id` AS aid,
+            fca.`name`,
+            fca.`url`
+        FROM
+            `formal_cost` fc
+        LEFT JOIN formal_line fl
+            ON fc.`formal_id` = fl.`id`
+        LEFT JOIN line_line ll
+            ON fc.`line_id` = ll.`id`
+        LEFT JOIN formal_cost_info fci
+            ON fc.`id` = fci.`cost_id`
+        LEFT JOIN formal_cost_append fca
+            ON fc.`id` = fca.`cost_id`
+        WHERE fc.`is_leader` = 1
+        AND fc.`examine_status` = 1
+        AND fci.`is_del`=1
+        AND fci.`status`=1
+        AND fci.`cost_type`=2
+            <if test="id != null">
+                AND fci.`user_id` =  #{id}
+            </if>
+            <if test="formallineId != null">
+                and fl.`id` = #{formallineId}
+            </if>
+    </select>
+    <select id="getLeaderCostList" resultType="com.brightease.bju.bean.dto.LeaderExamineCostDto">
+        SELECT
+          leader.`name` as leaderName,
+          leader.`username`,
+          ll.`name` as lineName,
+          fl.`s_bengin_time` AS start,
+          fl.`s_end_time` AS end,
+          fl.`now_count` ,
+          fc.`price`,
+          fc.`create_time`,
+          fc.`examine_status`,
+          fc.`id` as costId,
+          fl.`id` as formalId
+        FROM
+          `formal_cost` fc
+          LEFT JOIN formal_line fl
+            ON fc.`formal_id` = fl.`id`
+          LEFT JOIN line_line ll
+            ON fc.`line_id` = ll.`id`
+          LEFT JOIN formal_line_leader fll
+            ON fll.`formal_id` = fl.`id`
+          LEFT JOIN leader_leader leader
+            ON fll.`leader_id` = leader.`id`
+          WHERE fc.`is_leader`=1
+        <if test="username != null and username !=''">
+            AND leader.username LIKE CONCAT('%','${username}','%')
+        </if>
+        <if test="leaderName != null and leaderName !=''">
+            AND leader.name LIKE CONCAT('%','${leaderName}','%')
+        </if>
+        <if test="lineName != null and lineName !=''">
+            AND ll.`name` LIKE CONCAT('%','${lineName}','%')
+        </if>
+        <if test="examineStatus != null ">
+            AND fc.`examine_status` = #{examineStatus}
+        </if>
+        <if test="start != null">
+            and fl.`s_bengin_time` <![CDATA[ >= ]]> #{start}
+        </if>
+        <if test="end != null">
+            and fl.s_end_time  <![CDATA[ <= ]]>  #{end}
+        </if>
+        <if test="formalId != null ">
+            AND fc.`formal_id` = #{formalId}
+        </if>
+        order by fc.create_time desc
+    </select>
+    <select id="getformalInfo" resultType="com.brightease.bju.bean.dto.FormalCostInfoDto">
+        SELECT
+          fl.`now_count`,
+          fl.`s_bengin_time`,
+          fl.`s_end_time`,
+          l.`name` AS lineName,
+          GROUP_CONCAT(ss.name) AS sanator_name
+        FROM
+          formal_line fl
+          LEFT JOIN line_line l
+            ON fl.`line_id` = l.id
+          LEFT JOIN line_sanatorium ls
+            ON l.`id` = ls.`line_id`
+          LEFT JOIN sanatorium_sanatorium ss
+            ON ls.`sanatorium_id` = ss.`id`
+        where fl.`id`=#{id}
+    </select>
+</mapper>

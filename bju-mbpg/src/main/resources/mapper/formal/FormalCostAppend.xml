@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.formal.FormalCostAppendMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.formal.FormalCostAppend">
+        <id column="id" property="id" />
+        <result column="formal_id" property="formalId" />
+        <result column="cost_id" property="costId" />
+        <result column="name" property="name" />
+        <result column="url" property="url" />
+        <result column="create_time" property="createTime" />
+        <result column="is_del" property="isDel" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, formal_id, cost_id, name, url, create_time, is_del, status
+    </sql>
+    <select id="getCostAppendList" resultType="java.util.Map">
+        SELECT
+            id,
+            formal_id,
+            cost_id,
+            NAME,
+            url
+        FROM
+            formal_cost_append
+        WHERE
+            is_del = 1
+            AND status = 1
+            AND cost_id = #{costid}
+    </select>
+    <update id="delAppendsByCostId">
+        UPDATE formal_cost_append SET
+            is_del = 0 , status = 0
+        WHERE cost_id = #{costid}
+    </update>
+</mapper>

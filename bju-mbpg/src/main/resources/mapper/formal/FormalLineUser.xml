@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.formal.FormalLineUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.formal.FormalLineUser">
+        <id column="id" property="id"/>
+        <result column="line_enterprise_id" property="lineEnterpriseId"/>
+        <result column="formal_id" property="formalId"/>
+        <result column="user_id" property="userId"/>
+        <result column="enterprise_id" property="enterpriseId"/>
+        <result column="yes_no" property="yesNo"/>
+        <result column="examine" property="examine"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, formal_id, user_id, enterprise_id, yes_no, examine
+    </sql>
+    <select id="getRegeistUsers" resultType="com.brightease.bju.bean.dto.FormalLineUsersDto">
+        SELECT
+          lu.id as LId,lu.formal_id as formalId,lu.user_id as userId ,u.*
+        FROM
+          formal_line_user lu
+          LEFT JOIN enterprise_user u
+            ON lu.`user_id` = u.`id`
+        WHERE u.`is_del` = 1
+          AND u.`status` = 1
+          AND lu.`line_enterprise_id`=#{formalLineId}
+          AND lu.`enterprise_id`=#{enterpriseId}
+    </select>
+
+    <select id="getFormalRecordUsers" resultType="com.brightease.bju.bean.dto.FormalLineUsersDto">
+              SELECT
+          lu.id AS LId,lu.formal_id AS formalId,fl.line_status lineStatus,en.name enterpriseName,sm.`name` nationName,lu.user_id AS userId ,u.*
+        FROM
+          formal_line_user lu
+          LEFT JOIN enterprise_user u
+            ON lu.`user_id` = u.`id`
+
+            LEFT JOIN enterprise_enterprise en
+            ON u.e_id = en.`id`
+
+            LEFT JOIN sys_mz sm
+            ON u.`nation_id` = sm.`id`
+            LEFT JOIN formal_line fl
+            ON fl.id = lu.formal_id
+          WHERE u.`is_del` = 1
+          AND u.`status` = 1
+          AND lu.formal_id=#{formalLineId}
+          AND lu.`enterprise_id`=#{enterpriseId}
+    </select>
+
+    <select id="getFormalRecordExportUsers" resultType="com.brightease.bju.bean.dto.FormalLineUsersExportDto">
+              SELECT
+          lu.id AS LId,lu.formal_id AS formalId,fl.line_status lineStatus,en.name enterpriseName,sm.`name` nationName,lu.user_id AS userId ,u.*
+        FROM
+          formal_line_user lu
+          LEFT JOIN enterprise_user u
+            ON lu.`user_id` = u.`id`
+
+            LEFT JOIN enterprise_enterprise en
+            ON u.e_id = en.`id`
+
+            LEFT JOIN sys_mz sm
+            ON u.`nation_id` = sm.`id`
+            LEFT JOIN formal_line fl
+            ON fl.id = lu.formal_id
+          WHERE u.`is_del` = 1
+          AND u.`status` = 1
+          AND lu.formal_id=#{formalLineId}
+    </select>
+    <select id="getUsers" resultType="com.brightease.bju.bean.dto.FormalLineUsersDto">
+        SELECT
+        u.*,
+        flu.`examine`,
+        flu.formal_id as formalId,
+        flu.`yes_no`,
+        e.`name` as enterpriseName
+        FROM
+        `formal_line_user` flu
+        LEFT JOIN enterprise_user u
+        ON flu.`user_id` = u.`id`
+        LEFT JOIN enterprise_enterprise e
+        ON flu.`enterprise_id` = e.`id`
+        WHERE 1=1
+        <if test=" lineEnterpriseId != null ">
+            and flu.line_enterprise_id = #{lineEnterpriseId}
+        </if>
+        <if test=" formalId != null ">
+            and flu.formal_id = #{formalId}
+        </if>
+        <if test=" enterpriseId != null ">
+            and flu.enterprise_id = #{enterpriseId}
+        </if>
+        <if test=" name != null and name != ''">
+            and u.name like CONCAT('%',#{uname},'%')
+        </if>
+        <if test=" cardId != null and cardId != ''">
+            and u.card_id like CONCAT('%',#{cardId},'%')
+        </if>
+        <if test=" phone != null and phone != ''">
+            and u.phone like CONCAT('%',#{phone},'%')
+        </if>
+        <if test=" IDCard != null and IDCard != ''">
+            and u.IDCard like CONCAT('%',#{IDCard},'%')
+        </if>
+        <if test=" yesNo != null ">
+            and flu.yes_no = #{yesNo}
+        </if>
+    </select>
+    <!--SELECT
+    fl.`id` as lineId,
+    flu.`formal_id` AS formallineId,
+    u.*,
+    e.`name`,
+    fl.`user_type`,
+    ll.`name`
+    FROM
+    formal_line_user flu
+    LEFT JOIN enterprise_user u
+    ON flu.`user_id` = u.`id`
+    LEFT JOIN formal_line fl
+    ON flu.`formal_id` = fl.`id`
+    LEFT JOIN line_line ll
+    ON fl.`line_id` = ll.`id`
+    LEFT JOIN enterprise_enterprise e
+    ON u.`e_id` = e.`id`
+    WHERE fl.`line_status` = 7
+    AND fl.`status` = 1
+    AND fl.`is_del` = 1
+    AND flu.`yes_no` = 1
+    AND flu.`examine` = 1-->
+    <select id="getCostUsers" resultType="com.brightease.bju.bean.dto.StatisticsCostDto">
+        SELECT
+        fl.`id` AS lineId,
+        flu.`formal_id` AS formallineId,
+        u.*,
+        e.`name` enterpriseName,
+        fl.`user_type`,
+        ll.`name`,
+        fl.s_bengin_time sBeginStart,
+        fl.s_end_time sBeginEnd,
+        ll.name lineName
+        FROM
+        formal_line_user flu
+        LEFT JOIN enterprise_user u
+        ON flu.`user_id` = u.`id`
+        LEFT JOIN formal_line fl
+        ON flu.`formal_id` = fl.`id`
+        LEFT JOIN line_line ll
+        ON fl.`line_id` = ll.`id`
+        LEFT JOIN enterprise_enterprise e
+        ON u.`e_id` = e.`id`
+        WHERE fl.`line_status` = 7
+        AND fl.`status` = 1
+        AND fl.`is_del` = 1
+        AND flu.`yes_no` = 1
+        AND flu.`examine` = 1
+        <if test="formallineId != null">
+            and flu.`formal_id` = #{formallineId}
+        </if>
+        <if test="lineName != null and lineName != ''">
+            and ll.`name` like CONCAT('%',#{lineName},'%')
+        </if>
+        <if test="name != null and name != ''">
+            and u.`name` like CONCAT('%',#{name},'%')
+        </if>
+        <if test="cardId != null and cardId != ''">
+            and u.`card_id` like CONCAT('%',#{cardId},'%')
+        </if>
+        <if test="phone != null and phone != ''">
+            and u.`phone` like CONCAT('%',#{phone},'%')
+        </if>
+        <if test="IDCard != null and IDCard != ''">
+            and u.`IDCard` like CONCAT('%',#{IDCard},'%')
+        </if>
+        <if test="eId != null ">
+            AND u.`e_id` = #{eId}
+        </if>
+        <if test="pId != null ">
+            AND e.`pid` = #{pId}
+        </if>
+        <if test="sBeginStart !=null and sBeginStart != ''">
+            AND fl.`s_bengin_time` <![CDATA[ >= ]]> #{sBeginStart}
+        </if>
+        <if test="sBeginEnd !=null and sBeginEnd != ''">
+            AND fl.`s_bengin_time` <![CDATA[ <= ]]> #{sBeginEnd}
+        </if>
+        <if test="sEndStart !=null and sEndStart != ''">
+            AND fl.`s_end_time` <![CDATA[ >= ]]> #{sEndStart}
+        </if>
+        <if test="sEndEnd !=null and sEndEnd != ''">
+            AND fl.`s_end_time` <![CDATA[ <= ]]> #{sEndEnd}
+        </if>
+        ORDER BY fl.`create_time` DESC
+    </select>
+    <select id="getAllUsersByFormalLine" resultType="com.brightease.bju.bean.dto.StatisticsCostFormalLineDto">
+
+        SELECT
+        flu.`formal_id` as formallineId,COUNT(*) usersCount
+        FROM
+        `formal_line_user` flu
+        LEFT JOIN formal_line fl
+        ON flu.`formal_id` = fl.`id`
+        LEFT JOIN line_line ll
+        ON ll.`id` = fl.`line_id`
+        WHERE
+        1=1
+        <if test="lineId!=null">
+            and ll.`id`= #{lineId}
+        </if>
+        GROUP BY flu.`formal_id`
+
+    </select>
+    <select id="getNextEnterpriseRegUsers" resultType="com.brightease.bju.bean.dto.FormalLineUsersDto">
+
+        SELECT
+          e.`name` as enterpriseName,
+          u.`card_id`,
+          u.`name`,
+          u.`sex`,
+          u.`birthday`,
+          u.`IDCard`,
+          u.`phone`,
+          u.`job`,
+          u.`honour`,
+          u.`honour_time`
+        FROM
+          `formal_line_enterprise` fle
+          LEFT JOIN enterprise_enterprise e
+            ON fle.`enterprise_id` = e.`id`
+          LEFT JOIN `formal_line_user` flu
+            ON flu.`line_enterprise_id` = fle.`id`
+          LEFT JOIN enterprise_user u
+            ON flu.`user_id` = u.`id`
+        WHERE fle.`id` = #{formalLineUserId}
+
+    </select>
+
+    <select id="getRecordUserIds" resultType="long">
+     SELECT
+      flu.user_id
+    FROM
+      `formal_line_user` flu
+    WHERE flu.formal_id IN
+      (SELECT
+        fl.id
+      FROM
+        `formal_line` fl
+        LEFT JOIN
+        `formal_line_enterprise` fle
+        ON fl.`id` = fle.`formal_id`
+      WHERE fle.`update_time` <![CDATA[>=]]> #{startTime}
+        AND fle.`update_time` <![CDATA[<=]]>#{nowTime}
+        AND fl.user_type = 3
+        AND fl.is_del = 1
+        AND fl.status = 1)
+      AND (flu.yes_no =1 OR
+              flu.`yes_no` IS NULL)
+       AND (flu.examine =1 OR
+              flu.`examine` IS NULL)
+    </select>
+    <select id="getUsersNoPage" resultType="com.brightease.bju.bean.dto.FormalLineUsersExportDto">
+        SELECT
+        u.*,
+        flu.`examine`,
+        flu.formal_id as formalId,
+        flu.`yes_no`,
+        e.`name` as enterpriseName
+        FROM
+        `formal_line_user` flu
+        LEFT JOIN enterprise_user u
+        ON flu.`user_id` = u.`id`
+        LEFT JOIN enterprise_enterprise e
+        ON flu.`enterprise_id` = e.`id`
+        WHERE 1=1
+        <if test=" enterPriseIds != null and enterPriseIds.size>0">
+            and
+            <foreach collection="enterPriseIds" item="id" open="flu.line_enterprise_id in(" close=")" separator=",">
+                ${id}
+            </foreach>
+        </if>
+    </select>
+</mapper>

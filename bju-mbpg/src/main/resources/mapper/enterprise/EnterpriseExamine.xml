@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.enterprise.EnterpriseExamineMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.enterprise.EnterpriseExamine">
+        <id column="id" property="id" />
+        <result column="examine_id" property="examineId" />
+        <result column="examine_name" property="examineName" />
+        <result column="enterprise_id" property="enterpriseId" />
+        <result column="request_name" property="requestName" />
+        <result column="message" property="message" />
+        <result column="examine_status" property="examineStatus" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, examine_id, enterprise_id,request_name,examine_name, message, examine_status, create_time
+    </sql>
+
+</mapper>

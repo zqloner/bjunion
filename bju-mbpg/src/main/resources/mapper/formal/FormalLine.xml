@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.formal.FormalLineMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.formal.FormalLine">
+        <id column="id" property="id" />
+        <result column="line_id" property="lineId" />
+        <result column="s_bengin_time" property="sBenginTime" />
+        <result column="s_end_time" property="sEndTime" />
+        <result column="r_begin_time" property="rBeginTime" />
+        <result column="r_end_time" property="rEndTime" />
+        <result column="now_count" property="nowCount" />
+        <result column="max_count" property="maxCount" />
+        <result column="is_team" property="isTeam" />
+        <result column="examine_status" property="examineStatus" />
+        <result column="line_status" property="lineStatus" />
+        <result column="user_type" property="userType" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_del" property="isDel" />
+        <result column="status" property="status" />
+        <result column="message" property="message" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, line_id, s_bengin_time, s_end_time, r_begin_time, r_end_time, now_count, max_count, is_team, examine_status, line_status, user_type, create_time,update_time, is_del, status,message
+    </sql>
+    <select id="getFormalLineList" resultType="java.util.Map">
+        SELECT
+            l.id formalid,
+            DATE_FORMAT(l.s_bengin_time, '%Y-%m-%d') bengintime,
+            DATE_FORMAT(l.s_end_time, '%Y-%m-%d') endtime,
+            a.`name` tuanname,
+            l.now_count percount,
+            l.line_status tuanstatus
+        FROM
+            formal_line l
+            INNER JOIN formal_line_leader u ON l.id = u.formal_id
+            INNER JOIN line_line a ON l.line_id = a.id
+            LEFT JOIN enterprise_role r ON l.user_type = r.id
+        WHERE
+            u.leader_id = #{leaderid}
+            AND r.id = #{usertype}
+            <if test="linename!=null and linename!=''">
+                AND a.name like CONCAT('%',#{linename},'%')
+            </if>
+            <if test="linestatus!=null and linestatus!=''">
+                AND l.line_status = #{linestatus}
+            </if>
+            <if test="starttime!=null and starttime!=''">
+                AND  DATE_FORMAT(l.s_bengin_time, '%Y-%m-%d') >= #{starttime}
+            </if>
+            <if test="endtime!=null and endtime!=''">
+                AND DATE_FORMAT(l.s_end_time ,'%Y-%m-%d') &lt;= #{endtime}
+            </if>
+          ORDER BY  l.id DESC
+
+    </select>
+    <select id="getFormalSanatoriumInfo" resultType="java.util.Map">
+        SELECT
+            l.id formalid,
+            DATE_FORMAT(l.s_bengin_time, '%Y-%m-%d') bengintime,
+            DATE_FORMAT(l.s_end_time, '%Y-%m-%d') endtime,
+            a.`name` tuanname,
+            s.`name` hname,
+            l.now_count percount,
+            l.line_status tuanstatus
+        FROM
+            formal_line l
+            INNER JOIN line_line a ON l.line_id = a.id
+            LEFT JOIN enterprise_role r ON l.user_type = r.id
+            LEFT JOIN line_sanatorium b ON a.id = b.line_id
+            LEFT JOIN sanatorium_sanatorium s ON s.id = b.sanatorium_id
+        WHERE
+            l.id = #{formalid}
+    </select>
+    <select id="getFormalLineUserList" resultType="java.util.Map">
+        SELECT
+            a.id,
+            a.formal_id,
+            a.user_id,
+            a.enterprise_id,
+            a.yes_no,
+            c.`name` username,
+            d.`name` dwname,
+            c.card_id,
+            c.IDCard idcard,
+            c.phone,
+            f.`value` gotravel,
+            e.go_ticket_info goticket,
+            e.go_price,
+            g.`value` backtravel,
+            e.back_ticket_info backeticket,
+            e.back_price
+        FROM
+            formal_line_user a
+            LEFT JOIN formal_line b ON a.formal_id = b.id
+            LEFT JOIN enterprise_user c ON c.id = a.user_id
+            LEFT JOIN enterprise_enterprise d ON d.id = c.e_id
+            LEFT JOIN ticket_info e ON e.formal_line_user_id = a.id
+            LEFT JOIN sys_dict f ON f.id = e.go_type
+            LEFT JOIN sys_dict g ON g.id = e.back_type
+        WHERE a.formal_id = #{formalid}
+               AND a.examine = '1'
+            <if test="eid!=null and eid!=''">
+                AND c.e_id = #{eid}
+            </if>
+            <if test="uname!=null and uname!=''">
+                AND c.name like CONCAT('%',#{uname},'%')
+            </if>
+            <if test="cardid!=null and cardid!=''">
+                AND c.card_id = #{cardid}
+            </if>
+            <if test="phone!=null and phone!=''">
+                AND c.phone = #{phone}
+            </if>
+            <if test="IDCard!=null and IDCard!=''">
+                AND c.IDCard = #{IDCard}
+            </if>
+            <if test="ifout!=null">
+                AND a.yes_no = #{ifout}
+            </if>
+        ORDER BY a.user_id DESC
+
+    </select>
+    <select id="getFormalLineCompanyList" resultType="java.util.Map">
+        SELECT DISTINCT
+            c.e_id eid,
+            d.`name` dwname
+        FROM
+            formal_line_user a
+            LEFT JOIN formal_line b ON a.formal_id = b.id
+            LEFT JOIN enterprise_user c ON c.id = a.user_id
+            LEFT JOIN enterprise_enterprise d ON d.id = c.e_id
+        WHERE
+            a.formal_id = #{formalid}
+            <if test="eid!=null and eid!=''">
+                AND c.e_id = #{eid}
+            </if>
+    </select>
+
+    <select id="getlist" resultType="com.brightease.bju.bean.formal.FormalLine">
+        SELECT
+          fl.*,ll.`name`
+        FROM
+          `formal_line` fl
+          LEFT JOIN line_line ll
+            ON fl.`line_id` = ll.`id`
+        WHERE fl.`is_del` = 1
+          AND fl.`status` = 1
+          <if test="name != null and name != ''">
+              and ll.name LIKE CONCAT('%',#{name},'%')
+          </if>
+        <if test="startTime != null and startTime != ''">
+            and fl.r_begin_time <![CDATA[>=]]>#{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and fl.r_end_time <![CDATA[<=]]> #{endTime}
+        </if>
+          <if test="userType != null ">
+              and fl.user_type = #{userType}
+          </if>
+        <if test="isTeam != null">
+            <choose>
+            <when test=" isTeam == 2 ">
+            and  fl.is_team is null
+            </when >
+            <otherwise>
+            and   fl.is_team = #{isTeam}
+            </otherwise>
+            </choose>
+        </if>
+        ORDER BY fl.update_time desc,fl.r_end_time desc
+    </select>
+
+    <resultMap id="info" type="com.brightease.bju.bean.formal.FormalLine">
+        <id column="id" property="id" />
+        <result column="line_id" property="lineId" />
+        <result column="s_bengin_time" property="sBenginTime" />
+        <result column="s_end_time" property="sEndTime" />
+        <result column="r_begin_time" property="rBeginTime" />
+        <result column="r_end_time" property="rEndTime" />
+        <result column="now_count" property="nowCount" />
+        <result column="max_count" property="maxCount" />
+        <result column="is_team" property="isTeam" />
+        <result column="examine_status" property="examineStatus" />
+        <result column="line_status" property="lineStatus" />
+        <result column="user_type" property="userType" />
+        <result column="name" property="name" />
+        <result column="create_time" property="createTime" />
+        <result column="is_del" property="isDel" />
+        <result column="status" property="status" />
+        <collection property="enterprises" ofType="com.brightease.bju.bean.formal.FormalLineEnterprise">
+            <result column="feId" property="id" />
+            <result column="enterprise_id" property="enterpriseId" />
+            <result column="enterpriseName" property="enterpriseName" />
+            <result column="max_count_e" property="maxCount" />
+            <result column="now_count_e" property="nowCount" />
+        </collection>
+    </resultMap>
+
+    <select id="getInfoById" resultMap="info">
+        SELECT
+          fl.*,
+          ll.`name`,
+          fe.id AS feId,
+          fe.max_count as max_count_e,
+          fe.now_count as now_count_e,
+          fe.enterprise_id ,
+          e.name AS enterpriseName
+        FROM
+          `formal_line` fl
+          LEFT JOIN `formal_line_enterprise` fe
+            ON fl.`id` = fe.`formal_id`
+          LEFT JOIN enterprise_enterprise e
+            ON e.`id` = fe.`enterprise_id`
+          LEFT JOIN `line_line` ll
+          ON ll.`id` = fl.`line_id`
+        where fl.is_del = 1 and fl.status = 1
+        <if test="id != null">
+            and fl.id = #{id}
+        </if>
+    </select>
+    <select id="getStatisticsList" resultType="com.brightease.bju.bean.formal.FormalLine">
+        SELECT
+            exa.*,
+            fl.`s_bengin_time`,
+            fl.`s_end_time`,
+            fl.`line_status`,
+            fle.`now_count`,
+            fle.`max_count`,
+            l.`name`
+        FROM
+        `formal_line_examine` exa
+        LEFT JOIN `formal_line` fl
+        ON fl.id = exa.`formal_line_id`
+        LEFT JOIN formal_line_enterprise fle
+        ON exa.`formal_line_enterprise_id` = fle.`id`
+        LEFT JOIN line_line l
+        ON fl.`line_id` = l.`id`
+        LEFT JOIN enterprise_enterprise e
+          ON e.`id` = exa.`enterprise_id`
+        WHERE fle.`examine_status` = 3
+        AND fl.`is_del` = 1 AND fl.`status` = 1
+        <if test="name != null and name != ''">
+           and l.name LIKE CONCAT('%',#{name},'%')
+        </if>
+        <if test="userType != null ">
+            and fl.user_type = #{userType}
+        </if>
+        <if test="start != null">
+            and fl.s_bengin_time &gt; #{start}
+        </if>
+        <if test="end != null">
+            and fl.s_end_time &lt; #{end}
+        </if>
+        <if test="eId != null">
+            and exa.`enterprise_id` = #{eId}
+        </if>
+        <if test="pId != null">
+            AND e.`pid`= #{pId}
+        </if>
+        <if test="lineStatus != null">
+            AND fl.line_status= #{lineStatus}
+        </if>
+        GROUP BY exa.`formal_line_enterprise_id`
+        ORDER BY fl.`update_time` DESC,fl.`create_time` DESC
+    </select>
+    <select id="getFLLeaderList" resultType="com.brightease.bju.bean.dto.FormalLineDto">
+        SELECT
+            l.`name` as leaderName,ll.`name`,f.*
+        FROM
+            formal_line f
+        LEFT JOIN line_line ll
+            ON ll.`id` = f.`line_id`
+        LEFT JOIN formal_line_leader fl
+            ON fl.`formal_id` = f.`id`
+        LEFT JOIN leader_leader l
+            ON fl.`leader_id` = l.`id`
+        WHERE f.`status` = 1
+            AND f.`is_del` = 1
+        <if test="userType != null">
+            and f.user_type= #{userType}
+        </if>
+        <if test="name != null">
+            and ll.name LIKE CONCAT('%',#{name},'%')
+        </if>
+        AND f.`line_status` NOT IN (1, 2)
+        ORDER BY f.`update_time` DESC,f.`create_time` DESC
+    </select>
+    <select id="getMySanatoriumOrderLis" resultType="com.brightease.bju.bean.dto.SanatoriumOrderDto">
+        SELECT
+          fl.`id`,
+          ll.`name` AS lineName,
+          fl.`s_bengin_time`,
+          fl.`s_end_time`,
+          fl.`user_type`,
+          le.`name` AS leaderName,
+          GROUP_CONCAT(ss.`name`) as sanator_name,
+          (SELECT
+            COUNT(0)
+          FROM
+            `formal_line_user` flu
+          WHERE flu.`formal_id` = fl.`id`
+            AND flu.`yes_no` = 1
+            AND flu.`examine` = 1) AS allUsers,
+          (SELECT
+            COUNT(0)
+          FROM
+            `formal_line_user` flu
+          WHERE flu.`formal_id` = fl.`id`
+            AND flu.`enterprise_id` = fle.`enterprise_id`
+            AND flu.`yes_no` = 1
+            AND flu.`examine` = 1) AS myUsers
+        FROM
+          `formal_line` fl
+          LEFT JOIN line_line ll
+            ON fl.`line_id` = ll.`id`
+            LEFT JOIN `line_sanatorium` ls
+            ON ll.`id` = ls.`line_id`
+            LEFT JOIN `sanatorium_sanatorium` ss
+            ON ss.`id` = ls.`sanatorium_id`
+          LEFT JOIN formal_line_leader fll
+            ON fl.`id` = fll.`formal_id`
+          LEFT JOIN leader_leader le
+            ON fll.`leader_id` = le.`id`
+          LEFT JOIN formal_line_enterprise fle
+            ON fle.`formal_id` = fl.`id`
+        WHERE fl.`line_status` = 7
+        <if test="lineName != null and lineName !=''">
+            AND  ll.`name`  LIKE CONCAT('%','${lineName}','%')
+        </if>
+        <if test="sBenginTime != null">
+            AND  fl.`s_bengin_time` <![CDATA[ >= ]]> #{sBenginTime}
+        </if>
+        <if test="sEndTime != null">
+          AND  fl.`s_end_time` <![CDATA[ <= ]]> #{sEndTime}
+        </if>
+        <if test="userType != null">
+          AND  fl.`user_type` = #{userType}
+        </if>
+        <if test="enterpriseId != null">
+          AND fle.`enterprise_id`=#{enterpriseId}
+        </if>
+        GROUP BY fl.`id`
+        ORDER BY fl.`update_time` DESC,fl.`create_time` DESC
+    </select>
+    <select id="getFormallineExamineYes" resultType="com.brightease.bju.bean.formal.FormalLine">
+
+        SELECT
+          fl.*,
+          ll.`name`,
+          e.`name` as eName,
+          fle.id AS fleId,
+          fle.`now_count` AS new_count
+        FROM
+          `formal_line` fl
+          LEFT JOIN `line_line` ll
+            ON fl.`line_id` = ll.`id`
+          LEFT JOIN formal_line_enterprise fle
+            ON fl.`id` = fle.`formal_id`
+          LEFT JOIN enterprise_enterprise e
+            ON fle.`enterprise_id` = e.`id`
+          LEFT JOIN enterprise_enterprise p
+            ON e.`pid` = p.`id`
+        WHERE fle.`examine_status` = 3
+        <if test="userType!=null ">
+            and fl.user_type = #{userType}
+        </if>
+        <if test="name!=null and name != ''">
+           and ll.`name` like CONCAT('%','${name}','%')
+        </if>
+        <if test="eId != null">
+           and e.`id` = #{eId}
+        </if>
+        <if test="pId != null">
+          and  p.`id` = #{pId}
+        </if>
+        <if test="sBenginTime != null">
+          and fl.`s_bengin_time` <![CDATA[ >= ]]> #{sBenginTime}
+        </if>
+        <if test="sEndTime != null">
+          AND fl.`s_end_time` <![CDATA[ <= ]]> #{sEndTime}
+        </if>
+        GROUP BY fl.`id`
+        ORDER BY fl.`update_time` DESC,fl.`create_time` DESC
+    </select>
+    <select id="getListNopageIsTeam" resultType="com.brightease.bju.bean.formal.FormalLine">
+          SELECT
+              fl.id ,
+              ll.`id` AS line_id,
+              ll.`name`,
+              fl.`s_bengin_time` sBenginTime,
+              fl.`s_end_time` sEndTime
+            FROM
+              `formal_line` fl
+              LEFT JOIN `line_line` ll
+                ON fl.`line_id` = ll.`id`
+            WHERE fl.`line_status` = 3
+            AND fl.`is_del`=1 AND fl.status =1
+            AND ll.`is_del`=1 AND ll.`status` = 1
+            ORDER BY fl.`update_time` DESC,fl.`create_time` DESC
+    </select>
+    <select id="getRegList" resultType="com.brightease.bju.bean.formal.FormalLine">
+
+        SELECT
+        distinct
+          fl.*,
+          ll.`name`,
+          fle.`now_count` as eCount
+        FROM
+          `formal_line` fl
+          LEFT JOIN `formal_line_enterprise` fle
+            ON fl.`id` = fle.`formal_id`
+          LEFT JOIN `line_line` ll
+            ON ll.`id` = fl.`line_id`
+        WHERE 1=1
+        <if test="userId != null">
+            AND fle.`enterprise_id` = #{userId}
+        </if>
+        <if test="userType != null">
+            AND  fl.`user_type` =  #{userType}
+        </if>
+        <if test="type != null">
+            <if test="type == 1">
+                AND fl.`s_bengin_time`  <![CDATA[ > ]]> NOW()
+            </if>
+            <if test="type == 2">
+                AND fl.`s_bengin_time` <![CDATA[ < ]]> NOW()
+                AND fl.`s_end_time` <![CDATA[ > ]]> NOW()
+            </if>
+            <if test="type == 3">
+                AND fl.`s_end_time` <![CDATA[ > ]]> NOW();
+            </if>
+        </if>
+        ORDER BY fl.`update_time` DESC,fl.`create_time` DESC
+    </select>
+    <select id="getLineDetail" resultType="com.brightease.bju.bean.dto.SanatoriumOrderDto">
+        SELECT
+          fl.`id`,
+          ll.`name` AS lineName,
+          fl.`s_bengin_time`,
+          fl.`s_end_time`,
+          fl.`user_type`,
+          le.`name` AS leaderName,
+          GROUP_CONCAT(ss.`name`) AS sanator_name,
+          fl.`now_count`,
+          fl.`max_count`
+        FROM
+          `formal_line` fl
+          LEFT JOIN line_line ll
+            ON fl.`line_id` = ll.`id`
+            LEFT JOIN `line_sanatorium` ls
+            ON ll.`id` = ls.`line_id`
+            LEFT JOIN `sanatorium_sanatorium` ss
+            ON ss.`id` = ls.`sanatorium_id`
+          LEFT JOIN formal_line_leader fll
+            ON fl.`id` = fll.`formal_id`
+          LEFT JOIN leader_leader le
+            ON fll.`leader_id` = le.`id`
+          LEFT JOIN formal_line_enterprise fle
+            ON fle.`formal_id` = fl.`id`
+        WHERE fl.`id`=#{formalId}
+    </select>
+    <select id="checkIsFirstFormalRecord" resultType="com.brightease.bju.bean.formal.FormalLineEnterprise">
+        SELECT
+        ee.*
+        FROM
+        `formal_line_enterprise` ee
+        WHERE ee.formal_id IN
+        (SELECT
+        id
+        FROM
+        `formal_line`
+        WHERE user_type = #{userType}
+        AND is_del=1 AND STATUS=1)
+        AND enterprise_id = #{shiroId}
+        AND ee.reg_date <![CDATA[>=]]> #{start}
+        AND ee.reg_date <![CDATA[<=]]> #{end}
+        AND now_count <![CDATA[>]]> 0
+    </select>
+
+    <select id="getFormalLinesForRecord" resultType="com.brightease.bju.bean.formal.FormalLine">
+        SELECT
+        id,
+        line_id,
+        s_bengin_time,
+        s_end_time,
+        r_begin_time,
+        r_end_time,
+        now_count,
+        max_count,
+        is_team,
+        examine_status,
+        line_status,
+        user_type,
+        create_time,
+        is_del,
+        STATUS,
+        message,
+        update_time
+        FROM
+        formal_line
+        WHERE s_end_time <![CDATA[<]]> #{nowTime}
+        AND (line_status <![CDATA[<]]> #{lineStatus}
+        OR line_status = NULL)
+    </select>
+</mapper>

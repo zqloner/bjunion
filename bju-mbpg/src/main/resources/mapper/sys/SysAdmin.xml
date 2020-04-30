@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.sys.SysAdminMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.sys.SysAdmin">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="name" property="name" />
+        <result column="salt" property="salt" />
+        <result column="phone" property="phone" />
+        <result column="create_time" property="createTime" />
+        <result column="is_del" property="isDel" />
+        <result column="status" property="status" />
+        <result column="note" property="note" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, username, password, name, salt, phone, create_time, is_del, status,note
+    </sql>
+
+    <!--账号管理列表-->
+    <select id="getAountList" resultType="com.brightease.bju.bean.dto.SysAdminDto">
+            SELECT sa.id,sa.username admin,sa.name realName,sa.phone tel,sa.create_time `addTime`,sr.name `name`,sr.id roleId
+    FROM sys_admin sa,sys_admin_role sar,sys_role sr
+    WHERE sa.id = sar.admin_id AND sar.role_id = sr.id AND sa.is_del=1 AND sa.status=1
+    order  by sa.create_time desc
+    </select>
+    <select id="getAcountById" resultType="com.brightease.bju.bean.dto.SysAdminDto">
+        SELECT sa.id,sa.username admin,sa.password,sa.note,sa.name realName,sa.phone tel,sa.create_time `addTime`,sr.name `name`,sr.id roleId
+        FROM sys_admin sa,sys_admin_role sar,sys_role sr
+        WHERE sa.id = sar.admin_id AND sar.role_id = sr.id AND sa.is_del=1 AND sa.status=1
+          and  sa.id = #{id}
+    </select>
+
+</mapper>

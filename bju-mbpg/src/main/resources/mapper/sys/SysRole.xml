@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.sys.SysRoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.sys.SysRole">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="type" property="type" />
+        <result column="discript" property="discript" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, type, discript
+    </sql>
+
+    <!--角色和对应的权限列表查询-->
+    <resultMap id="getRoleMenuList" type="com.brightease.bju.bean.dto.rolesandnewsdto.RoleAndMenusDto">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="type" property="type"></result>
+        <result column="discript" property="discript"></result>
+        <collection property="menus" javaType="list" ofType="com.brightease.bju.bean.sys.SysMenu">
+            <id column="sid" property="id"></id>
+            <result column="persmission" property="persmission"></result>
+            <result column="typeb" property="type"></result>
+            <result column="pid" property="pid"></result>
+        </collection>
+    </resultMap>
+    <select id="getRoleMenus" resultMap="getRoleMenuList">
+        SELECT
+          sr.id,
+          sr.name,
+          sr.type,
+          sr.discript,
+          sm.id sid,
+          sm.persmission,
+          sm.type typeb,
+          sm.pid
+        FROM
+          sys_role sr,
+          sys_menu sm,
+          sys_role_menu srm
+        WHERE sr.id = srm.`role_id`
+        AND sm.id = srm.`menu_id`
+        <if test="roleId !=null and roleId !=''">
+            AND sr.id = #{roleId}
+        </if>
+    </select>
+
+
+    <select id="getList" resultType="com.brightease.bju.bean.dto.rolesandnewsdto.RoleAndMenusDdo">
+        SELECT
+        sr.id,
+        sr.name,
+        sr.type,
+        sr.discript,
+        sm.id sid,
+        sm.persmission,
+        sm.type typeb,
+        sm.pid,
+        GROUP_CONCAT(sm.`persmission`)  permissions
+        FROM
+        sys_role sr,
+        sys_menu sm,
+        sys_role_menu srm
+        WHERE sr.id = srm.`role_id`
+        AND sm.id = srm.`menu_id`
+        GROUP BY sr.id
+        order by sr.create_time desc
+    </select>
+
+</mapper>

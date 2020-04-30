@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.formal.FormalCostInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.formal.FormalCostInfo">
+        <id column="id" property="id" />
+        <result column="cost_id" property="costId" />
+        <result column="cost_type" property="costType" />
+        <result column="cost_info" property="costInfo" />
+        <result column="cost_info_id" property="costInfoId" />
+        <result column="user_id" property="userId" />
+        <result column="cost_user" property="costUser" />
+        <result column="price" property="price" />
+        <result column="remarks" property="remarks" />
+        <result column="create_time" property="createTime" />
+        <result column="is_del" property="isDel" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, cost_id, cost_type, cost_info,cost_info_id, user_id, cost_user, price, remarks, create_time, is_del, status
+    </sql>
+
+    <select id="getCostInfoList" resultType="java.util.Map">
+        SELECT
+            c.id,
+            c.cost_id costId,
+            c.cost_type costType,
+            c.user_id userId,
+            c.cost_info costInfo,
+            c.cost_info_id costinfoid,
+            u.`name` username,
+            c.cost_user,
+            c.price,
+            c.remarks,
+            c.create_time
+        FROM
+            formal_cost_info c
+            LEFT JOIN enterprise_user u ON c.user_id = u.id
+        WHERE
+            c.is_del = 1
+            AND c. STATUS = 1
+            AND c. cost_id = #{costid}
+    </select>
+    <select id="getAllCostSum" resultType="java.util.Map">
+        SELECT
+          SUM(f.`price`) AS price
+        FROM
+          `formal_cost_info` f
+        WHERE f.`is_del` = 1
+          AND f.`status` = 1
+    </select>
+    <update id="delByCostId">
+        UPDATE formal_cost_info SET
+            is_del = 0,status=0
+        WHERE cost_id = #{costid}
+    </update>
+</mapper>

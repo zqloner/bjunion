@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.enterprise.EnterpriseUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.enterprise.EnterpriseUser">
+        <id column="id" property="id" />
+        <result column="card_id" property="cardId" />
+        <result column="name" property="name" />
+        <result column="e_id" property="eId" />
+        <result column="sex" property="sex" />
+        <result column="birthday" property="birthday" />
+        <result column="nation_id" property="nationId" />
+        <result column="IDCard" property="IDCard" />
+        <result column="phone" property="phone" />
+        <result column="job" property="job" />
+        <result column="hobby" property="hobby" />
+        <result column="health" property="health" />
+        <result column="disease" property="disease" />
+        <result column="honour" property="honour" />
+        <result column="honour_time" property="honourTime" />
+        <result column="create_time" property="createTime" />
+        <result column="is_del" property="isDel" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, card_id, name, e_id, sex, birthday, nation_id, IDCard, phone, job,hobby, health,disease, honour, honour_time, create_time, is_del, status
+    </sql>
+    <select id="getList" resultType="com.brightease.bju.bean.enterprise.EnterpriseUser">
+        SELECT
+        u.*,
+        s.`name` AS nationName,
+        e.`name` AS enterpriseName,
+        r.`name`
+        FROM
+        enterprise_user u
+        LEFT JOIN sys_mz s
+        ON u.`nation_id` = s.`id`
+        LEFT JOIN enterprise_enterprise e
+        ON u.`e_id` = e.`id`
+        LEFT JOIN enterprise_user_role ur
+        ON ur.`user_id` = u.`id`
+        LEFT JOIN enterprise_role r
+        ON r.`id` = ur.`role_id`
+        WHERE u.`is_del` = 1
+        AND u.`status` = 1
+        <if test="user != null ">
+            <if test="user.eId != null">
+                AND u.e_id = #{user.eId}
+            </if>
+            <if test="user.name != null and user.name!= ''">
+                AND u.name like CONCAT('%','${user.name}','%')
+            </if>
+            <if test="user.sex != null and user.sex!= ''">
+                AND u.sex = #{user.sex}
+            </if>
+            <if test="user.cardId != null and user.cardId!= ''">
+                AND u.card_id like CONCAT('%','${user.cardId}','%')
+            </if>
+            <if test="user.phone != null and user.phone!= ''">
+                AND u.phone  like CONCAT('%','${user.phone}','%')
+            </if>
+            <if test="user.IDCard != null and user.IDCard!= ''">
+                AND u.IDCard like CONCAT('%','${user.IDCard}','%')
+            </if>
+            <if test="user.job != null and user.job!= ''">
+                AND u.job  like CONCAT('%','${user.job}','%')
+            </if>
+            <if test="user.enterpriseIds != null and user.enterpriseIds.size>0">
+                AND
+                <foreach collection="user.enterpriseIds" item="id" open="e_id in(" close=")" separator=",">
+                    ${id}
+                </foreach>
+            </if>
+        </if>
+        <if test="userType != null and  userType != ''">
+            AND r.id IN (${userType})
+        </if>
+        ORDER BY u.`create_time` desc
+    </select>
+
+    <select id="getEnterPriseUserList" resultType="com.brightease.bju.bean.enterprise.EnterpriseUser">
+        SELECT
+        u.*,
+        s.`name` AS nationName,
+        e.`name` AS enterpriseName,
+        r.`name`
+        FROM
+        enterprise_user u
+        LEFT JOIN sys_mz s
+        ON u.`nation_id` = s.`id`
+        LEFT JOIN enterprise_enterprise e
+        ON u.`e_id` = e.`id`
+        LEFT JOIN enterprise_user_role ur
+        ON ur.`user_id` = u.`id`
+        LEFT JOIN enterprise_role r
+        ON r.`id` = ur.`role_id`
+        WHERE u.`is_del` = 1
+        AND u.`status` = 1
+        <if test="user != null ">
+            <if test="user.enterpriseId != null">
+                AND u.e_id = #{user.enterpriseId}
+            </if>
+            <if test="user.childrenIds != null and user.childrenIds.size > 0">
+                AND
+                <foreach collection="user.childrenIds" item="id" open="u.e_id in(" close=")" separator=",">
+                    ${id}
+                </foreach>
+            </if>
+            <if test="user.name != null and user.name!= ''">
+                AND u.name like CONCAT('%','${user.name}','%')
+            </if>
+            <if test="user.sex != null">
+                AND u.sex = #{user.sex}
+            </if>
+            <if test="user.cardId != null and user.cardId!= ''">
+                AND u.card_id like CONCAT('%','${user.cardId}','%')
+            </if>
+            <if test="user.phone != null and user.phone!= ''">
+                AND u.phone  like CONCAT('%','${user.phone}','%')
+            </if>
+            <if test="user.IDCard != null and user.IDCard!= ''">
+                AND u.IDCard like CONCAT('%','${user.IDCard}','%')
+            </if>
+            <if test="user.job != null and user.job!= ''">
+                AND u.job  like CONCAT('%','${user.job}','%')
+            </if>
+        </if>
+        <if test="userType != null and  userType != ''">
+            AND r.id IN (${userType})
+        </if>
+        ORDER BY u.`create_time` desc
+    </select>
+
+    <select id="getUserCount" resultType="java.util.Map">
+        SELECT
+          r.`id` AS userType,
+          er.`name`,
+          COUNT(r.`id`) num
+        FROM
+          `enterprise_user` u
+          LEFT JOIN enterprise_user_role ur
+            ON u.`id` = ur.`user_id`
+          LEFT JOIN enterprise_role r
+            ON r.`id` = ur.`role_id`
+          LEFT JOIN enterprise_role er
+            ON ur.`role_id` = er.`id`
+        WHERE u.`is_del` = 1
+          AND u.`status` = 1
+        GROUP BY r.`id`
+    </select>
+    <select id="getUserById" resultType="com.brightease.bju.bean.enterprise.EnterpriseUser">
+        SELECT
+          u.*,
+          ur.`role_id` AS user_type
+        FROM
+          `enterprise_user` u
+          LEFT JOIN enterprise_user_role ur
+            ON u.`id` = ur.`user_id`
+        WHERE u.`id`=#{id}
+    </select>
+
+
+</mapper>

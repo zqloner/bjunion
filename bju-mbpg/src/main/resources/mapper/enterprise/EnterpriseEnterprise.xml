@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.enterprise.EnterpriseEnterpriseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.enterprise.EnterpriseEnterprise">
+        <id column="id" property="id" />
+        <result column="account" property="account" />
+        <result column="password" property="password" />
+        <result column="name" property="name" />
+        <result column="credit_code" property="creditCode" />
+        <result column="pid" property="pid" />
+        <result column="contacts" property="contacts" />
+        <result column="phone" property="phone" />
+        <result column="address" property="address" />
+        <result column="mail" property="mail" />
+        <result column="area_id_p" property="areaIdP" />
+        <result column="area_id_c" property="areaIdC" />
+        <result column="area_id_a" property="areaIdA" />
+        <result column="QA_url" property="qaUrl" />
+        <result column="model_status" property="modelStatus" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_del" property="isDel" />
+        <result column="status" property="status" />
+        <result column="examine_status" property="examineStatus" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, account, password, name, credit_code, pid, contacts, phone, address, mail, area_id_p,area_id_c,area_id_a, QA_url, model_status, create_time, is_del, status, examine_status
+    </sql>
+    <select id="getList" resultType="com.brightease.bju.bean.dto.EnterpriseDto">
+        SELECT
+            e.*,ee.`name` as parent_name , CONCAT(p.REGION_NAME,c.REGION_NAME,a.REGION_NAME) as address_info
+        FROM
+            enterprise_enterprise e
+        LEFT JOIN enterprise_enterprise ee ON e.pid = ee.id
+        LEFT JOIN sys_area p ON e.area_id_p = p.ID
+        LEFT JOIN sys_area c ON  e.area_id_c = c.ID
+        LEFT JOIN sys_area a ON  e.area_id_a = a.ID
+        WHERE
+            1 = 1
+        AND e.`examine_status` != 0
+        AND e.is_del=1 and e.`status` = 1 and e.id != 1
+        <if test="name != null">
+            and e.name LIKE CONCAT('%','${name}','%')
+        </if>
+        <if test="contacts != null">
+            and e.contacts LIKE CONCAT('%','${contacts}','%')
+        </if>
+        <if test="examineStatus != null">
+            and e.examine_status = #{examineStatus}
+        </if>
+        <if test="isDel != null">
+            and e.is_del = #{isDel}
+        </if>
+        <if test="status != null">
+            and e.status = #{status}
+        </if>
+        <if test="id != null">
+            and e.id = #{id}
+        </if>
+        <if test="pid != null">
+            and e.pid = #{pid}
+        </if>
+        order by e.update_time desc, e.create_time desc
+    </select>
+
+    <resultMap id="AreasTree" type="com.brightease.bju.bean.dto.AreasTreeDto">
+        <id column="aid" property="id"></id>
+        <result column="title" property="title"></result>
+        <collection javaType="list" ofType="com.brightease.bju.bean.dto.AreasTreeDto" property="children">
+            <id column="bid" property="id"></id>
+            <result column="titleb" property="title"></result>
+        </collection>
+    </resultMap>
+    <!--查询企业树形-->
+    <select id="findEnterPriseTree" resultMap="AreasTree">
+            SELECT
+      p.name title,
+      p.id aid,
+      c.name titleb,
+      c.id bid
+    FROM
+      `enterprise_enterprise` p
+      LEFT JOIN `enterprise_enterprise` c
+        ON p.`id` = c.`pid`
+    WHERE p.`pid` != 0
+    </select>
+    <select id="getCount" resultType="java.util.Map">
+        SELECT
+          COUNT(1) num
+        FROM
+          enterprise_enterprise
+        WHERE is_del = 1
+          AND STATUS = 1
+          and pid != 0
+    </select>
+
+    <!--预报名统计的单选树查询-->
+    <select id="findEnterPriseZnode" resultType="com.brightease.bju.bean.dto.predto.EnterPriseZnodeDto">
+        SELECT id,pId,`name` FROM enterprise_enterprise WHERE pid != 0 and is_del=1 and status = 1
+    </select>
+
+    <!--查询一级单位-->
+    <select id="findFirstEnterPrise" resultType="com.brightease.bju.bean.dto.predto.EnterPriseZnodeDto">
+        SELECT id,pId,`name` FROM enterprise_enterprise WHERE pid = 1 and is_del=1 and status = 1
+    </select>
+
+    <!--根据一级单位查询二级单位-->
+    <select id="findTwoEnterPrise" resultType="com.brightease.bju.bean.dto.predto.EnterPriseZnodeDto">
+        SELECT id,pId,`name` FROM enterprise_enterprise WHERE  is_del=1 and status = 1 AND examine_status = 3 AND pid != 0 AND pid !=1
+        <if test="id != null and id != ''">
+            and  pid = #{id}
+        </if>
+    </select>
+
+    <select id="findTwoEnterPriseNotIsLaoMo" resultType="com.brightease.bju.bean.dto.predto.EnterPriseZnodeDto">
+        SELECT id,pId,`name` FROM enterprise_enterprise WHERE  is_del=1 and status = 1 AND examine_status = 3 AND pid != 0 AND pid !=1 AND model_status !=1
+        <if test="id != null and id != ''">
+            and  pid = #{id}
+        </if>
+    </select>
+    <select id="getListNoPage" resultType="com.brightease.bju.bean.dto.EnterpriseDto">
+        SELECT
+        e.*,ee.`name` as parent_name , CONCAT(p.REGION_NAME,c.REGION_NAME,a.REGION_NAME) as address_info
+        FROM
+        enterprise_enterprise e
+        LEFT JOIN enterprise_enterprise ee ON e.pid = ee.id
+        LEFT JOIN sys_area p ON e.area_id_p = p.ID
+        LEFT JOIN sys_area c ON  e.area_id_c = c.ID
+        LEFT JOIN sys_area a ON  e.area_id_a = a.ID
+        WHERE
+        1 = 1
+        <if test="name != null">
+            and e.name LIKE CONCAT('%','${name}','%')
+        </if>
+        <if test="contacts != null">
+            and e.contacts LIKE CONCAT('%','${contacts}','%')
+        </if>
+        <if test="examineStatus != null">
+            and e.examine_status = #{examineStatus}
+        </if>
+        <if test="isDel != null">
+            and e.is_del = #{isDel}
+        </if>
+        <if test="status != null">
+            and e.status = #{status}
+        </if>
+        <if test="id != null and pid != null">
+            and   e.id =#{id} OR e.pid =#{pid}
+        </if>
+        <if test="id != null and pid == null">
+            and e.id = #{id}
+        </if>
+        <if test="pid != null and id == null">
+            and e.pid = #{pid}
+        </if>
+    </select>
+    <select id="getLowerLevel" resultType="com.brightease.bju.bean.enterprise.EnterpriseEnterprise">
+        SELECT
+          ee.*,
+          p.`name` AS p_name,
+          CONCAT(
+            sap.`REGION_NAME`,
+            sac.`REGION_NAME`,
+            saa.`REGION_NAME`
+          ) AS area_name
+        FROM
+          `enterprise_enterprise` ee
+          LEFT JOIN enterprise_enterprise p
+            ON ee.`pid` = p.`id`
+          LEFT JOIN sys_area sap
+            ON ee.`area_id_p` = sap.`ID`
+          LEFT JOIN sys_area sac
+            ON ee.`area_id_c` = sac.`ID`
+          LEFT JOIN sys_area saa
+            ON ee.`area_id_a` = saa.`ID`
+        WHERE 1=1
+        <if test="name != null and name !=''">
+            AND ee.name  like CONCAT('%','${name}','%')
+        </if>
+        <if test="contacts != null and contacts !=''">
+            AND ee.contacts  like CONCAT('%','${contacts}','%')
+        </if>
+        <if test="examineStatus != null ">
+            AND ee.examine_status = #{examineStatus}
+        </if>
+        <if test="pid != null ">
+            AND ee.pid = #{pid}
+        </if>
+
+    </select>
+    <select id="getClientList" resultType="com.brightease.bju.bean.dto.EnterpriseDto">
+        SELECT
+        e.*,ee.`name` as parent_name , CONCAT(p.REGION_NAME,c.REGION_NAME,a.REGION_NAME) as address_info
+        FROM
+        enterprise_enterprise e
+        LEFT JOIN enterprise_enterprise ee ON e.pid = ee.id
+        LEFT JOIN sys_area p ON e.area_id_p = p.ID
+        LEFT JOIN sys_area c ON  e.area_id_c = c.ID
+        LEFT JOIN sys_area a ON  e.area_id_a = a.ID
+        WHERE
+        1 = 1
+        AND e.is_del=1 and e.`status` = 1 and e.id != 1
+        <if test="name != null">
+            and e.name LIKE CONCAT('%','${name}','%')
+        </if>
+        <if test="contacts != null">
+            and e.contacts LIKE CONCAT('%','${contacts}','%')
+        </if>
+        <if test="examineStatus != null">
+            and e.examine_status = #{examineStatus}
+        </if>
+        <if test="isDel != null">
+            and e.is_del = #{isDel}
+        </if>
+        <if test="status != null">
+            and e.status = #{status}
+        </if>
+        <if test="id != null">
+            and e.id = #{id}
+        </if>
+        <if test="pid != null">
+            and e.pid = #{pid}
+        </if>
+        order by e.create_time desc
+
+    </select>
+
+</mapper>

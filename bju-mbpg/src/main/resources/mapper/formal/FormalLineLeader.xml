@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.brightease.bju.dao.formal.FormalLineLeaderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.brightease.bju.bean.formal.FormalLineLeader">
+        <id column="id" property="id" />
+        <result column="formal_id" property="formalId" />
+        <result column="leader_id" property="leaderId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, formal_id, leader_id
+    </sql>
+    <select id="getLeaderList" resultType="com.brightease.bju.bean.dto.LeaderLeaderDto">
+
+        SELECT
+          ll.*,
+          line.`name` as formalLineName,
+          line.`id` as formalLindId,
+          fl.`s_bengin_time` sBeginStart,
+          fl.`s_end_time` sBeginEnd,
+          fl.`user_type`,
+          COUNT(flu.`id`) AS userCount
+        FROM
+          `formal_line_leader` fll
+          LEFT JOIN leader_leader ll
+            ON fll.`leader_id` = ll.`id`
+          LEFT JOIN formal_line fl
+            ON fll.`formal_id` = fl.`id`
+          LEFT JOIN formal_line_user flu
+            ON fl.`id` = flu.`formal_id`
+          LEFT JOIN line_line line
+            ON line.`id` = fl.`line_id`
+        WHERE 1 = 1
+        AND flu.`examine` = 1
+        AND flu.`yes_no` = 1
+        AND fl.`is_del` = 1
+        AND fl.`status` = 1
+        <if test="username != null and username != ''">
+            and ll.username like CONCAT('%',#{username},'%')
+        </if>
+        <if test="name != null and name != ''">
+            and ll.name like CONCAT('%',#{name},'%')
+        </if>
+        <if test="sex != null and sex != ''">
+            and ll.sex = #{sex}
+        </if>
+        <if test="formalLindId != null and formalLindId != ''">
+            AND fl.`formalLindId` = #{formalLindId}
+        </if>
+        <if test="userType != null and userType != '' ">
+            AND fl.`user_type` = #{userType}
+        </if>
+        <if test="sBeginStart !=null and sBeginStart != ''">
+            AND fl.`s_bengin_time` <![CDATA[ >= ]]> #{sBeginStart}
+        </if>
+        <if test="sBeginEnd !=null and sBeginEnd != ''">
+            AND fl.`s_bengin_time` <![CDATA[ <= ]]> #{sBeginEnd}
+        </if>
+        <if test="sEndStart !=null and sEndStart != ''">
+            AND fl.`s_end_time` <![CDATA[ >= ]]> #{sEndStart}
+        </if>
+        <if test="sEndEnd !=null and sEndEnd != ''">
+            AND fl.`s_end_time` <![CDATA[ <= ]]> #{sEndEnd}
+        </if>
+        <if test="birthday !=null and birthday != ''">
+            AND ll.birthday <![CDATA[ <= ]]> #{sEndEnd}
+        </if>
+        GROUP BY fll.`formal_id`
+        ORDER BY userCount DESC
+
+    </select>
+    <select id="getLeaderStatus" resultType="com.brightease.bju.bean.formal.FormalLine">
+
+                SELECT
+                  f.*
+                FROM
+                  `formal_line_leader` l
+                  LEFT JOIN formal_line f
+                    ON f.`id` = l.`formal_id`
+                  LEFT JOIN leader_leader ll
+                    ON ll.`id` = l.`leader_id`
+                    WHERE  f.`is_del` = 1
+                    AND f.`status` = 1
+                    AND ll.`is_del`=1
+                    AND ll.`status`=1
+                    AND ll.`id` = #{leaderId}
+
+    </select>
+
+</mapper>
