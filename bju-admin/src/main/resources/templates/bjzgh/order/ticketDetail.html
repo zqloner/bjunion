@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../../static/bjzgh/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../../static/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">疗养订单管理</a>
+        <span lay-separator="">/</span>
+        <a href="ticket.html">票务管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="ticketDetail.html">查看票务</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <h3 class="deTitle">
+        疗养团详情
+    </h3>
+
+    <div class="layui-col-xs12 deP">
+        <div class="layui-col-xs3"><span class="deName">线路名称：</span>福建厦门6日游</div>
+        <div class="layui-col-xs3"><span class="deName">疗养院：</span>鼓浪屿疗养院</div>
+        <div class="layui-col-xs3"><span class="deName">疗养日期：</span>2019.08.23-2019.8.28</div>
+        <div class="layui-col-xs3"><span class="deName">空房数量：</span>61</div>
+        <div class="layui-col-xs3"><span class="deName">报名人数：</span>89</div>
+        <div class="layui-col-xs3"><span class="deName">领队：</span>肖战</div>
+    </div>
+
+    <h3 class="deTitle">
+        疗养团人员票务
+    </h3>
+    <!--表单查询-->
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">所属单位：</label>
+
+                <div class="layui-input-inline">
+                    <select name="state">
+                        <option value="">请选择</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">姓名：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="name" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">京卡号：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="admin" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">联系方式：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="tel" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">身份证号：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="idCard" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item formSearchBtn">
+            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+            <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+        </div>
+    </form>
+    <!--表格-->
+    <table class="layui-table table-margin" lay-filter="test" id="table"></table>
+    <div id="page"></div>
+    <div class="layui-form-item formBtn">
+        <button class="layui-btn clickBtn btn-65" id="change">修改</button>
+    </div>
+</div>
+<!--批量添加出行/返回票务弹窗-->
+<div class="popup" id="popup" style="display: none">
+    <form class="layui-form popup-form" action="" lay-filter="formEvent">
+        <div class="layui-form-item">
+            <label class="layui-form-label">车票/航班：</label>
+            <div class="layui-input-block">
+                <select name="state">
+                    <option value="0">火车</option>
+                    <option value="1">飞机</option>
+                    <option value="2">大巴</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">车票/航班：</label>
+            <div class="layui-input-block">
+                <input type="text" name="ticket" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">票价：</label>
+            <div class="layui-input-block">
+                <input type="text" name="money" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item submit-div">
+            <button class="layui-btn clickBtn btn-100" lay-submit lay-filter="submitAdd">确定</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="../../../static/bjzgh/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="../../../static/bjzgh/pages/order/ticketDetail.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/leader/css/common.css" media="all"/>
+    <style>
+        .layui-select-title .layui-input{width:100%;}
+        /*设置 layui 表格中单元格内容溢出可见样式*/
+        .table-overlay{margin-bottom: 40px;}
+        .table-overlay .layui-table-view, .table-overlay .layui-table-box, .table-overlay .layui-table-body{overflow: visible;}
+        .table-overlay .layui-table-cell{height: auto; overflow: visible;}
+        .layui-form-select dl dd.layui-this{background-color: #005CA7;}
+        .small-content{width:90%;margin:0 auto;}
+    </style>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+            <a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+        <a href="javascript:;">疗养团费用</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="javascript:">添加费用</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <div class="small-content">
+        <h3 class="deTitle">
+            疗养团详情
+        </h3>
+        <input type="hidden" id="formalid" value="${formalid}">
+        <input type="hidden" id="lineid" value="${lineid}">
+        <input type="hidden" id="pagedata" value="${pagedata}"/>
+
+        <div class="deP">
+            <div class="layui-col-xs6"><span class="deName">线路名称：</span><span id="tuanname"></span></div>
+            <div class="layui-col-xs6"><span class="deName">疗养院：</span><span id="hname"></span></div>
+            <div class="layui-col-xs6"><span class="deName">疗养日期：</span><span id="lydate"></span></div>
+            <div class="layui-col-xs6"><span class="deName">报名人数：</span><span id="percount"></span></div>
+
+        </div>
+        <script type="text/html" id="toolbarDemo">
+            <h3 class="deTitle">
+                领队消费明细增加 <a class="deA" href="javascript:void (0);" lay-event="addRow">添加行</a> | <a class="deA" href="javascript:void (0);" lay-event="delRow">删除行</a>
+            </h3>
+        </script>
+        <!--表格-->
+        <div class="table-overlay">
+            <table class="layui-table table-margin" lay-filter="add" id="addTable"></table>
+        </div>
+        <div id="addPage"></div>
+        <p class="deP">
+            <span class="deName">消费合计：</span><strong id="totalmoney"></strong>元
+        </p>
+
+        <h3 class="deTitle">
+            附件
+        </h3>
+
+        <p class="deP">
+            领队消费证明增加 <a class="deA" href="javascript:void(0);" id="addMore">添加附件</a>
+        </p>
+
+        <div id="preview">
+            <!--<p class="deP">
+                <span>附件1 住宿发票</span> <a class="deA delete" href="javascript:;" data-href="url/path/abc.jpg" data-name="附件1">删除</a>
+            </p>
+            <p class="deP">
+                <span>附件2 交通发票</span> <a class="deA delete" href="javascript:;">删除</a>
+            </p>-->
+        </div>
+        <div class="layui-form-item formBtn" style="margin-top: 30px">
+            <button class="layui-btn clickBtn btn-82" id="determine">确定</button>
+        </div>
+    </div>
+</div>
+<!--添加附件 弹窗-->
+<div class="popup" id="popup" style="display: none">
+    <form class="layui-form popup-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">添加附件：</label>
+
+            <div class="layui-inline">
+                <input name="showfile" id="showfile" type="text" class="layui-input" autocomplete="off" style="width: 250px">
+            </div>
+            <button type="button" class="layui-btn clickBtn btn-65 uploadBtn" id="upload">
+                上传
+            </button>
+        </div>
+        <!--<div class="layui-form-item form-submit">
+            <button class="layui-btn clickBtn btn-100" lay-submit lay-filter="submitData">确定</button>
+            <button class="layui-btn layui-btn-primary whiteBtn btn-88">取消</button>
+        </div>-->
+    </form>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/leader/js/vestMoneyAdd.js"></script>
+</body>
+</html>

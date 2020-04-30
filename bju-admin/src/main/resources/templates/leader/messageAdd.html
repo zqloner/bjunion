@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+        <a href="message.html">消息管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="messageAdd.html">发送消息</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <form class="layui-form fullForm fullFormL" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择模板：</label>
+
+            <div class="layui-input-inline layui-input-inline">
+                <select name="kind" lay-filter="kind">
+                    <option value="0">成团模板</option>
+                    <option value="1">票务模板</option>
+                    <option value="2">出行模板</option>
+                    <option value="3">其他</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">模板内容：</label>
+
+            <div class="layui-input-inline layui-input-inline">
+                <textarea name="depict" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">来源：</label>
+
+            <div class="layui-input-inline long-inline">
+                <button class="layui-btn clickBtn btn-100" type="button" id="choose">选择职工</button>
+                <img src="images/icon_sure.png" style="width: 20px;margin-left: 10px">
+            </div>
+        </div>
+        <div class="layui-form-item formBtn">
+            <div class="layui-input-block">
+                <button type="reset" class="layui-btn layui-btn-primary whiteBtn btn-65">取消</button>
+                <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">确定</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="plugins/layui/layui.js"></script>
+<script type="text/javascript" src="js/messageAdd.js"></script>
+<!--选择职工页面-->
+<div id="deContent" style="display: none;padding: 20px;">
+    <!--表单查询-->
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">所属单位：</label>
+
+                <div class="layui-input-inline">
+                    <select name="company">
+                        <option value="">请选择</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="1">3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">职务：</label>
+
+                <div class="layui-input-inline">
+                    <select name="position">
+                        <option value="">请选择</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="1">3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">姓名：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="name" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">性别：</label>
+
+                <div class="layui-input-inline">
+                    <select name="group">
+                        <option value="">请选择</option>
+                        <option value="0">男</option>
+                        <option value="1">女</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">京卡号：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="bjCard" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">联系方式：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="tel" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">身份证号：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="idCard" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item formSearchBtn">
+            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="search">查询</button>
+            <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+        </div>
+    </form>
+    <!--表格-->
+    <table class="layui-table" lay-filter="de" id="deTable"></table>
+    <div id="dePage"></div>
+</div>
+</body>
+</html>

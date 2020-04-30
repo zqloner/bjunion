@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/leader/css/common.css" media="all"/>
+    <style>
+        .layui-select-title .layui-input{width:100%;}
+        /*设置 layui 表格中单元格内容溢出可见样式*/
+        .table-overlay{margin-bottom: 40px;}
+        .table-overlay .layui-table-view, .table-overlay .layui-table-box, .table-overlay .layui-table-body{overflow: visible;}
+        .table-overlay .layui-table-cell{height: auto; overflow: visible;}
+        .layui-form-select dl dd.layui-this{background-color: #005CA7;}
+        .small-content{width:90%;margin:0 auto;}
+    </style>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+        <a href="javascript:">疗养团费用</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="javascript:">查看详情</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <div class="small-content">
+        <h3 class="deTitle">
+            疗养团详情
+        </h3>
+        <input type="hidden" id="formalid" value="${formalid}">
+        <input type="hidden" id="costid" value="${costid}">
+        <input type="hidden" id="lineid" value="${lineid}">
+        <input type="hidden" id="pagedata" value="${pagedata}"/>
+
+        <div class="deP">
+            <div class="layui-col-xs6"><span class="deName">线路名称：</span><span id="tuanname"></span></div>
+            <div class="layui-col-xs6"><span class="deName">疗养院：</span><span id="hname"></span></div>
+            <div class="layui-col-xs6"><span class="deName">疗养日期：</span><span id="lydate"></span></div>
+            <div class="layui-col-xs6"><span class="deName">报名人数：</span><span id="percount"></span></div>
+        </div>
+        <h3 class="deTitle">
+            领队消费明细
+        </h3>
+        <!--表格-->
+        <table class="layui-table table-margin" lay-filter="de" id="deTable"></table>
+        <div id="dePage"></div>
+        <p class="deP">
+            <span class="deName">消费合计：</span><strong id="totalmoney"></strong>元
+        </p>
+
+        <h3 class="deTitle">
+            附件
+        </h3>
+
+        <div id="preview">
+            <!--<p class="deP">
+                <span>附件1 住宿发票</span> <a class="deA delete" href="javascript:;" data-href="url/path/abc.jpg" data-name="附件1">下载</a>
+            </p>-->
+        </div>
+
+        <div class="layui-form-item formBtn" style="margin-top: 30px">
+            <button class="layui-btn clickBtn btn-100" id="determine">费用修改</button>
+            <button class="layui-btn layui-btn-primary btn-65" onclick="javascript:history.back()">返回</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/leader/js/vestMoneyDe.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+[
+  {
+    "title": "系统管理",
+    "icon": "&#xe716",
+    "spread": true,
+    "children": [
+      {
+        "title": "角色设置",
+        "icon": "",
+        "href": "route?name=system/partSet",
+        "spread": true
+      },
+      {
+        "title": "管理员账号",
+        "icon": "",
+        "href": "route?name=system/admin",
+        "spread": false
+      }
+    ]
+  },
+  {
+    "title": "用户账户管理",
+    "icon": "&#xe66f",
+    "spread": false,
+    "children": [
+      {
+        "title": "企业管理",
+        "icon": "",
+        "href": "/changePage?page=user/company",
+        "spread": false
+      },
+      {
+        "title": "领队管理",
+        "icon": "",
+        "href": "/changePage?page=user/leader",
+        "spread": false
+      },
+      {
+        "title": "企业职工库",
+        "icon": "",
+        "href": "/changePage?page=user/worker",
+        "spread": false
+      }
+    ]
+  },
+  {
+    "title": "网站信息管理",
+    "icon": "&#xe7ae",
+    "spread": false,
+    "children": [
+      {
+        "title": "新闻管理",
+        "icon": "",
+        "href": "route?name=website/news",
+        "spread": false
+      },
+      {
+        "title": "关于我们",
+        "icon": "",
+        "href": "/changePage?page=website/profile",
+        "spread": false
+      },
+      {
+        "title": "疗养院管理",
+        "icon": "",
+        "href": "/changePage?page=website/manage",
+        "spread": false
+      },
+      {
+        "title": "精品路线",
+        "icon": "",
+        "href": "/changePage?page=website/route",
+        "spread": false
+      }
+    ]
+  },
+  {
+    "title": "预报名管理",
+    "icon": "&#xe61f",
+    "spread": false,
+    "children": [
+      {
+        "title": "预报名线路",
+        "icon": "",
+        "href": "/route?name=prediction/line&userType=3",
+        "spread": false
+      },
+      {
+        "title": "预报名统计",
+        "icon": "",
+        "href": "/route?name=prediction/statistics",
+        "spread": false
+      }
+    ]
+  },
+  {
+    "title": "正式报名管理",
+    "icon": "&#xe770",
+    "spread": false,
+    "children": [
+      {
+        "title": "正式报名线路",
+        "icon": "",
+        "href": "/route?name=formal/line",
+        "spread": false
+      },
+      {
+        "title": "正式报名审计",
+        "icon": "",
+        "href": "/route?name=formal/audit",
+        "spread": false
+      },
+      {
+        "title": "正式报名统计",
+        "icon": "",
+        "href": "/route?name=formal/statistics",
+        "spread": false
+      }
+    ]
+  },
+  {
+    "title": "疗养订单管理",
+    "icon": "&#xe63c",
+    "spread": false,
+    "children": [
+      {
+        "title": "领队分配",
+        "icon": "",
+        "href": "/changePage?page=order/leader",
+        "spread": false
+      },
+      {
+        "title": "领队费用审核",
+        "icon": "",
+        "href": "/changePage?page=order/cost",
+        "spread": false
+      },
+      {
+        "title": "疗养费用管理",
+        "icon": "",
+        "href": "/changePage?page=order/sanatorium",
+        "spread": false
+      },
+      {
+        "title": "票务管理",
+        "icon": "",
+        "href": "/changePage?page=/order/ticket",
+        "spread": false
+      }
+    ]
+  },
+  {
+    "title": "业务管理",
+    "icon": "&#xe629",
+    "spread": false,
+    "children": [
+      {
+        "title": "业务数据统计",
+        "icon": "",
+        "href": "route?name=service/data",
+        "spread": false
+      },
+      {
+        "title": "合同管理",
+        "icon": "",
+        "href": "route?name=service/agreement&type=0",
+        "spread": false
+      }
+    ]
+  }
+]

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">系统管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="#">管理员账号</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <!--按钮-->
+    <div class="btn-div">
+        <button type="button" class="layui-btn clickBtn btn-120" id="add">
+            <i class="layui-icon">&#xe608;</i> 添加管理员
+        </button>
+    </div>
+    <!--表格-->
+    <table class="layui-table" lay-filter="test" id="table"></table>
+    <div id="page"></div>
+</div>
+<!--添加/编辑管理员弹窗-->
+<div class="popup" id="popup" style="display: none">
+    <form class="layui-form popup-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label long-label">管理员账号：</label>
+
+            <div class="layui-input-block long-block">
+                <input type="text" name="admin" autocomplete="off" lay-verify="required|checkAcount" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label long-label">账号密码：</label>
+
+            <div class="layui-input-block short-block">
+                <input type="password" name="pwd" placeholder="请输入密码"  autocomplete="off" class="layui-input short-input">
+                <span class="tips">*默认密码为：111111</span>
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label long-label">管理员角色：</label>
+
+            <div class="layui-input-block long-block">
+                <select name="permission" id="myPermission" lay-verify="required">
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label long-label">备注：</label>
+
+            <div class="layui-input-block long-block">
+                <textarea name="remark" placeholder="请输入备注" class="layui-textarea textarea-css"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item form-submit">
+            <button class="layui-btn clickBtn btn-100" lay-submit lay-filter="submitData">确定</button>
+            <button class="layui-btn layui-btn-primary whiteBtn btn-88 cancelBtn ">取消</button>
+        </div>
+    </form>
+</div>
+<!--重置密码弹窗-->
+<div class="popup" id="popup_small" style="display: none">
+    <hr class="cutLineTop">
+    <p class="isSure">
+        确定要重置密码吗？
+    </p>
+
+    <p class="isSureTips">
+        默认密码为：111111
+    </p>
+    <hr class="cutLine">
+    <div class="isSureBtn">
+        <button class="layui-btn layui-btn-primary btn-65 cancelBtn">取消</button>
+        <button class="layui-btn clickBtn btn-65 sureBtn">确定</button>
+    </div>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/system/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">疗养订单管理</a>
+        <span lay-separator="">/</span>
+        <a href="/changePage?page=order/leader">领队分配</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="javascript:;">人员管理</a>
+	</span>
+</div>
+<div class="main-content">
+    <!--表单查询-->
+    <form class="layui-form" action="">
+        <input type="hidden" name="formalId" value="${data}">
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label-more">所属单位：</label>
+
+                <div class="layui-input-inline">
+                    <select name="enterpriseId">
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label-more">姓名：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="name" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label-more">京卡号：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="cardId" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label-more">身份证号：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="IDCard" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label-more">联系方式：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="phone" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label-more">是否出团：</label>
+
+                <div class="layui-input-inline">
+                    <select name="yesNo">
+                        <option value="">请选择</option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item formSearchBtn">
+            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+            <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+        </div>
+    </form>
+    <!--表格-->
+    <form class="layui-form" action="">
+        <table class="layui-table" lay-filter="test" id="table"></table>
+        <div id="page"></div>
+    </form>
+</div>
+<!--更改线路弹窗-->
+<div class="popup" id="popup_input" style="display: none">
+    <hr class="cutLineTop">
+    <form class="layui-form popForm" action="">
+        <div class="layui-form-item">
+            <label class="layui-input-block">更改线路到：</label>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <select name="lineId" style="width: 100%">
+                </select>
+            </div>
+        </div>
+        <hr class="cutLine">
+        <div class="isSureBtn">
+            <button class="layui-btn layui-btn-primary btn-65 cancelBtn" type="button">取消</button>
+            <button class="layui-btn clickBtn btn-65" lay-submit id="updateBtn" type="button">确定</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/order/leaderManage.js"></script>
+</body>
+</html>

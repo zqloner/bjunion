@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+    <style>
+        .unavailable {
+            pointer-events: none;
+            cursor: default;
+            color: #999 !important;
+            background-color: #fff !important;
+        }
+    </style>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">正式报名管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="javascript:;">正式报名线路</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="layui-tab layui-tab-brief" lay-filter="tabChange">
+    <ul class="layui-tab-title">
+        <li class="layui-this" data-id="3">劳模职工</li>
+        <li data-id="2">优秀职工</li>
+        <li data-id="1">普通职工</li>
+    </ul>
+    <div class="layui-tab-content">
+        <!--劳模职工-->
+        <div class="layui-tab-item layui-show">
+            <div class="main-content">
+                <!--表单查询-->
+                <form class="layui-form" action="" lay-filter="queryForm">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">线路名称：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" class="layui-input" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">报名时间：</label>
+
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <input type="text" name="startTime" autocomplete="off" class="layui-input range" readonly>
+                            </div>
+                            <div class="layui-form-mid">-</div>
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <input type="text" name="endTime" autocomplete="off" class="layui-input range" readonly>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">合同状态：</label>
+
+                            <div class="layui-input-inline">
+                                <select name="isTeam">
+                                    <option value="">全选</option>
+                                    <option value="0">未成团</option>
+                                    <option value="1">已成团</option>
+                                    <option value="2">未操作</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline inline-btn">
+                            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+                            <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+                        </div>
+                    </div>
+                </form>
+                <!--按钮-->
+                <div class="btn-div">
+                    <button type="button" class="layui-btn clickBtn btn-82 addOne">单个添加</button>
+                    <button type="button" class="layui-btn clickBtn btn-82 addMore">批量添加</button>
+                </div>
+                <!--表格-->
+                <table class="layui-table" lay-filter="test" id="table"></table>
+                <div id="page"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--成团弹窗-->
+<div class="popup" id="popup_small" style="display: none">
+    <hr class="cutLineTop">
+    <p class="isSure">
+        确定成团后，则不能继续报名！
+    </p>
+    <hr class="cutLine">
+    <div class="isSureBtn">
+        <button class="layui-btn layui-btn-primary btn-65 cancelBtn">取消</button>
+        <button class="layui-btn clickBtn btn-65 sureBtn">确定</button>
+    </div>
+</div>
+<!--不成团弹窗-->
+<div class="popup" id="popup_input" style="display: none">
+    <hr class="cutLineTop">
+    <form class="layui-form popForm" action="">
+        <div class="layui-form-item">
+            <label class="layui-input-block">请填写不成团的理由：</label>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <textarea name="message" placeholder="请输入" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <hr class="cutLine">
+        <div class="isSureBtn">
+            <button class="layui-btn layui-btn-primary btn-65 cancelBtn">取消</button>
+            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">确定</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/formal/line.js"></script>
+</body>
+</html>

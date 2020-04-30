@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/leader/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+        <a href="javascript:">疗养团管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="javascript: void(0)">待出团详情</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <h3 class="deTitle">
+        疗养团详情
+    </h3>
+
+    <div class="layui-col-xs12 deP">
+        <div class="layui-col-xs3"><span class="deName">线路名称：</span><span id="tuanname"></span></div>
+        <div class="layui-col-xs3"><span class="deName">疗养院：</span><span id="hname"></span></div>
+        <div class="layui-col-xs3"><span class="deName">疗养日期：</span><span id="lydate"></span></div>
+        <div class="layui-col-xs3"><span class="deName">报名人数：</span><span id="percount"></span></div>
+    </div>
+
+    <h3 class="deTitle">
+        疗养人员出行确认
+    </h3>
+    <!--表单查询-->
+    <form class="layui-form" action="">
+        <input type="hidden" id="formalid" value="${formalid}">
+        <input type="hidden" id="pagedata" value="${pagedata}">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">所属单位：</label>
+
+                <div class="layui-input-inline">
+                    <select name="company" id="companylist">
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">姓名：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="name" id="uname" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">京卡号：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="bjCard" id="cardid" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">联系方式：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="tel" id="phone" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">身份证号：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="idCard" id="IDCard" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">是否出团：</label>
+
+                <div class="layui-input-inline">
+                    <select name="state" id="ifout">
+                        <option value="">请选择</option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item formSearchBtn">
+            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+            <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+        </div>
+    </form>
+    <!--表格-->
+    <table class="layui-table table-margin" lay-filter="test" id="table"></table>
+    <div id="page"></div>
+    <div class="layui-form-item formBtn">
+        <button class="layui-btn clickBtn btn-65" id="tijiao">提交</button>
+        <!--<button class="layui-btn layui-btn-primary btn-65" onclick="javascript:history.back()">返回</button>-->
+    </div>
+</div>
+<!--出团弹窗-->
+<div class="popup" id="popup_small" style="display: none">
+    <hr class="cutLineTop">
+    <p class="isSure">
+        确认出团吗？
+    </p>
+    <hr class="cutLine">
+    <div class="isSureBtn">
+        <button class="layui-btn layui-btn-primary btn-65 cancelBtn">取消</button>
+        <button class="layui-btn clickBtn btn-65 sureBtn">确定</button>
+    </div>
+</div>
+<!--不出团弹窗-->
+<div class="popup" id="popup_input" style="display: none">
+    <hr class="cutLineTop">
+    <p class="isSure">
+        确认不出团吗？
+    </p>
+    <hr class="cutLine">
+    <div class="isSureBtn">
+        <button class="layui-btn layui-btn-primary btn-65 cancelBtn">取消</button>
+        <button class="layui-btn clickBtn btn-65 sureBtn">确定</button>
+    </div>
+    <!--<form class="layui-form popForm" action="">
+        <div class="layui-form-item">
+            <label class="layui-input-block">请填写不出团的理由：</label>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <textarea name="msg" placeholder="请输入" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <hr class="cutLine">
+        <div class="isSureBtn">
+            <button class="layui-btn layui-btn-primary btn-65 cancelBtn">取消</button>
+            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">确定</button>
+        </div>
+    </form>-->
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/leader/js/waitDetail.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">网站信息管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="javascript:;">疗养院管理</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <!--表单查询-->
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">地区：</label>
+
+                <div class="layui-input-inline" style="width: 100px;">
+                    <select name="pId" lay-filter ="pId">
+                    </select>
+                </div>
+                <div class="layui-form-mid">-</div>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <select name="cId">
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">疗养院：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="name" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item formSearchBtn">
+            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+            <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+        </div>
+    </form>
+    <!--按钮-->
+    <div class="btn-div">
+        <button type="button" class="layui-btn clickBtn btn-82" id="add">
+            <i class="layui-icon">&#xe608;</i> 添加
+        </button>
+    </div>
+    <!--表格-->
+    <table class="layui-table" lay-filter="test" id="table"></table>
+    <div id="page"></div>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/website/manage.js"></script>
+</body>
+<!--预览页面-->
+<div id="preContent" style="display: none">
+    <div class="newsContent" id="content">
+    </div>
+</div>
+</html>

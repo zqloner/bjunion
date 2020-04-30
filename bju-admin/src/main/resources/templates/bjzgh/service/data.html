@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">业务管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="#">业务数据统计</a>
+	</span>
+</div>
+<div class="title-box">
+    <h3>管理概况</h3>
+
+    <ul>
+        <li class="manBox manBox_01">
+            <p class="manKind">
+                <img src="/images/fwqy.png">
+                服务企业
+            </p>
+            <hr class="manHr">
+            <p class="manNum" id="enterpriseCount"></p>
+        </li>
+        <li class="manBox manBox_02">
+            <p class="manKind">
+                <img src="images/lmzg.png">
+                劳模职工
+            </p>
+            <hr class="manHr">
+            <p class="manNum" id="laomoCount"></p>
+        </li>
+        <li class="manBox manBox_03">
+            <p class="manKind">
+                <img src="/images/yxyg.png">
+                优秀职工
+            </p>
+            <hr class="manHr">
+            <p class="manNum" id="youxiuCount"></p>
+        </li>
+        <li class="manBox manBox_04">
+            <p class="manKind">
+                <img src="/images/ptzg.png">
+                普通职工
+            </p>
+            <hr class="manHr">
+            <p class="manNum" id="putongCount"></p>
+        </li>
+    </ul>
+</div>
+
+<div class="kind-box kind-box-first">
+    <div>
+        <h3>疗养群体统计</h3>
+        <a href="route?name=service/group" class="moreBtn">详情<img src="/images/detail.png"></a>
+    </div>
+    <div class="kind-content">
+        <ul>
+            <li class="kindBox kindBox_01">
+                <p class="manKind">
+                    <img src="/images/lyzrs.png">
+                    服务疗养职工总数
+                </p>
+                <hr class="manHr">
+                <p class="manNum" id="allUserCount"></p>
+            </li>
+            <li class="kindBox kindBox_02">
+                <p class="manKind">
+                    <img src="/images/lyzfy.png">
+                    参与疗养总费用
+                </p>
+                <hr class="manHr">
+                <p class="manNum" id="allCostCount"></p>
+            </li>
+        </ul>
+    </div>
+    <!--服务群体所占比例-->
+    <div class="kind-content">
+        <div id="fwqtszbl" style="height: 350px;width: 80%">
+        </div>
+    </div>
+</div>
+
+<div class="kind-box kind-box-second">
+    <div>
+        <h3>疗养院接待情况 </h3>
+        <a href="route?name=service/vestHome" class="moreBtn">详情<img src="/images/detail.png"></a>
+    </div>
+    <!--疗养院接待量排名 TOP10-->
+    <div id="lyyjdl" class="layui-col-md4" style="height: 400px;width: 80%;margin-left: 10%;">
+    </div>
+</div>
+
+<div class="kind-box kind-box-third">
+    <div>
+        <h3>交通出行情况</h3>
+        <a href="route?name=service/traffic" class="moreBtn">详情<img src="/images/detail.png"></a>
+    </div>
+    <!--使用各类交通工具人数-->
+    <div class="kind-content">
+        <div id="sygljtgjrs" style="height: 350px;width: 80%">
+        </div>
+    </div>
+    <!--使用各类交通工具的总成本-->
+    <div class="kind-content">
+        <div id="sygljtgjzcb" style="height: 350px;width: 80%">
+        </div>
+    </div>
+</div>
+
+<div class="kind-box kind-box-fourth">
+    <div>
+        <h3>领队接待情况 </h3>
+        <a href="route?name=service/leader" class="moreBtn">详情<img src="/images/detail.png"></a>
+    </div>
+    <!--疗养院接待量排名 TOP10-->
+    <div id="ldjdnl" class="layui-col-md4" style="height: 400px;width: 80%;margin-left: 10%;">
+    </div>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/plugins/echarts-4.2.1/echarts.min.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/service/data.js"></script>
+</body>
+</html>

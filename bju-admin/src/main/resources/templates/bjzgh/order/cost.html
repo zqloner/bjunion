@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">疗养订单管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="javascript:;">领队费用审核</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <!--表单查询-->
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">领队姓名：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="leaderName" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">领队账号：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="username" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">审核状态：</label>
+
+                <div class="layui-input-inline">
+                    <select name="examineStatus">
+                        <!--1 未审核 2审核中 3审核通过 4审核不通过-->
+                        <option value="">请选择</option>
+                        <option value="0">未审核</option>
+                        <option value="1">审核通过</option>
+                        <option value="2">审核不通过</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">线路名称：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="lineName" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">疗养日期：</label>
+
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="start" autocomplete="off" class="layui-input laydate" readonly>
+                </div>
+                <div class="layui-form-mid">-</div>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="end" autocomplete="off" class="layui-input laydate" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item formSearchBtn">
+            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+            <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+        </div>
+    </form>
+    <!--按钮-->
+    <div class="btn-div">
+        <button type="button" class="layui-btn clickBtn btn-82 export">导出列表</button>
+    </div>
+    <!--表格-->
+    <table class="layui-table" lay-filter="test" id="table"></table>
+    <div id="page"></div>
+</div>
+<!--导出列表弹窗-->
+<div class="popup" id="popup_export" style="display: none">
+    <hr class="cutLineTop">
+    <p class="isSure">
+        确定要导出列表吗？
+    </p>
+    <hr class="cutLine">
+    <div class="isSureBtn">
+        <button class="layui-btn layui-btn-primary btn-65 cancelBtn">取消</button>
+        <button class="layui-btn clickBtn btn-65 sureBtn">确定</button>
+    </div>
+</div>
+<!--通过弹窗-->
+<div class="popup" id="popup_small" style="display: none">
+    <hr class="cutLineTop">
+    <p class="isSure">
+        确认通过审核吗？
+    </p>
+    <hr class="cutLine">
+    <div class="isSureBtn">
+        <button class="layui-btn layui-btn-primary btn-65 cancelBtn">取消</button>
+        <button class="layui-btn clickBtn btn-65 sureBtn">确定</button>
+    </div>
+</div>
+<!--不通过弹窗-->
+<div class="popup" id="popup_input" style="display: none">
+    <hr class="cutLineTop">
+    <form class="layui-form popForm" action="">
+        <div class="layui-form-item">
+            <label class="layui-input-block">请填写不通过的理由：</label>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <textarea name="msg" placeholder="请输入" class="layui-textarea" maxlength="250" lay-verify="required"></textarea>
+            </div>
+        </div>
+        <hr class="cutLine">
+        <div class="isSureBtn">
+            <button class="layui-btn layui-btn-primary btn-65 cancelBtn">取消</button>
+            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">确定</button>
+        </div>
+    </form>
+</div>
+<!--审核状态弹窗-->
+<div class="popup" id="popup" style="display: none">
+    <ul class="layui-timeline" id="examineInfo">
+    </ul>
+</div>
+<!--详情页面-->
+<div id="preContent" style="display: none">
+    <div class="small-content">
+        <h3 class="deTitle">
+            疗养团详情
+        </h3>
+
+        <div class="deP">
+            <div class="layui-col-xs6"><span class="deName">线路名称：</span><span id="lineName"></span></sp></div>
+            <div class="layui-col-xs6"><span class="deName">疗养院：</span><span id="sanatorName"></span></div>
+            <div class="layui-col-xs6"><span class="deName">报名人数：</span><span id="nowCount"></span></div>
+            <div class="layui-col-xs6"><span class="deName">疗养时间：</span><span id="time"></span></div>
+        </div>
+
+        <h3 class="deTitle">
+            领队消费明细
+        </h3>
+        <!--表格-->
+        <table class="layui-table table-margin" lay-filter="general" id="generalTable"></table>
+        <div id="generalPage"></div>
+        <p class="deP">
+            <span class="deName">消费合计：</span><strong><span id="price"></span></strong>
+        </p>
+
+        <h3 class="deTitle" id="enclosure">
+            附件
+        </h3>
+
+        <!--<div class="layui-form-item formBtn" style="margin-top: 30px">
+            <button class="layui-btn clickBtn btn-82">确定</button>
+        </div>-->
+    </div>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/order/cost.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">网站信息管理</a>
+        <span lay-separator="">/</span>
+        <a href="/changePage?page=website/route">精品路线管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="javascript:;">添加</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <form class="layui-form fullForm fullFormL" action="" lay-filter="layform">
+        <div class="layui-form-item">
+            <label class="layui-form-label">疗养线路名称：</label>
+            <input type="hidden" name="id" value="${data}">
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="name" autocomplete="off" class="layui-input" maxlength="20" lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">关联疗养院：</label>
+
+            <div class="layui-input-inline long-inline" id="sanatoriumDiv">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">简介：</label>
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="brief" lay-verify="required" maxlength="200" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">详细介绍：</label>
+
+            <div class="layui-input-inline long-inline">
+                <!--<textarea class="layui-textarea" name="content" id="editor" style="display: none">
+                        </textarea>-->
+                <div id="editor">
+                </div>
+            </div>
+            <button type="button" class="layui-btn layui-btn-primary whiteBtn btn-65" id="preData">预览</button>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">列表配图：</label>
+
+            <div class="layui-input-inline">
+                <div class="layui-inline shortInline preview"
+                     style="text-align: center;max-width: 400px;max-height: 400px;">
+                    <img id="preview" src="" name="picUrl" alt="" class="layui-upload-img"
+                         style="max-width: 390px;max-height: 400px;margin: 0 auto;">
+                </div>
+                <button type="button" class="layui-btn layui-btn-primary whiteBtn btn-110" id="upload">
+                    <i class="layui-icon">&#xe608;</i> 上传图片
+                </button>
+                <p class="editTip">大小1920*1080 不大于2kb</p>
+            </div>
+        </div>
+        <div class="layui-form-item formBtn">
+            <div class="layui-input-block">
+                <button type="reset" class="layui-btn layui-btn-primary whiteBtn btn-65" id="cancel">取消</button>
+                <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">确定</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/plugins/wangEditor-3.1.1/release/wangEditor.min.js"></script>
+<script type="text/javascript" src="/plugins/utils/wangEditor.js"></script>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/website/routeAdd.js"></script>
+</body>
+<!--预览页面-->
+<div id="preContent" style="display: none">
+    <div class="newsContent" id="content">
+    </div>
+</div>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">疗养订单管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="javascript:;">疗养费用管理</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <!--表单查询-->
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">线路名称：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="lineName" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">费用状态：</label>
+
+                <div class="layui-input-inline">
+                    <select name="status">
+                        <option value="">全部</option>
+                        <option value="1">已添加</option>
+                        <option value="2">未添加</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item formSearchBtn">
+            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+            <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+        </div>
+    </form>
+    <!--表格-->
+    <table class="layui-table" lay-filter="test" id="table"></table>
+    <div id="page"></div>
+</div>
+<!--疗养费用添加页面-->
+<div id="preContent" style="display: none">
+    <div class="small-content">
+        <h3 class="deTitle">
+            疗养团详情
+        </h3>
+
+        <div class="deP">
+            <div class="layui-col-xs6"><span class="deName">线路名称：</span><span name="lineName"></span></sp></div>
+            <div class="layui-col-xs6"><span class="deName">疗养院：</span><span name="sanatorName"></span></div>
+            <div class="layui-col-xs6"><span class="deName">报名人数：</span><span name="nowCount"></span></div>
+            <div class="layui-col-xs6"><span class="deName">疗养时间：</span><span name="time"></span></div>
+        </div>
+        <script type="text/html" id="toolbarDemo">
+            <h3 class="deTitle">
+                疗养费用明细增加 <a class="deA" href="javascript:void (0);" lay-event="addRow">添加行</a> | <a class="deA" href="javascript:void (0);" lay-event="delRow">删除行</a>
+            </h3>
+        </script>
+        <!--表格-->
+        <table class="layui-table table-margin" lay-filter="add" id="addTable"></table>
+        <div id="addPage"></div>
+        <p class="deP">
+            <span class="deName">消费合计：</span><strong id="totalmoney"></strong>
+        </p>
+
+        <h3 class="deTitle">
+            附件
+        </h3>
+
+        <p class="deP">
+            领队消费证明增加 <a class="deA" href="javascript:void(0);" id="addMore">添加附件</a>
+        </p>
+
+        <div id="preview">
+
+        <!--<p class="deP">
+            附件1 住宿发票 <a class="deA" href="#">删除</a>
+        </p>
+
+        <p class="deP">
+            附件2 交通发票 <a class="deA" href="#">删除</a>
+        </p>-->
+
+        </div>
+
+        <div class="layui-form-item formBtn" style="margin-top: 30px">
+            <button class="layui-btn clickBtn btn-82" id="determine">确定</button>
+        </div>
+    </div>
+</div>
+<!--添加附件 弹窗-->
+<div class="popup" id="popup" style="display: none">
+    <form class="layui-form popup-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">添加附件：</label>
+
+            <div class="layui-inline">
+                <input name="showfile" id="showfile" type="text" class="layui-input" autocomplete="off" style="width: 250px">
+            </div>
+            <button type="button" class="layui-btn clickBtn btn-65 uploadBtn" id="upload">
+                上传
+            </button>
+        </div>
+    </form>
+</div>
+<!--查看详情页面-->
+<div id="deContent" style="display: none">
+    <div class="small-content">
+        <h3 class="deTitle">
+            疗养团详情
+        </h3>
+
+        <div class="deP">
+            <div class="layui-col-xs6"><span class="deName">线路名称：</span><span name="lineName"></span></sp></div>
+            <div class="layui-col-xs6"><span class="deName">疗养院：</span><span name="sanatorName"></span></div>
+            <div class="layui-col-xs6"><span class="deName">报名人数：</span><span name="nowCount"></span></div>
+            <div class="layui-col-xs6"><span class="deName">疗养时间：</span><span name="time"></span></div>
+        </div>
+        <h3 class="deTitle">
+            疗养费用明细增加
+        </h3>
+        <!--表格-->
+        <table class="layui-table table-margin" lay-filter="fine" id="fineTable"></table>
+        <div id="finePage"></div>
+        <p class="deP">
+            <span class="deName">消费合计：</span><strong><span name="price"></span></strong>
+        </p>
+
+        <h3 class="deTitle" id="enclosure">
+            附件
+        </h3>
+
+        <div class="layui-form-item formBtn" style="margin-top: 30px">
+            <button class="layui-btn clickBtn btn-82">确定</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/order/sanatorium.js"></script>
+</body>
+</html>

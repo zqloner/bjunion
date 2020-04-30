@@ -1,0 +1,87 @@
+{
+  "success": true,
+  "state": "200",
+  "msg": "请求成功",
+  "result": {
+    "count": 6,
+    "data": [{
+      "name": "领队管理员",
+      "describe": "领队的日常管理",
+      "permission": "领队管理、领队分配",
+      "admin": "admin1005",
+      "realName": "肖战",
+      "tel": "18661284567",
+      "addTime": "2019.08.18  09:00:59",
+      "sex": 0,
+      "age": "28",
+      "idCard": "131123134515150098",
+      "guideCard": "12222222222"
+    },
+      {
+        "name": "票务管理员",
+        "describe": "添加票务的火车管理员、飞机管理员等",
+        "permission": "票务管理",
+        "admin": "admin1127",
+        "realName": "朴灿烈",
+        "tel": "13633182272",
+        "addTime": "2019.08.18  09:00:59",
+        "sex": 0,
+        "age": "27",
+        "idCard": "131123134515150098",
+        "guideCard": "12222222222"
+      },
+      {
+        "name": "XXX管理员",
+        "describe": "XXXXX",
+        "permission": "报名管理",
+        "admin": "admin506",
+        "realName": "边伯贤",
+        "tel": "13301360986",
+        "addTime": "2019.08.18  09:00:59",
+        "sex": 0,
+        "age": "27",
+        "idCard": "131123134515150098",
+        "guideCard": "12222222222"
+      },
+      {
+        "name": "领队管理员",
+        "describe": "领队的日常管理",
+        "permission": "领队管理、领队分配",
+        "admin": "admin1005",
+        "realName": "肖战",
+        "tel": "18661284567",
+        "addTime": "2019.08.18  09:00:59",
+        "sex": 0,
+        "age": "28",
+        "idCard": "131123134515150098",
+        "guideCard": "12222222222"
+      },
+      {
+        "name": "票务管理员",
+        "describe": "添加票务的火车管理员、飞机管理员等",
+        "permission": "票务管理",
+        "admin": "admin1005",
+        "realName": "肖战",
+        "tel": "18661284567",
+        "addTime": "2019.08.18  09:00:59",
+        "sex": 0,
+        "age": "28",
+        "idCard": "131123134515150098",
+        "guideCard": "12222222222"
+      },
+      {
+        "name": "XXX管理员",
+        "describe": "XXXXX",
+        "permission": "报名管理",
+        "admin": "admin1005",
+        "realName": "肖战",
+        "tel": "18661284567",
+        "addTime": "2019.08.18  09:00:59",
+        "sex": 0,
+        "age": "28",
+        "idCard": "131123134515150098",
+        "guideCard": "12222222222"
+      }
+    ]
+  }
+}

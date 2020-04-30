@@ -1,0 +1,61 @@
+{
+  "success": true,
+  "state": "200",
+  "msg": "请求成功",
+  "result": {
+    "count": 4,
+    "data": [{
+      "realName": "肖战",
+      "company": "哇唧唧哇",
+      "bjCard": "12222222222",
+      "idCard": "131123199110050098",
+      "tel": "18661284567",
+      "tool": "火车",
+      "ticket": "G81",
+      "money": "153",
+      "backTool": "火车",
+      "backTicket": "G81",
+      "backMoney": "153"
+    },
+      {
+        "realName": "肖战",
+        "company": "哇唧唧哇",
+        "bjCard": "12222222222",
+        "idCard": "131123199110050098",
+        "tel": "18661284567",
+        "tool": "飞机",
+        "ticket": "CA1412",
+        "money": "2000",
+        "backTool": "火车",
+        "backTicket": "G81",
+        "backMoney": "153"
+      },
+      {
+        "realName": "肖战",
+        "company": "哇唧唧哇",
+        "bjCard": "12222222222",
+        "idCard": "131123199110050098",
+        "tel": "18661284567",
+        "tool": "火车",
+        "ticket": "G81",
+        "money": "153",
+        "backTool": "火车",
+        "backTicket": "G81",
+        "backMoney": "153"
+      },
+      {
+        "realName": "肖战",
+        "company": "哇唧唧哇",
+        "bjCard": "12222222222",
+        "idCard": "131123199110050098",
+        "tel": "18661284567",
+        "tool": "火车",
+        "ticket": "G81",
+        "money": "153",
+        "backTool": "火车",
+        "backTicket": "G81",
+        "backMoney": "153"
+      }
+    ]
+  }
+}

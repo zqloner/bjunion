@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">疗养订单管理</a>
+        <span lay-separator="">/</span>
+        <a href="/changePage?page=order/leader">领队分配</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="javascript:;">添加领队</a>
+	</span>
+</div>
+<div class="main-content">
+    <!--表单查询-->
+    <form class="layui-form" action="">
+       <!-- <input type="hidden" name="formalId">-->
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label-more">账号（手机号）：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="username" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label-more">姓名：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="name" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label-more">身份证号：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="IDCard" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label-more">导游证号：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="guideNum" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label-more">性别：</label>
+
+                <div class="layui-input-inline">
+                    <select name="sex">
+                        <option value="">请选择</option>
+                        <option value="1">男</option>
+                        <option value="0">女</option>
+                    </select>
+                </div>
+            </div>
+            <!--<div class="layui-inline">
+                <label class="layui-form-label longger-label-more">年龄：</label>
+
+                <div class="layui-input-inline">
+                    <select name="age">
+                        <option value="">请选择</option>
+                        <option value="0">28</option>
+                        <option value="1">27</option>
+                        <option value="2">26</option>
+                    </select>
+                </div>
+            </div>-->
+        </div>
+        <div class="layui-form-item formSearchBtn">
+            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+            <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+        </div>
+    </form>
+    <!--按钮-->
+    <div class="btn-div">
+        <button type="button" class="layui-btn clickBtn btn-82" id="add">新建领队</button>
+    </div>
+    <!--表格-->
+    <form class="layui-form" action="">
+        <table class="layui-table" lay-filter="test" id="table"></table>
+        <div id="page"></div>
+        <div class="btn-center">
+            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="choose">确定</button>
+        </div>
+    </form>
+
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/order/leaderAdd.js"></script>
+<script>
+    var formalId = '${id}';
+    var status = '${status}';
+
+</script>
+</body>
+</html>

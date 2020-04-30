@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<#if contractId??>
+<input type="hidden" name="contractId" id="contractId" value="${contractId}">
+</#if>
+<#if type??>
+<input type="hidden" name="type" id="type" value="${type}">
+</#if>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">业务管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="#">合同管理</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="layui-tab layui-tab-brief" lay-filter="tabChange">
+    <ul class="layui-tab-title">
+        <li class="layui-this" name="liaoyangyuan" value="0">疗养院合同</li>
+        <li value="1" name="fuwuqiye">服务企业合同</li>
+    </ul>
+    <div class="layui-tab-content">
+        <!--疗养院合同管理-->
+        <div class="layui-tab-item layui-show">
+            <div class="main-content">
+                <!--表单查询-->
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">合同名称：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" class="layui-input" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">疗养院名称：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="vestHome" class="layui-input" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">合同状态：</label>
+
+                            <div class="layui-input-inline">
+                                <select name="state">
+                                    <option value="">请选择</option>
+                                    <option value="0">未开始</option>
+                                    <option value="1">服务中</option>
+                                    <option value="2">已过期</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">合同时间：</label>
+
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <input type="text" name="start" autocomplete="off" class="layui-input laydate" readonly>
+                            </div>
+                            <div class="layui-form-mid">-</div>
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <input type="text" name="end" autocomplete="off" class="layui-input laydate" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item formSearchBtn">
+                        <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+                        <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+                    </div>
+                </form>
+                <!--按钮-->
+                <div class="btn-div">
+                    <button type="button" class="layui-btn clickBtn btn-82 export">导出列表</button>
+                    <button class="layui-btn layui-btn-primary whiteBtn btn-88 addOne">单个添加</button>
+                    <button class="layui-btn layui-btn-primary whiteBtn btn-88 addMore">批量添加</button>
+                </div>
+                <!--表格-->
+                <table class="layui-table" lay-filter="test" id="table"></table>
+                <div id="page"></div>
+            </div>
+        </div>
+        <!--服务企业合同管理-->
+        <!--<div class="layui-tab-item">-->
+            <!--<div class="main-content">-->
+                <!--&lt;!&ndash;表单查询&ndash;&gt;-->
+                <!--<form class="layui-form" action="">-->
+                    <!--<div class="layui-form-item">-->
+                        <!--<div class="layui-inline">-->
+                            <!--<label class="layui-form-label longger-label">合同名称：</label>-->
+
+                            <!--<div class="layui-input-inline">-->
+                                <!--<input type="text" name="name" class="layui-input" autocomplete="off">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="layui-inline">-->
+                            <!--<label class="layui-form-label longger-label">疗养院名称：</label>-->
+
+                            <!--<div class="layui-input-inline">-->
+                                <!--<input type="text" name="vestHome" class="layui-input" autocomplete="off">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="layui-inline">-->
+                            <!--<label class="layui-form-label longger-label">合同状态：</label>-->
+
+                            <!--<div class="layui-input-inline">-->
+                                <!--<select name="state">-->
+                                    <!--<option value="0">服务中</option>-->
+                                    <!--<option value="1">已过期</option>-->
+                                    <!--<option value="2">提前终止</option>-->
+                                <!--</select>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="layui-inline">-->
+                            <!--<label class="layui-form-label longger-label">合同时间：</label>-->
+
+                            <!--<div class="layui-input-inline" style="width: 100px;">-->
+                                <!--<input type="text" name="start" autocomplete="off" class="layui-input laydate" readonly>-->
+                            <!--</div>-->
+                            <!--<div class="layui-form-mid">-</div>-->
+                            <!--<div class="layui-input-inline" style="width: 100px;">-->
+                                <!--<input type="text" name="end" autocomplete="off" class="layui-input laydate" readonly>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="layui-form-item formSearchBtn">-->
+                        <!--<button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>-->
+                        <!--<button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>-->
+                    <!--</div>-->
+                <!--</form>-->
+                <!--&lt;!&ndash;按钮&ndash;&gt;-->
+                <!--<div class="btn-div">-->
+                    <!--<button type="button" class="layui-btn clickBtn btn-82 export">导出列表</button>-->
+                    <!--<button class="layui-btn layui-btn-primary whiteBtn btn-88 addOne">单个添加</button>-->
+                    <!--<button class="layui-btn layui-btn-primary whiteBtn btn-88 addMore">批量添加</button>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;表格&ndash;&gt;-->
+                <!--<table class="layui-table" lay-filter="test" id="fineTable"></table>-->
+                <!--<div id="finePage"></div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+<!--导出列表弹窗-->
+<div class="popup" id="popup_export" style="display: none">
+    <hr class="cutLineTop">
+    <p class="isSure">
+        确定要导出列表吗？
+    </p>
+    <hr class="cutLine">
+    <div class="isSureBtn">
+        <button class="layui-btn layui-btn-primary btn-65 cancelBtn">取消</button>
+        <button class="layui-btn clickBtn btn-65 sureBtn">确定</button>
+    </div>
+</div>
+<script type="text/javascript" src="../../plugins/layui/layui.js"></script>
+<script type="text/javascript" src="../../bjzgh/pages/service/agreement.js"></script>
+</body>
+</html>

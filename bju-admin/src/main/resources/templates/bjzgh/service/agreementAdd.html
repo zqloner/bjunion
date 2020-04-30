@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<#if contractId??>
+<input type="hidden" name="contractId" id="contractId" value="${contractId}">
+</#if>
+<#if type??>
+<input type="hidden" name="type" id="type" value="${type}">
+</#if>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">业务管理</a>
+        <span lay-separator="">/</span>
+        <a href="route?name=service/agreement">合同管理</a>
+        <span lay-separator="">/</span>
+        <#if contractId??>
+         <a class="pointer" href="#">编辑</a>
+        <#else>
+        <a class="pointer" href="#">添加</a>
+        </#if>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <form class="layui-form fullForm fullFormL" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">服务合同编号：</label>
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="num" autocomplete="off" lay-verify="required|cstcode" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">服务合同名称：</label>
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="name"  lay-verify="cstname" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">合同起止时间：</label>
+
+            <div class="layui-input-inline" style="width: 250px!important;">
+                <input type="text" name="start" autocomplete="off"  lay-verify="sta" class="layui-input laydate" readonly>
+            </div>
+            <div class="layui-form-mid">-</div>
+            <div class="layui-input-inline" style="width: 250px!important">
+                <input type="text" name="end" autocomplete="off" lay-verify="comparetime" class="layui-input laydate" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">业务类型：</label>
+
+            <div class="layui-input-inline long-inline">
+                <select name="kind" lay-filter="kind">
+                    <option value="0">疗养院合同</option>
+                    <option value="1">服务企业合同</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item" >
+            <label class="layui-form-label">业务负责人：</label>
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="ywPerson" placeholder="请输入姓名" lay-verify="ywfzr" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">负责人联系方式：</label>
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="ywTel" autocomplete="off" lay-verify="required|phone" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">甲方名称：</label>
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="kaName" autocomplete="off" lay-verify="aname" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">甲方法务实体名称：</label>
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="kaRname" autocomplete="off" lay-verify="alname" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">甲方联系人：</label>
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="kaPerson" autocomplete="off" lay-verify="alaname" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">甲方联系人手机号：</label>
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="kaTel" autocomplete="off" lay-verify="required|phone" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">甲方固定电话：</label>
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="kaPhone" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">甲方地址：</label>
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="kaWhere" autocomplete="off" lay-verify="aaddr" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">乙方联系人：</label>
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="yiPerson" autocomplete="off" lay-verify="bname" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">乙方联系人手机号：</label>
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="yiTel" autocomplete="off" lay-verify="required|phone" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">乙方固定电话：</label>
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="yiPhone" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">乙方地址：</label>
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="yiWhere" autocomplete="off" lay-verify="baddr" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item formBtn">
+            <div class="layui-input-block">
+                <button type="reset" class="layui-btn layui-btn-primary whiteBtn btn-65">重置</button>
+                <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">确定</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/service/agreementAdd.js"></script>
+</body>
+</html>

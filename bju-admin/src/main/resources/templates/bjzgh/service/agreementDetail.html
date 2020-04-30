@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<#if contractId??>
+<input type="hidden" name="contractId" id="contractId" value="${contractId}">
+</#if>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">业务管理</a>
+        <span lay-separator="">/</span>
+        <a href="route?name=service/agreement">合同管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="#">详情</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <#if type??>
+    <input type="hidden" name="type" id="type" value="${type}">
+</#if>
+    <h3 class="deTitle">
+        合同详情
+    </h3>
+
+    <div class="deP">
+        <div class="layui-col-xs6" name="contractCode"><span class="deName">服务合同编号：</span>19921127</div>
+        <div class="layui-col-xs6" name="contractName"><span class="deName">服务合同名称：</span>合同名称</div>
+        <div class="layui-col-xs6" name="time"><span class="deName">合同起止时间：</span>2019.08.23 08:00:00——2019.09.23 08:00:00</div>
+        <div class="layui-col-xs6" name="type"><span class="deName">业务类型：</span>疗养服务</div>
+        <div class="layui-col-xs6" name="person"><span class="deName">业务负责人：</span>肖战</div>
+        <div class="layui-col-xs6" name="phone"><span class="deName">负责人联系方式：</span>19911005</div>
+        <div class="layui-col-xs6" name="partyaName"><span class="deName">甲方名称：</span>哇唧唧哇</div>
+        <div class="layui-col-xs6" name="partyaNameLegal"><span class="deName">甲方法务实体名称：</span>哇唧唧哇</div>
+        <div class="layui-col-xs6" name="partyaPerson"><span class="deName">甲方联系人：</span>翟潇闻</div>
+        <div class="layui-col-xs6" name="partyaPhone"><span class="deName">甲方联系人手机号：</span>19990528</div>
+        <div class="layui-col-xs6" name="partyaTel"><span class="deName">甲方固定电话：</span>19990528</div>
+        <div class="layui-col-xs6" name="partyaAddress"><span class="deName">甲方地址：</span>北京市</div>
+        <div class="layui-col-xs6" name="partybPerson"><span class="deName">乙方联系人：</span>朴灿烈</div>
+        <div class="layui-col-xs6" name="partybPhone"><span class="deName">乙方联系人手机号：</span>19921127</div>
+        <div class="layui-col-xs6" name="partybTel"><span class="deName">乙方固定电话：</span>19921127</div>
+        <div class="layui-col-xs6" name="partyAddress"><span class="deName">乙方地址：</span>首尔</div>
+    </div>
+
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/service/agreementDetail.js"></script>
+</body>
+</html>

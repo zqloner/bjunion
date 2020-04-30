@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>京工疗休养报名系统后台管理</title>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/leader/css/main.css" media="all"/>
+    <link rel="stylesheet" href="/leader/css/header.css" media="all"/>
+</head>
+<body class="main_body">
+
+<div class="layui-layout layui-layout-admin">
+    <!-- 顶部 -->
+    <div class="layui-header header">
+        <div class="layui-main">
+            <!-- 左侧logo -->
+            <div class="logo">
+                <img src="/images/login-title.png">
+            </div>
+            <input type="hidden" id="name" value="${name}"/>
+            <!-- 顶部右侧菜单 -->
+            <ul class="layui-nav top_menu">
+                <li class="layui-nav-item top_css">
+                    <a href="javascript:;">
+                        <span class="layui-icon">&#xe66f;</span>
+                        <cite id="showname"></cite>
+                    </a>
+                </li>
+                <li class="layui-nav-item top_css">
+                    <a href="javascript:;" id="signOut" class="signOut">
+                        <span class="icon_6"></span>
+                        <cite>退出</cite>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 左侧导航 -->
+    <div class="layui-side layui-bg-dark">
+        <div class="navBar layui-side-scroll" id="navBar">
+            <ul class="layui-nav layui-nav-tree layui-bg-dark nav-css" lay-filter="filter"></ul>
+        </div>
+    </div>
+    <!-- 右侧内容 -->
+    <div class="layui-body layui-form">
+        <div class="layui-tab mag0" lay-filter="bodyTab" id="top_tabs_box">
+            <!--<ul class="layui-tab-title top_tab" id="top_tabs" hidden></ul>
+            <div class="layui-tab-content clildFrame">
+
+            </div>-->
+            <div class="layui-tab-item layui-show" id="clildFrame">
+                <iframe id="iframe" src="/formalLine/tovestHome"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/leader/js/leftNav.js"></script>
+<script type="text/javascript" src="/leader/js/index.js"></script>
+</body>
+</html>

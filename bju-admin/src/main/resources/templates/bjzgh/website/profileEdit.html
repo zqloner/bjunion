@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">网站信息管理</a>
+        <span lay-separator="">/</span>
+        <a href="/changePage?page=website/profile">关于我们</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="javascript:;">编辑</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <form class="layui-form fullForm fullFormL" action="" lay-filter="form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">资源介绍：</label>
+            <input type="hidden" value="${data}" name="id">
+
+            <div class="layui-input-inline long-inline">
+                <!--<textarea class="layui-textarea" id="editor" name="content" style="display: none">
+                        </textarea>-->
+                <div id="editor">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item formBtn">
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn layui-btn-primary whiteBtn btn-65" id="preData">预览</button>
+                <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">确定</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/plugins/wangEditor-3.1.1/release/wangEditor.min.js"></script>
+<script type="text/javascript" src="/plugins/utils/wangEditor.js"></script>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/website/profileEdit.js"></script>
+</body>
+<!--预览页面-->
+<div id="preContent" style="display: none">
+    <div class="newsContent" id="content">
+
+    </div>
+</div>
+</html>

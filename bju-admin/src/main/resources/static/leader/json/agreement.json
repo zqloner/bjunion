@@ -1,0 +1,53 @@
+{
+  "success": true,
+  "state": "200",
+  "msg": "请求成功",
+  "result": {
+    "count": 4,
+    "data": [{
+      "agreement": "XXX疗养院疗养定点合同",
+      "vestHome": "哇唧唧哇",
+      "name": "肖战",
+      "tel": "15602230564",
+      "start": "2019.07.03",
+      "end": "2019.10.05",
+      "charge": "翟潇闻",
+      "create": "2019.07.03",
+      "state": 0
+    },
+      {
+        "agreement": "XXX疗养院疗养定点合同",
+        "vestHome": "哇唧唧哇",
+        "name": "肖战",
+        "tel": "15602230564",
+        "start": "2019.07.03",
+        "end": "2019.10.05",
+        "charge": "翟潇闻",
+        "create": "2019.07.03",
+        "state": 1
+      },
+      {
+        "agreement": "XXX疗养院疗养定点合同",
+        "vestHome": "哇唧唧哇",
+        "name": "肖战",
+        "tel": "15602230564",
+        "start": "2019.07.03",
+        "end": "2019.10.05",
+        "charge": "翟潇闻",
+        "create": "2019.07.03",
+        "state": 2
+      },
+      {
+        "agreement": "XXX疗养院疗养定点合同",
+        "vestHome": "哇唧唧哇",
+        "name": "肖战",
+        "tel": "15602230564",
+        "start": "2019.07.03",
+        "end": "2019.10.05",
+        "charge": "翟潇闻",
+        "create": "2019.07.03",
+        "state": 0
+      }
+    ]
+  }
+}

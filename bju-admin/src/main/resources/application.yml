@@ -1,0 +1,49 @@
+
+spring:
+  profiles:
+    active: dev #默认为开发环境
+  freemarker:
+    request-context-attribute: req
+    suffix: .html
+    content-type: text/html
+    enabled: true
+    cache: false
+    template-loader-path: classpath:/templates/
+    settings:
+        number_format:  '0.##'
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      freemarker:
+        cache: false    #页面不加载缓存，修改即时生效
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*/*.xml
+  type-aliases-package: com.brightease.bju.bean.*
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+logging:
+  level:
+    root: info #日志配置DEBUG,INFO,WARN,ERROR
+    com.brightease.bju: debug
+    org.springframework: WARN
+    org.spring.springboot.dao: info
+  config: classpath:logback-boot.xml
+#  file: demo_log.log #配置日志生成路径
+#  path: /var/logs #配置日志文件名称
+
+shiro:
+  user:
+    # 登录地址
+    loginUrl: /
+    # 权限认证失败地址
+    unauthorizedUrl: /unauth
+    #session有效期分钟
+    timeout: 60
+server:
+  port: 8081
+  servlet:
+    context-path: /

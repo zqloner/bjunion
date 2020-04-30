@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">业务管理</a>
+        <span lay-separator="">/</span>
+        <a href="#">合同管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="route?name=service/agreementAddMore">批量添加</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <form class="layui-form fullForm" action="">
+        <div class="layui-form-item">
+            <p class="listNum">1.模板导入</p>
+            <a class="downTem" download href="/contractContract/downloadTemplate">点击下载《合同导入模板》</a>
+            <span class="downTip">为了导入准确性，请严格按照模板格式及要求填写</span>
+        </div>
+
+        <p class="listNum">2.上传文件</p>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input name="file" type="text" autocomplete="off" class="layui-input">
+                <button type="button" class="layui-btn clickBtn btn-110" id="upload">
+                    <i class="layui-icon">&#xe608;</i> 上传文件
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/service/agreementAddMore.js"></script>
+</body>
+</html>

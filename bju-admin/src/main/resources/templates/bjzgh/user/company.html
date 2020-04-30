@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/plugins/zTree/css/zTreeStyle/zTreeStyle.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/header.css" media="all"/>
+
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">用户账户管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="#">企业管理</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="layui-tab layui-tab-brief" lay-filter="tabChange">
+    <ul class="layui-tab-title">
+        <li class="layui-this">企业资料审计</li>
+        <li>企业管理</li>
+    </ul>
+    <div class="layui-tab-content">
+        <!--企业资料审计-->
+        <div class="layui-tab-item layui-show">
+            <div class="main-content">
+                <!--表单查询-->
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">企业名称/账号：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" class="layui-input" autocomplete="off"
+                                       placeholder="请输入企业名称或账号">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">联系人：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="contacts" class="layui-input" autocomplete="off"
+                                       placeholder="请输入姓名或电话">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">审核状态：</label>
+
+                            <div class="layui-input-inline">
+                                <select name="examineStatus">
+                                    <!--1 未审核 2审核中 3审核通过 4审核不通过-->
+                                    <option value="">请选择</option>
+                                    <option value="1">未审核</option>
+                                    <option value="2">审核中</option>
+                                    <option value="3">审核通过</option>
+                                    <option value="4">审核不通过</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item formSearchBtn">
+                        <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+                        <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+                    </div>
+                </form>
+                <!--表格-->
+                <table class="layui-table" lay-filter="test" id="table"></table>
+                <div id="page"></div>
+            </div>
+        </div>
+        <!--企业管理-->
+        <div class="layui-tab-item">
+            <div class="main-content">
+                <div class="layui-row">
+                    <div class="layui-col-xs3">
+                        <div id="tree" class="demo-tree-more"></div>
+                    </div>
+                    <div class="layui-col-xs9 treeTable">
+                        <!--表格-->
+                        <table class="layui-table" lay-filter="fineTool" id="fineTable"></table>
+                        <div id="finePage"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--通过弹窗-->
+<div class="popup" id="popup_small" style="display: none">
+    <hr class="cutLineTop">
+    <p class="isSure">
+        确认通过审核吗？
+    </p>
+    <hr class="cutLine">
+    <div class="isSureBtn">
+        <button class="layui-btn layui-btn-primary btn-65 cancelBtn" type="button">取消</button>
+        <button class="layui-btn clickBtn btn-65 sureBtn" type="button">确定</button>
+    </div>
+</div>
+<!--不通过弹窗-->
+<div class="popup" id="popup_input" style="display: none">
+    <hr class="cutLineTop">
+    <form class="layui-form popForm">
+        <div class="layui-form-item">
+            <label class="layui-input-block">请填写不通过的理由：</label>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <textarea name="msg" placeholder="请输入" class="layui-textarea" maxlength="250" lay-verify="required"></textarea>
+            </div>
+        </div>
+        <hr class="cutLine">
+        <div class="isSureBtn">
+            <button class="layui-btn layui-btn-primary btn-65 cancelBtn" type="button">取消</button>
+            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submit">确定</button>
+        </div>
+    </form>
+</div>
+<!--审核状态弹窗-->
+<div class="popup" id="popup" style="display: none">
+    <ul class="layui-timeline" id="auditUl">
+        <!--<li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis">1</i>
+
+            <div class="layui-timeline-content layui-text">
+                <div class="layui-timeline-title">
+                    申请单位：<span class="layui-timeline-span">xxx公司工会</span>
+                </div>
+                <div class="layui-timeline-title">
+                    审核日期：<span class="layui-timeline-span">2019-09-01 11:12:30</span>
+                </div>
+            </div>
+        </li>-->
+    </ul>
+</div>
+<!--资质证明弹窗-->
+<div class="popup" id="prove" style="display: none">
+    <div class="prove">
+        <img src="" id="proveImg">
+    </div>
+</div>
+<!--重置密码弹窗-->
+<div class="popup" id="popup_pwd" style="display: none">
+    <hr class="cutLineTop">
+    <p class="isSure">
+        确定要重置密码吗？
+    </p>
+
+    <p class="isSureTips">
+        默认密码为：111111
+    </p>
+    <hr class="cutLine">
+    <div class="isSureBtn">
+        <button class="layui-btn layui-btn-primary btn-65 cancelBtn">取消</button>
+        <button class="layui-btn clickBtn btn-65 sureBtn">确定</button>
+    </div>
+</div>
+<!--查看详情弹窗-->
+<div class="popup" id="popup_de" style="display: none">
+    <form class="layui-form fullForm popFullForm" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">企业名称：</label>
+
+            <div class="layui-input-block" id="name">
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">社会统一信用代码：</label>
+
+            <div class="layui-input-block" id="creditCode">
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">企业账号：</label>
+
+            <div class="layui-input-block" id="account">
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">所在区域：</label>
+
+            <div class="layui-input-block" id="areaName">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系人姓名：</label>
+
+            <div class="layui-input-block" id="contacts">
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系人电话：</label>
+
+            <div class="layui-input-block" id="phone">
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系人邮箱：</label>
+
+            <div class="layui-input-block" id="mail">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">资质证明：</label>
+
+            <div class="layui-input-block">
+                <img src="" style="width: 160px" id="qaUrl">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">直属上级：</label>
+
+            <div class="layui-input-block" id="parentName">
+
+            </div>
+        </div>
+    </form>
+</div>
+<!--更改线路弹窗-->
+<div class="popup" id="popup_change" style="display: none">
+    <hr class="cutLineTop">
+    <form class="layui-form popForm" action="">
+        <div class="layui-form-item">
+            <label class="layui-input-block">将上级单位修改为：</label>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <select name="pid" style="width: 100%" lay-verify="required">
+                </select>
+            </div>
+        </div>
+        <hr class="cutLine">
+        <div class="isSureBtn">
+            <button class="layui-btn layui-btn-primary btn-65 cancelBtn" type="button">取消</button>
+            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitChange">确定</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/user/company.js"></script>
+<script type="text/javascript" src="/plugins/md5/md5.js"></script>
+
+</body>
+</html>

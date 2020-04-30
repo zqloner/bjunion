@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">正式报名管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="#">正式报名统计</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="layui-tab layui-tab-brief" lay-filter="tabChange">
+    <ul class="layui-tab-title">
+        <li class="layui-this" data-id="3">劳模职工</li>
+        <li data-id="2">优秀职工</li>
+        <li data-id="1">普通职工</li>
+    </ul>
+    <div class="layui-tab-content">
+        <!--劳模职工-->
+        <div class="layui-tab-item layui-show">
+            <div class="main-content">
+                <!--表单查询-->
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">线路名称：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" class="layui-input" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">疗养月份：</label>
+
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <input type="text" name="sBenginTime" autocomplete="off" class="layui-input laydate" readonly>
+                            </div>
+                            <div class="layui-form-mid">-</div>
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <input type="text" name="sEndTime" autocomplete="off" class="layui-input laydate" readonly>
+                            </div>
+                        </div>
+                        <!--<div class="layui-inline">
+                            <label class="layui-form-label longger-label">姓名：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="realName" class="layui-input" autocomplete="off">
+                            </div>
+                        </div>-->
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">单位名称：</label>
+
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <select name="pId" lay-search lay-filter="pId">
+                                </select>
+                            </div>
+                            <div class="layui-form-mid">-</div>
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <select name="eId" lay-search>
+                                </select>
+                            </div>
+                        </div>
+                        <!--<div class="layui-inline">
+                            <label class="layui-form-label longger-label">京卡号：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="card" class="layui-input" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">联系方式：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="tel" class="layui-input" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">身份证号：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="idCard" class="layui-input" autocomplete="off">
+                            </div>
+                        </div>-->
+                    </div>
+                    <div class="layui-form-item formSearchBtn">
+                        <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+                        <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+                    </div>
+                </form>
+                <!--按钮-->
+                <div class="btn-div">
+                    <button type="button" class="layui-btn clickBtn btn-82 export">导出列表</button>
+                </div>
+                <!--表格-->
+                <table class="layui-table" lay-filter="test" id="table"></table>
+                <div id="page"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--导出列表弹窗-->
+<div class="popup" id="popup_export" style="display: none">
+    <hr class="cutLineTop">
+    <p class="isSure">
+        确定要导出列表吗？
+    </p>
+    <hr class="cutLine">
+    <div class="isSureBtn">
+        <button class="layui-btn layui-btn-primary btn-65 cancelBtn">取消</button>
+        <button class="layui-btn clickBtn btn-65 sureBtn">确定</button>
+    </div>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/formal/statistics.js"></script>
+</body>
+</html>

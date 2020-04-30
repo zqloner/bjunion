@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common" >
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">预报名管理</a>
+        <span lay-separator="">/</span>
+        <a href="route?name=prediction/line">预报名线路</a>
+        <span lay-separator="">/</span>
+        <#if param??>
+        <a class="pointer" href="#">编辑</a>
+        <#else>
+         <a class="pointer" href="#">添加</a>
+        </#if>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <form class="layui-form fullForm fullFormL" action="" >
+        <#if preId??>
+        <input type="hidden" name="preId" value="${preId}">
+        </#if>
+        <#if userType??>
+        <input type="hidden" name="userType" value="${userType}">
+         </#if>
+        <div class="layui-form-item">
+            <label class="layui-form-label">预报名标题：</label>
+
+            <div class="layui-input-inline long-inline">
+                <input type="text" name="title" autocomplete="off" class="layui-input" lay-verify="pass">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">预报名说明：</label>
+
+            <div class="layui-input-inline long-inline">
+                <textarea name="describetion" class="layui-textarea" style="width: 530px!important;" lay-verify="desc"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <h3 class="itemHeader">预报名内容</h3>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">疗养地区：</label>
+
+            <div class="layui-input-inline long-inline" lay-verify="areas" >
+                <div id="tree" class="demo-tree-more lineTree" ></div>
+            </div>
+        </div>
+        <div class="layui-form-item" >
+            <label class="layui-form-label">疗养月份：</label>
+            <div class="layui-input-inline long-inline" lay-verify="months" >
+                <input type="checkbox" name="month"  value=5 title="一月" lay-skin="primary">
+                <input type="checkbox" name="month"  value=6 title="二月" lay-skin="primary">
+                <input type="checkbox" name="month"  value=7 title="三月" lay-skin="primary">
+                <input type="checkbox" name="month"  value=8 title="四月" lay-skin="primary">
+                <input type="checkbox" name="month"  value=9 title="五月" lay-skin="primary">
+                <input type="checkbox" name="month"  value=10 title="六月" lay-skin="primary">
+                <input type="checkbox" name="month"  value=11 title="七月" lay-skin="primary">
+                <input type="checkbox" name="month"  value=12 title="八月" lay-skin="primary">
+                <input type="checkbox" name="month"  value=13 title="九月" lay-skin="primary">
+                <input type="checkbox" name="month"  value=14 title="十月" lay-skin="primary">
+                <input type="checkbox" name="month"  value=15 title="十一月" lay-skin="primary">
+                <input type="checkbox" name="month"  value=16 title="十二月" lay-skin="primary">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <h3 class="itemHeader">预报名设置</h3>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">企业查看权限：</label>
+
+            <div class="layui-input-inline long-inline" lay-verify="enterPrise">
+                <div id="treeCompany" class="demo-tree-more lineTree" ></div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">预报名开放时间：</label>
+
+            <div class="layui-input-inline" style="width: 250px!important;">
+                <input type="text" name="start" autocomplete="off" lay-verify="required|comparetime" class="layui-input range" readonly>
+            </div>
+            <div class="layui-form-mid">-</div>
+            <div class="layui-input-inline" style="width: 250px!important;">
+                <input type="text" name="end" autocomplete="off" lay-verify="required|comparetime"  class="layui-input range" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item formBtn">
+            <div class="layui-input-block">
+                <button class="layui-btn clickBtn btn-100" lay-submit lay-filter="submitData" type="submit" name="sureButton"  >确定</button>
+                <button type="button" class="layui-btn layui-btn-primary whiteBtn btn-88" name="cenCelBtn" >返回</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/prediction/lineAdd.js"></script>
+</body>
+</html>

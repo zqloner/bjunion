@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">系统管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="#">角色设置</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <!--按钮-->
+    <div class="btn-div">
+        <button type="button" class="layui-btn clickBtn btn-82" id="add">
+            <i class="layui-icon">&#xe608;</i> 添加
+        </button>
+    </div>
+    <!--表格-->
+    <table class="layui-table" lay-filter="test" id="table"></table>
+    <div id="page"></div>
+</div>
+<!--添加/编辑角色弹窗-->
+<div class="popup" id="popup" style="display: none">
+    <form class="layui-form popup-form" action="" lay-filter="formEvent">
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色名称：</label>
+
+            <div class="layui-input-block">
+                <input type="text" name="name" placeholder="请输入角色名称" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">角色描述：</label>
+
+            <div class="layui-input-block">
+                <textarea name="depict" placeholder="请输入角色描述" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item" lay-verify="myPerm" id="myMenus">
+            <!--<label class="layui-form-label" >角色权限：</label>-->
+
+            <!--<div class="layui-input-block checkbox-margin">-->
+                <!--<input type="checkbox" name="myPerMissions" value="7" title="系统管理"-->
+                       <!--lay-skin="primary" lay-filter="formEvent">-->
+            <!--</div>-->
+            <!--<div class="layui-input-block checkbox-margin  checkbox-second">-->
+                <!--<input type="checkbox" name="myPerMissions" value="8" title="角色设置" lay-skin="primary" >-->
+                <!--<input type="checkbox" name="myPerMissions" value="9" title="管理员账号" lay-skin="primary">-->
+            <!--</div>-->
+            <!--<div class="layui-input-block checkbox-margin">-->
+                <!--<input type="checkbox" name="myPerMissions" value="10" title="用户账户管理"-->
+                       <!--lay-skin="primary">-->
+            <!--</div>-->
+            <!--<div class="layui-input-block checkbox-margin  checkbox-second">-->
+                <!--<input type="checkbox" name="myPerMissions" value="11" title="企业管理" lay-skin="primary">-->
+                <!--<input type="checkbox" name="myPerMissions" value="12" title="领队管理" lay-skin="primary">-->
+                <!--<input type="checkbox" name="myPerMissions" value="13" title="企业职工库" lay-skin="primary">-->
+            <!--</div>-->
+            <!--<div class="layui-input-block checkbox-margin"><input type="checkbox" name="myPerMissions" value="14" title="网站信息管理" lay-filter="demo" lay-skin="primary"></div>-->
+            <!--<div class="layui-input-block layui-input-block-long checkbox-margin  checkbox-second">-->
+                <!--<input type="checkbox" name="myPerMissions" value="15" title="新闻管理" lay-skin="primary">-->
+                <!--<input type="checkbox" name="myPerMissions" value="16" title="疗休养简介" lay-skin="primary">-->
+                <!--<input type="checkbox" name="myPerMissions" value="17" title="疗休养管理" lay-skin="primary">-->
+                <!--<input type="checkbox" name="myPerMissions" value="18" title="疗养路线管理" lay-skin="primary">-->
+            <!--</div>-->
+            <!--<div class="layui-input-block checkbox-margin">-->
+                <!--<input type="checkbox" name="myPerMissions" value="19" title="预报名管理"-->
+                       <!--lay-skin="primary">-->
+            <!--</div>-->
+            <!--<div class="layui-input-block checkbox-margin  checkbox-second">-->
+                <!--<input type="checkbox" name="myPerMissions" value="20" title="预报名路线" lay-skin="primary" lay-filter="demo">-->
+                <!--<input type="checkbox" name="myPerMissions" value="22" title="预报名统计"-->
+                       <!--lay-skin="primary">-->
+            <!--</div>-->
+            <!--<div class="layui-input-block checkbox-margin">-->
+                <!--<input type="checkbox" name="myPerMissions" value="23" title="正式报名管理"-->
+                       <!--lay-skin="primary">-->
+            <!--</div>-->
+            <!--<div class="layui-input-block checkbox-margin  checkbox-second">-->
+                <!--<input type="checkbox" name="myPerMissions" value="24" title="正式报名路线" lay-skin="primary">-->
+                <!--<input type="checkbox" name="myPerMissions" value="25" title="正式报名审计" lay-skin="primary">-->
+                <!--<input type="checkbox" name="myPerMissions" value="26" title="正式报名统计"-->
+                       <!--lay-skin="primary">-->
+            <!--</div>-->
+            <!--<div class="layui-input-block checkbox-margin">-->
+                <!--<input type="checkbox" name="myPerMissions" value="27" title="疗养订单管理"-->
+                       <!--lay-skin="primary">-->
+            <!--</div>-->
+            <!--<div class="layui-input-block checkbox-margin  checkbox-second">-->
+                <!--<input type="checkbox" name="myPerMissions" value="28" title="领队分配" lay-skin="primary">-->
+                <!--<input type="checkbox" name="myPerMissions" value="29" title="领队费用审核" lay-skin="primary">-->
+                <!--<input type="checkbox" name="myPerMissions" value="30" title="疗养费用管理"-->
+                       <!--lay-skin="primary">-->
+                <!--<input type="checkbox" name="myPerMissions" value="31" title="票务管理" lay-skin="primary">-->
+            <!--</div>-->
+
+            <!--<div class="layui-input-block checkbox-margin">-->
+                <!--<input type="checkbox" name="myPerMissions" value="32" title="业务管理"-->
+                       <!--lay-skin="primary">-->
+            <!--</div>-->
+            <!--<div class="layui-input-block checkbox-margin  checkbox-second">-->
+                <!--<input type="checkbox" name="myPerMissions" value="33" title="业务数据统计" lay-skin="primary">-->
+                <!--<input type="checkbox" name="myPerMissions" value="37" title="合同管理" lay-skin="primary">-->
+            <!--</div>-->
+        </div>
+        <div class="layui-form-item submit-div">
+            <button class="layui-btn clickBtn btn-100" lay-submit lay-filter="submitData">确定</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/system/partSet.js"></script>
+</body>
+</html>

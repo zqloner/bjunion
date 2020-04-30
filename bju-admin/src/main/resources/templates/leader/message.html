@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+        <a class="pointer" href="message.html">消息管理</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="layui-tab layui-tab-brief" lay-filter="tabChange">
+    <ul class="layui-tab-title">
+        <li class="layui-this">发送消息</li>
+        <li>发送记录</li>
+        <li>发送模板</li>
+    </ul>
+    <div class="layui-tab-content">
+        <!--发送消息-->
+        <div class="layui-tab-item layui-show">
+            <div class="main-content">
+                <!--表单查询-->
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">线路名称：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" class="layui-input" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">疗养群体：</label>
+
+                            <div class="layui-input-inline">
+                                <select name="group">
+                                    <option value="0">全部</option>
+                                    <option value="1">劳模职工</option>
+                                    <option value="2">优秀职工</option>
+                                    <option value="1">普通职工</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">疗养日期：</label>
+
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <input type="text" name="start" autocomplete="off" class="layui-input laydate" readonly>
+                            </div>
+                            <div class="layui-form-mid">-</div>
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <input type="text" name="end" autocomplete="off" class="layui-input laydate" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item formSearchBtn">
+                        <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+                        <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+                    </div>
+                </form>
+                <!--表格-->
+                <table class="layui-table" lay-filter="test" id="table"></table>
+                <div id="page"></div>
+            </div>
+        </div>
+        <!--发送记录-->
+        <div class="layui-tab-item">
+            <div class="main-content">
+                <!--表单查询-->
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">模板名称：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" class="layui-input" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="layui-inline inline-btn">
+                            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+                            <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+                        </div>
+                    </div>
+                </form>
+                <!--表格-->
+                <table class="layui-table" lay-filter="test" id="fineTable"></table>
+                <div id="finePage"></div>
+            </div>
+        </div>
+        <!--发送模板-->
+        <div class="layui-tab-item">
+            <div class="main-content">
+                <!--表单查询-->
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">模板名称：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" class="layui-input" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="layui-inline inline-btn">
+                            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+                            <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+                        </div>
+                    </div>
+                </form>
+                <!--按钮-->
+                <div class="btn-div">
+                    <button type="button" class="layui-btn clickBtn btn-82 add">添加模板</button>
+                </div>
+                <!--表格-->
+                <table class="layui-table" lay-filter="test" id="generalTable"></table>
+                <div id="generalPage"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--发送记录 详情页面-->
+<div id="deContent" style="display: none">
+    <div class="small-content">
+        <p class="deP">
+            <span class="deName">模板名称 ：</span>成团通知
+        </p>
+        <p class="deP">
+            <span class="deName">信息内容 ：</span>您好，您已报名成功。
+        </p>
+        <p class="deP">
+            <span class="deName">接受群体 ：</span>劳模职工
+        </p>
+        <p class="deP">
+            <span class="deName">接收人数 ：</span>61人
+        </p>
+        <h3 class="deTitle">
+            人员列表
+        </h3>
+        <!--表格-->
+        <table class="layui-table table-margin" lay-filter="de" id="deTable"></table>
+        <div id="dePage"></div>
+    </div>
+</div>
+<!--添加/编辑模板弹窗-->
+<div class="popup" id="popup" style="display: none">
+    <form class="layui-form popup-form" action="" lay-filter="formEvent">
+        <div class="layui-form-item">
+            <label class="layui-form-label">模板名称：</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" placeholder="请输入模板名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">模板内容：</label>
+            <div class="layui-input-block">
+                <textarea name="depict" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item form-submit">
+            <button class="layui-btn clickBtn btn-100" lay-submit lay-filter="submitData">确定</button>
+            <button class="layui-btn layui-btn-primary whiteBtn btn-88 cancelBtn" type="button">取消</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="plugins/layui/layui.js"></script>
+<script type="text/javascript" src="js/message.js"></script>
+</body>
+</html>

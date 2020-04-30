@@ -1,0 +1,50 @@
+{
+  "success": true,
+  "state": "200",
+  "msg": "请求成功",
+  "result": {
+    "count": 4,
+    "data": [
+      {
+        "lastCompany": "哇唧唧哇",
+        "title": "福建厦门6日游",
+        "time": "2019.08.15-2019.09.15",
+        "numSum": "1005",
+        "numLast": "73",
+        "groupState": 0,
+        "name": "肖战",
+        "addState": 1
+      },
+      {
+        "lastCompany": "哇唧唧哇",
+        "title": "黄山休闲之旅四晚五日",
+        "time": "2019.08.15-2019.09.15",
+        "numSum": "1127",
+        "numLast": "61",
+        "groupState": 1,
+        "name": "朴灿烈",
+        "addState": 1
+      },
+      {
+        "lastCompany": "哇唧唧哇",
+        "title": "北京秦皇岛5日游",
+        "time": "2019.08.15-2019.09.15",
+        "numSum": "506",
+        "numLast": "4",
+        "groupState": 2,
+        "name": "边伯贤",
+        "addState": 0
+      },
+      {
+        "lastCompany": "哇唧唧哇",
+        "title": "北京秦皇岛5日游",
+        "time": "2019.08.15-2019.09.15",
+        "numSum": "528",
+        "numLast": "68",
+        "groupState": 3,
+        "name": "翟潇闻",
+        "addState": 0
+      }
+    ]
+  }
+}

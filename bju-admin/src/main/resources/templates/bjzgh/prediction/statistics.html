@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/plugins/zTree/css/zTreeStyle/zTreeStyle.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/tree.css" media="all"/>
+</head>
+<body>
+<#if preId??>
+<input type="hidden" name="preId" value="${preId}">
+</#if>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">预报名管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="#">预报名统计</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="layui-tab layui-tab-brief" lay-filter="tabChange">
+    <ul class="layui-tab-title">
+        <li class="layui-this" value="3">劳模职工</li>
+        <li value="2">优秀职工</li>
+        <li value="1">普通职工</li>
+    </ul>
+    <div class="layui-tab-content">
+        <!--劳模职工-->
+        <div class="layui-tab-item layui-show">
+            <div class="main-content">
+                <!--表单查询-->
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">预报名名称：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="myPreLineName" autocomplete="off" class="layui-input">
+                            </div>
+
+                            <!--<div class="layui-input-inline">-->
+                                <!--<select name="permission">-->
+                                    <!--<option value="">请选择</option>-->
+                                    <!--<option value="0">2019年疗养预报名1</option>-->
+                                    <!--<option value="1">2019年疗养预报名2</option>-->
+                                    <!--<option value="2">2019年疗养预报名3</option>-->
+                                <!--</select>-->
+                            <!--</div>-->
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">疗养地区：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="area" id="area" autocomplete="off" class="layui-input lydq">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">疗养月份：</label>
+
+                            <div class="layui-input-inline">
+                                <select id="myMonth" name="permission">
+                                    <option value="">全部</option>
+                                    <option value=5>1月</option>
+                                    <option value=6>2月</option>
+                                    <option value=7>3月</option>
+                                    <option value=8>4月</option>
+                                    <option value=9>5月</option>
+                                    <option value=10>6月</option>
+                                    <option value=11>7月</option>
+                                    <option value=12>8月</option>
+                                    <option value=13>9月</option>
+                                    <option value=14>10月</option>
+                                    <option value=15>11月</option>
+                                    <option value=16>12月</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">预报名单位：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="enterprise" id="enterPrise" autocomplete="off" class="layui-input ybmdw">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">预报名日期：</label>
+
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <input type="text" name="start" autocomplete="off" class="layui-input laydate" readonly>
+                            </div>
+                            <div class="layui-form-mid">-</div>
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <input type="text" name="end" autocomplete="off" class="layui-input laydate" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item formSearchBtn">
+                        <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+                        <button class="layui-btn layui-btn-primary btn-65" id="reset">重置</button>
+                    </div>
+                </form>
+                <!--按钮-->
+                <div class="btn-div">
+                    <button type="button" class="layui-btn clickBtn btn-82 export">导出列表</button>
+                </div>
+                <!--表格-->
+                <table class="layui-table" lay-filter="test" id="table"></table>
+                <div id="page"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--导出列表弹窗-->
+<div class="popup" id="popup_small" style="display: none">
+    <hr class="cutLineTop">
+    <p class="isSure">
+        确定要导出列表吗？
+    </p>
+    <hr class="cutLine">
+    <div class="isSureBtn">
+        <button class="layui-btn layui-btn-primary btn-65 cancelBtn">取消</button>
+        <button class="layui-btn clickBtn btn-65 sureBtn">确定</button>
+    </div>
+</div>
+<!--疗养地区弹窗-->
+<div class="popup" id="popup_lydq" style="display: none;padding: 10px 20px">
+    <div id="tree" class="ztree"></div>
+    <div class="demo-tree-more">
+        <button class="layui-btn clickBtn btn-88 sureBtn">确定</button>
+    </div>
+</div>
+<!--预报名单位弹窗-->
+<div class="popup" id="popup" style="display: none;padding: 10px 20px">
+    <div id="treeCompany" class="ztree"></div>
+    <div class="demo-tree-more">
+        <button class="layui-btn clickBtn btn-88 sureBtn">确定</button>
+    </div>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/plugins/zTree/js/jquery.min.js"></script>
+<script type="text/javascript" src="/plugins/zTree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="/plugins/zTree/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/prediction/statistics.js"></script>
+</body>
+</html>

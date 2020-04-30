@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+    <#if userType??>
+    <input type="hidden" name="userType" value="${userType}">
+    </#if>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">预报名管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="#">预报名线路</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="layui-tab layui-tab-brief" lay-filter="tabChange">
+    <ul class="layui-tab-title" >
+        <li class="layui-this" value="3" id="myLaoMo">劳模职工</li>
+        <li value=2 id="myYouXiu">优秀职工</li>
+        <li value=1 id="myPuTong">普通职工</li>
+    </ul>
+    <div class="layui-tab-content">
+        <!--劳模职工-->
+        <div class="layui-tab-item layui-show">
+            <div class="main-content">
+                <!--表单查询-->
+                <form class="layui-form" action="" >
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">线路名称：</label>
+
+                            <div class="layui-input-inline">
+                                <input id="preLineName" type="text" name="name"  class="layui-input" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="layui-inline inline-btn">
+                            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+                            <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+                        </div>
+                    </div>
+                </form>
+                <!--按钮-->
+                <div class="btn-div">
+                    <button type="button" class="layui-btn clickBtn btn-82 add">
+                        <i class="layui-icon">&#xe608;</i> 添加
+                    </button>
+                </div>
+                <!--表格-->
+                <table class="layui-table" lay-filter="test" id="table"></table>
+                <div id="page"></div>
+            </div>
+        </div>
+        <!--优秀职工
+        <div class="layui-tab-item">
+            <div class="main-content">
+                &lt;!&ndash;表单查询&ndash;&gt;
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">线路名称：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" class="layui-input" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="layui-inline inline-btn">
+                            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+                            <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+                        </div>
+                    </div>
+                </form>
+                &lt;!&ndash;按钮&ndash;&gt;
+                <div class="btn-div">
+                    <button type="button" class="layui-btn clickBtn btn-82 add">
+                        <i class="layui-icon">&#xe608;</i> 添加
+                    </button>
+                </div>
+                &lt;!&ndash;表格&ndash;&gt;
+                <table class="layui-table" lay-filter="test" id="fineTable"></table>
+                <div id="finePage"></div>
+            </div>
+        </div>
+        &lt;!&ndash;普通职工&ndash;&gt;
+        <div class="layui-tab-item">
+            <div class="main-content">
+                &lt;!&ndash;表单查询&ndash;&gt;
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label longger-label">线路名称：</label>
+
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" class="layui-input" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="layui-inline inline-btn">
+                            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+                            <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+                        </div>
+                    </div>
+                </form>
+                &lt;!&ndash;按钮&ndash;&gt;
+                <div class="btn-div">
+                    <button type="button" class="layui-btn clickBtn btn-82 add">
+                        <i class="layui-icon">&#xe608;</i> 添加
+                    </button>
+                </div>
+                &lt;!&ndash;表格&ndash;&gt;
+                <table class="layui-table" lay-filter="test" id="generalTable"></table>
+                <div id="generalPage"></div>
+            </div>
+        </div>-->
+    </div>
+</div>
+
+<!--弹窗-->
+<div class="popup" id="popup_small" style="display: none">
+    <hr class="cutLineTop">
+    <p class="isSure">
+        已有企业填报，不能删除！
+    </p>
+    <hr class="cutLine">
+    <div class="isSureBtn">
+        <button class="layui-btn layui-btn-primary btn-65 cancelBtn">取消</button>
+        <button class="layui-btn clickBtn btn-65 sureBtn">确定</button>
+    </div>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/prediction/line.js"></script>
+</body>
+</html>

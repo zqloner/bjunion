@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">网站信息管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="#">新闻管理</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <!--表单查询-->
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">分类：</label>
+
+                <div class="layui-input-inline">
+                    <select name="kind">
+                        <option value="">全部</option>
+                        <option value="1">新闻动态</option>
+                        <option value="2">通知公告</option>
+                        <option value="3">首页banner</option>
+                        <option value="4">公告banner</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">标题：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="title" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">上传时间：</label>
+
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="start" autocomplete="off" class="layui-input range" readonly>
+                </div>
+                <div class="layui-form-mid">-</div>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="end" autocomplete="off" class="layui-input range" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item formSearchBtn">
+            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+            <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+        </div>
+    </form>
+    <!--按钮-->
+    <div class="btn-div">
+        <button type="button" class="layui-btn clickBtn btn-82" id="add">
+            <i class="layui-icon">&#xe608;</i> 添加
+        </button>
+    </div>
+    <!--表格-->
+    <table class="layui-table" lay-filter="test" id="table"></table>
+    <div id="page"></div>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/website/news.js"></script>
+</body>
+</html>

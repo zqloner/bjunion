@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">用户账户管理</a>
+        <span lay-separator="">/</span>
+        <a href="/changePage?page=user/leader">领队管理</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="javascript:;">单个添加</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <form class="layui-form fullForm" lay-filter="layform">
+        <div class="layui-form-item">
+            <label class="layui-form-label">账号（手机号）：</label>
+            <input type="hidden" value="${data}" name="id">
+            <div class="layui-input-inline">
+                <input type="text" name="username" placeholder="请输入账号" autocomplete="off"
+                       class="layui-input" lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名：</label>
+
+            <div class="layui-input-inline">
+                <input type="text" name="name" maxlength="20" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别：</label>
+
+            <div class="layui-input-inline">
+                <input type="radio" name="sex" value="1" title="男">
+                <input type="radio" name="sex" value="0" title="女" checked>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">出生年月：</label>
+
+            <div class="layui-input-inline">
+                <input type="text" name="birthday" autocomplete="off" lay-verify="checkDate" class="layui-input laydate" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">身份证号：</label>
+
+            <div class="layui-input-inline">
+                <input type="text" name="IDCard" placeholder="请输入" autocomplete="off" class="layui-input" lay-verify="required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">导游证（选填）：</label>
+
+            <div class="layui-input-inline">
+                <input type="text" name="guideNum" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item formBtn">
+            <div class="layui-input-block">
+                <button class="layui-btn clickBtn btn-100" lay-submit lay-filter="submitData">确定</button>
+                <button class="layui-btn layui-btn-primary whiteBtn btn-88" id="cancel" type="button">取消</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/user/leaderAddOne.js"></script>
+</body>
+</html>

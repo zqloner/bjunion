@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">业务管理</a>
+        <span lay-separator="">/</span>
+        <a href="route?name=service/data">业务数据统计</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="#">领队接待情况</a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <!--表单查询-->
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">账号(手机号)：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="tel" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">姓名：</label>
+
+                <div class="layui-input-inline">
+                    <input type="text" name="title" class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">性别：</label>
+
+                <div class="layui-input-inline">
+                    <select name="sex">
+                        <option value="">请选择</option>
+                        <option value="1">男</option>
+                        <option value="0">女</option>
+                    </select>
+                </div>
+            </div>
+            <!--<div class="layui-inline">-->
+                <!--<label class="layui-form-label longger-label">年龄：</label>-->
+
+                <!--<div class="layui-input-inline" style="width: 100px;">-->
+                    <!--<input type="text" name="age" autocomplete="off" class="layui-input laydate" readonly>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">疗养线路：</label>
+
+                <div class="layui-input-inline">
+                    <select name="line">
+                        <option value="">请选择</option>
+                        <option value="0">S.M.Entertainment</option>
+                        <option value="1">哇唧唧哇</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">报名群体：</label>
+
+                <div class="layui-input-inline">
+                    <select name="permission">
+                        <option value="">请选择</option>
+                        <option value="1">普通职工</option>
+                        <option value="2">优秀职工</option>
+                        <option value="3">劳模职工</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">疗养开始时间：</label>
+
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="start" autocomplete="off" class="layui-input laydate" readonly>
+                </div>
+                <div class="layui-form-mid">-</div>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="end" autocomplete="off" class="layui-input laydate" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label longger-label">疗养结束时间：</label>
+
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="start1" autocomplete="off" class="layui-input laydate" readonly>
+                </div>
+                <div class="layui-form-mid">-</div>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="end1" autocomplete="off" class="layui-input laydate" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item formSearchBtn">
+            <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData">查询</button>
+            <button class="layui-btn layui-btn-primary btn-65" type="reset">重置</button>
+        </div>
+    </form>
+    <!--按钮-->
+    <div class="btn-div">
+        <button type="button" class="layui-btn clickBtn btn-82" id="export">导出列表</button>
+    </div>
+    <!--表格-->
+    <table class="layui-table" lay-filter="test" id="table"></table>
+    <div id="page"></div>
+</div>
+<!--导出列表弹窗-->
+<div class="popup" id="popup_small" style="display: none">
+    <hr class="cutLineTop">
+    <p class="isSure">
+        确定要导出列表吗？
+    </p>
+    <hr class="cutLine">
+    <div class="isSureBtn">
+        <button class="layui-btn layui-btn-primary btn-65 cancelBtn">取消</button>
+        <button class="layui-btn clickBtn btn-65 sureBtn">确定</button>
+    </div>
+</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/service/leader.js"></script>
+</body>
+</html>

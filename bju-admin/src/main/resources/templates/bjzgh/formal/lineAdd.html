@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/bjzgh/css/common.css" media="all"/>
+</head>
+<body>
+<#if id??>
+<input type="hidden" name="id" id="id" value="${id}">
+</#if>
+<!--路径导航-->
+<div class="common">
+	<span class="layui-breadcrumb">
+		<a href="javascript:;">当前位置</a>
+		<span lay-separator="">：</span>
+		<a href="javascript:;">正式报名管理</a>
+        <span lay-separator="">/</span>
+        <a href="javascript:;">正式报名线路</a>
+        <span lay-separator="">/</span>
+        <a class="pointer" href="#" name="myChinese"></a>
+	</span>
+</div>
+<!--内容主体-->
+<div class="main-content">
+    <form class="layui-form fullForm fullFormL" action="" lay-filter="queryForm">
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择线路：</label>
+
+            <div class="layui-input-inline long-inline">
+                <select name="lineId" lay-verify="required">
+                    <option value="">请选择</option>
+                    <#list lineList! '' as item>
+                        <option value="${item.id}" >${item.name}</option>
+                    </#list>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">疗养日期：</label>
+
+            <div class="layui-input-inline" style="width: 250px!important;">
+                <input type="text" name="sBenginTime" lay-verify="required" autocomplete="off" class="layui-input laydate" readonly>
+            </div>
+            <div class="layui-form-mid">-</div>
+            <div class="layui-input-inline" style="width: 250px!important">
+                <input type="text" name="sEndTime" lay-verify="required" autocomplete="off" class="layui-input laydate" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">报名时段：</label>
+
+            <div class="layui-input-inline" style="width: 250px!important;">
+                <input type="text" name="rBeginTime" lay-verify="required" autocomplete="off" class="layui-input range" readonly>
+            </div>
+            <div class="layui-form-mid">-</div>
+            <div class="layui-input-inline" style="width: 250px!important">
+                <input type="text" name="rEndTime" lay-verify="required|checkTime" autocomplete="off" class="layui-input range" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <h3 class="itemTitle">选择可报单位：</h3>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+
+            <div class="layui-input-inline long-inline">
+                <div id="company" class="demo-transfer" lay-verify="company" ></div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <h3 class="itemTitle">下属各单位限报人数：</h3>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+
+            <div class="layui-input-inline long-inline">
+                <table class="layui-table">
+                    <tr id="signUpHtml">
+                        <th style="width: 50%;">
+                            单位名称
+                        </th>
+                        <th>
+                            限报人数
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="layui-form-item formBtn">
+            <div class="layui-input-block">
+                <button type="reset" class="layui-btn layui-btn-primary whiteBtn btn-65" id="cancel">返回</button>
+                <button class="layui-btn clickBtn btn-65" lay-submit lay-filter="submitData" name="submitData">确定</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div  style="display: none;" id="enterprisesValue">${enterprises ! ''}</div>
+<script type="text/javascript" src="/plugins/layui/layui.js"></script>
+<script type="text/javascript" src="/bjzgh/pages/formal/lineAdd.js"></script>
+<script>
+    var userType = "${userType ! ''}";
+    var currentDataId = "${id ! ''}";
+</script>
+</body>
+</html>

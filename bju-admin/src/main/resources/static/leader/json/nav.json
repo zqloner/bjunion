@@ -1,0 +1,26 @@
+[
+  {
+    "title": "疗养团管理",
+    "icon": "&#xe770",
+    "spread": true,
+    "href": "/formalLine/tovestHome"
+  },
+  {
+    "title": "疗养费用",
+    "icon": "&#xe65e",
+    "spread": false,
+    "href": "/formalCost/tovestMoney"
+  },
+  {
+    "title": "个人资料",
+    "icon": "&#xe66f",
+    "spread": false,
+    "href": "/leaderLeader/topersonalData"
+  },
+  {
+    "title": "账户安全",
+    "icon": "&#xe679",
+    "spread": false,
+    "href": "/leaderLeader/tochangePwd"
+  }
+]

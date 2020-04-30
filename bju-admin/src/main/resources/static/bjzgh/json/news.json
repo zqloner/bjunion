@@ -1,0 +1,42 @@
+{
+  "success": true,
+  "state": "200",
+  "msg": "请求成功",
+  "result": {
+    "count": 3,
+    "data": [{
+      "title": "疗休养服务中心党支部举办党日活动",
+      "kind": 0,
+      "time": "2019,5,12",
+      "people": "admin1005",
+      "name": "资源介绍",
+      "state": 0,
+      "position": "北京市",
+      "numLast": "61",
+      "timeSum": "2019.08.15-2019.09.15"
+    },
+      {
+        "title": "疗休养服务中心党支部举办党日活动",
+        "kind": 1,
+        "time": "2019,5,12",
+        "people": "admin1005",
+        "name": "资源介绍",
+        "state": 0,
+        "position": "北京市",
+        "numLast": "61",
+        "timeSum": "2019.08.15-2019.09.15"
+      },
+      {
+        "title": "疗休养服务中心党支部举办党日活动",
+        "kind": 0,
+        "time": "2019,5,12",
+        "people": "admin1005",
+        "name": "资源介绍",
+        "state": 1,
+        "position": "北京市",
+        "numLast": "61",
+        "timeSum": "2019.08.15-2019.09.15"
+      }
+    ]
+  }
+}
