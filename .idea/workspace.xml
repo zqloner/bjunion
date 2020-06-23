@@ -30,6 +30,7 @@
   <component name="ChangeListManager">
     <list default="true" id="788fdd38-a712-49c3-a1ea-fed38807a597" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bju-admin/src/main/java/com/brightease/bju/component/AFDS.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -81,11 +82,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bju-admin/src/main/resources/application.yml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-675">
               <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bju-admin/src/main/java/com/brightease/bju/component/AFDS.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="250">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
@@ -249,6 +259,9 @@
     <option name="y" value="19" />
     <option name="width" value="1939" />
     <option name="height" value="1049" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -605,14 +618,7 @@
       <workItem from="1588150086211" duration="139000" />
       <workItem from="1588150275795" duration="12000" />
       <workItem from="1588150348415" duration="1701000" />
-      <workItem from="1592901615629" duration="253000" />
-    </task>
-    <task id="LOCAL-00119" summary="...">
-      <created>1574241629907</created>
-      <option name="number" value="00119" />
-      <option name="presentableId" value="LOCAL-00119" />
-      <option name="project" value="LOCAL" />
-      <updated>1574241629908</updated>
+      <workItem from="1592901615629" duration="520000" />
     </task>
     <task id="LOCAL-00120" summary="...">
       <created>1574324417045</created>
@@ -950,7 +956,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588150428352</updated>
     </task>
-    <option name="localTasksCounter" value="168" />
+    <task id="LOCAL-00168" summary="测试git">
+      <created>1592902127716</created>
+      <option name="number" value="00168" />
+      <option name="presentableId" value="LOCAL-00168" />
+      <option name="project" value="LOCAL" />
+      <updated>1592902127717</updated>
+    </task>
+    <option name="localTasksCounter" value="169" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -986,7 +999,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1281355000" />
+    <option name="totallyTimeSpent" value="1281622000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1054,7 +1067,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="预报名统计单位问题" />
     <MESSAGE value="首页展示内容" />
     <MESSAGE value="解决了banner跳转，和管理导入导出问题" />
     <MESSAGE value="完善导入导出功能" />
@@ -1079,7 +1091,8 @@
     <MESSAGE value="改了下级企业没有劳模权限企业的正式报名" />
     <MESSAGE value="如果没有给下级企业开通权限，应该可以给自己单位和下属单位的所有人进行报名。添加报名人员时也可以按照企业进行搜索。" />
     <MESSAGE value="..." />
-    <option name="LAST_COMMIT_MESSAGE" value="..." />
+    <MESSAGE value="测试git" />
+    <option name="LAST_COMMIT_MESSAGE" value="测试git" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1335,13 +1348,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/bju-client/src/main/java/com/brightease/bju/BjuClientApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bju-admin/src/main/java/com/brightease/bju/shiro/ShiroUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
@@ -1669,6 +1675,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-675">
           <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bju-admin/src/main/java/com/brightease/bju/component/AFDS.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
