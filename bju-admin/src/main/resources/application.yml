@@ -1,3 +1,7 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /
 
 spring:
   profiles:
@@ -43,7 +47,3 @@ shiro:
     unauthorizedUrl: /unauth
     #session有效期分钟
     timeout: 60
-server:
-  port: 8081
-  servlet:
-    context-path: /
